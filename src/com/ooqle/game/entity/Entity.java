@@ -4,6 +4,7 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import com.ooqle.game.WorldModel;
 
 public class Entity extends WorldObject
 {
