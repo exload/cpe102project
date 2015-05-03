@@ -32,4 +32,21 @@ public class Point
     {
         return ((this.x - p2.x) * (this.x - p2.x)) + ((this.y - p2.y) * (this.y - p2.y));
     }
+
+    public boolean equals(Object other)
+    {
+        if(other == this)
+        {
+            return true;
+        }
+
+        if(!(other instanceof Point))
+        {
+            return false;
+        }
+
+        Point otherPt = (Point) other;
+
+        return otherPt.getX() == this.getX() && otherPt.getY() == this.getY();
+    }
 }
