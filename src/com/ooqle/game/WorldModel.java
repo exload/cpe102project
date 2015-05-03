@@ -1,8 +1,8 @@
 package com.ooqle.game;
 
-import com.ooqle.game.entities.Background;
-import com.ooqle.game.entities.Entity;
-import com.ooqle.game.entities.WorldObject;
+import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.Entity;
+import com.ooqle.game.entity.WorldObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +55,8 @@ public class WorldModel {
             WorldObject oldEntity = this.occupancy.getCell(pt);
             if(oldEntity != null)
             {
-                oldEntity.clearPendingActions();
+                //commented out because clearPendingActions is not yet implemented
+            //    oldEntity.clearPendingActions();
             }
             this.occupancy.setCell(pt, entity);
             this.entities.add(entity);
@@ -99,19 +100,21 @@ public class WorldModel {
 
     //TODO: write update on time
 
-    public String getBackgroundImage(Point pt)
-    {
-        if(this.withinBounds(pt))
-        {
-            return this.grid.getCell(pt).getImage();
-        }
-        else
-        {
-            return null;
-        }
-    }
 
-    public String getBackground(Point pt)
+    //commented out because getImage is not implemented
+//    public String getBackgroundImage(Point pt)
+//    {
+//        if(this.withinBounds(pt))
+//        {
+//            return this.grid.getCell(pt).getImage();
+//        }
+//        else
+//        {
+//            return null;
+//        }
+//    }
+
+    public WorldObject getBackground(Point pt)
     {
         if(this.withinBounds(pt))
         {
@@ -139,7 +142,7 @@ public class WorldModel {
         }
         else
         {
-            return null
+            return null;
         }
     }
 

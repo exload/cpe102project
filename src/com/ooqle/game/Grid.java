@@ -1,7 +1,7 @@
 package com.ooqle.game;
 
-import com.ooqle.game.entities.Background;
-import com.ooqle.game.entities.WorldObject;
+import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.WorldObject;
 
 import java.util.List;
 
