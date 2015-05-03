@@ -19,8 +19,16 @@ public class WorldObjectTest
         assertEquals("worldobject", worldObj.getName());
     }
 
+    @Test
     public void testGetPosition()
     {
         assertEquals(new Point(1, 2), worldObj.getPosition());
+    }
+
+    @Test
+    public void testSetPosition()
+    {
+        worldObj.setPosition(new Point(-1, 0));
+        assertEquals(new Point(-1, 0), worldObj.getPosition());
     }
 }
