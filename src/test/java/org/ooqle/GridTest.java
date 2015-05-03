@@ -1,4 +1,4 @@
-package test.java.org.ooqle.entity;
+package test.java.org.ooqle;
 
 /**
  * Created by augiedoebling on 5/2/15.
