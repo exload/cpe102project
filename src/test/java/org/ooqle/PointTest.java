@@ -11,23 +11,29 @@ import static org.junit.Assert.assertTrue;
 
 public class PointTest
 {
-    private Point pt = new Point(7, -1);
+    private Point pt = new Point(2, 2);
     @Test
     public void testGetX()
     {
-        assertEquals(7, pt.getX());
+        assertEquals(2, pt.getX());
     }
 
     @Test
     public void testGetY()
     {
-        assertEquals(-1, pt.getY());
+        assertEquals(2, pt.getY());
     }
 
     @Test
     public void testAdjacent()
     {
-        assertTrue(pt.adjecent(new Point(7, 1)));
+        assertTrue(pt.adjacent(new Point(2, 3)));
+    }
+
+    @Test
+    public void testDistanceSq()
+    {
+        assertEquals(25, pt.distanceSq(new Point(5, 6)));
     }
 
     @Test
