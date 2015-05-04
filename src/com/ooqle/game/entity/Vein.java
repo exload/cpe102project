@@ -4,6 +4,7 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import com.ooqle.game.WorldModel;
 
 public class Vein extends Actor
 {
@@ -23,6 +24,11 @@ public class Vein extends Actor
     public int getResourceDistance()
     {
         return resourceDistance;
+    }
+
+    public void findOpenAround(WorldModel world)
+    {
+        //TODO: Implement me
     }
 
     public String entityString()
