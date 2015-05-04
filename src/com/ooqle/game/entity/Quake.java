@@ -8,9 +8,9 @@ import com.ooqle.game.Point;
 public class Quake extends AnimatedActor
 {
 
-    public Quake(String name, Point position)
+    public Quake(String name, Point position, int rate)
     {
-        super(name, "unknown", position);
+        super(name, "unknown", position, rate);
     }
 
     public String entityString()

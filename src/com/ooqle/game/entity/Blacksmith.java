@@ -9,15 +9,15 @@ public class Blacksmith extends Actor
 {
     private int resourceDistance;
 
-    public Blacksmith(String name, Point position, int resourceDistance)
+    public Blacksmith(String name, Point position, int rate, int resourceDistance)
     {
-        super(name, "blacksmith", position);
+        super(name, "blacksmith", position, rate);
         this.resourceDistance = resourceDistance;
     }
 
-    public Blacksmith(String name, Point position)
+    public Blacksmith(String name, Point position, int rate)
     {
-        this(name, position, 1);
+        this(name, position, rate, 1);
     }
 
     public int getResourceDistance()

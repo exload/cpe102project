@@ -9,15 +9,15 @@ public class Vein extends Actor
 {
     private int resourceDistance;
 
-    public Vein(String name, Point position, int resourceDistance)
+    public Vein(String name, Point position, int rate, int resourceDistance)
     {
-        super(name, "vein", position);
+        super(name, "vein", position, rate);
         this.resourceDistance = resourceDistance;
     }
 
-    public Vein(String name, Point position)
+    public Vein(String name, Point position, int rate)
     {
-        this(name, position, 1);
+        this(name, position, rate, 1);
     }
 
     public int getResourceDistance()

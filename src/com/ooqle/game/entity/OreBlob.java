@@ -8,9 +8,9 @@ import com.ooqle.game.Point;
 public class OreBlob extends MovableActor
 {
 
-    public OreBlob(String name, Point position)
+    public OreBlob(String name, Point position, int rate)
     {
-        super(name, "unknown", position);
+        super(name, "unknown", position, rate);
     }
 
     public void toVein()

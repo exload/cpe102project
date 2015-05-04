@@ -10,9 +10,9 @@ public class MovableActor extends AnimatedActor
 {
 
 
-    public MovableActor(String name, String type, Point position)
+    public MovableActor(String name, String type, Point position, int rate)
     {
-        super(name, type, position);
+        super(name, type, position, rate);
     }
 
     public Point nextPosition(WorldModel world, Point destPt)

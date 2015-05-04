@@ -8,9 +8,9 @@ import com.ooqle.game.Point;
 public class Ore extends Actor
 {
 
-    public Ore(String name, Point position)
+    public Ore(String name, Point position, int rate)
     {
-        super(name, "ore", position);
+        super(name, "ore", position, rate);
     }
 
     public String entityString()
