@@ -3,6 +3,7 @@ package com.ooqle.game;
 * @author Ooqle Software
 */
 
+
 public class Point
 {
     private int x;
@@ -50,5 +51,10 @@ public class Point
         Point otherPt = (Point) other;
 
         return otherPt.getX() == this.getX() && otherPt.getY() == this.getY();
+    }
+
+    public String toString()
+    {
+        return this.getX() + " " + this.getY();
     }
 }
