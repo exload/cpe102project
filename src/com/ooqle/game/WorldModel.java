@@ -34,6 +34,11 @@ public class WorldModel {
         return (0 <= pt.getX()) && (pt.getX() < this.numCols) && (0 <= pt.getY()) && (pt.getY() < this.numRows);
     }
 
+    public boolean isOccupied(Point pt)
+    {
+        return this.withinBounds(pt) && this.occupancy.getCell(pt) != null;
+    }
+
     public Entity findNearestOfType(Point pt, Class type)
     {
         HashMap<Entity, Integer> oftype = new HashMap<>();
