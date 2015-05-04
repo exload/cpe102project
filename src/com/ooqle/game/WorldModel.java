@@ -20,13 +20,13 @@ public class WorldModel {
     private ArrayList<Entity> entities;
     private Grid occupancy;
 
-    public WorldModel(int numRows, int numCols, Background thisbackground)
+    public WorldModel(int numRows, int numCols, WorldObject obj)
     {
-        this.grid = new Grid(numCols, numRows, thisbackground);
+        this.grid = new Grid(numCols, numRows, obj);
         this.numRows = numRows;
         this.numCols = numCols;
         this.occupancy = new Grid(numCols, numRows, null);
-        this.entities = new ArrayList<Entity>();
+        this.entities = new ArrayList<>();
     }
 
     public boolean withinBounds(Point pt)
@@ -126,7 +126,7 @@ public class WorldModel {
         }
     }
 
-    public void setBackground(Point pt, Background backg)
+    public void setBackground(Point pt, WorldObject backg)
     {
         if(this.withinBounds(pt))
         {
