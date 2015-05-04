@@ -26,9 +26,21 @@ public class Vein extends Actor
         return resourceDistance;
     }
 
-    public void findOpenAround(WorldModel world)
+    public Point findOpenAround(WorldModel world)
     {
-        //TODO: Implement me
+        for(int dy = (-1 * this.getResourceDistance()); dy < (this.getResourceDistance() + 1); dy++)
+        {
+            for(int dx = (-1 * this.getResourceDistance()); dx < (this.getResourceDistance() + 1); dx++)
+            {
+                Point newPt = new Point(this.getPosition().getX() + dx, this.getPosition().getY() + dy);
+
+                if(world.withinBounds(newPt) && !world.isOccupied(newPt))
+                {
+                    return newPt;
+                }
+            }
+        }
+        return null;
     }
 
     public String entityString()
