@@ -22,7 +22,13 @@ public class MovableActor extends AnimatedActor
         if(horiz == 0 || world.isOccupied(newPt))
         {
             int vert = GameUtils.sign(destPt.getY() - this.getPosition().getY());
+            newPt = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
 
+            if(vert == 0 || world.isOccupied(newPt))
+            {
+                newPt = new Point(this.getPosition().getX(), this.getPosition().getY());
+            }
         }
+        return newPt;
     }
 }
