@@ -12,6 +12,7 @@ import test.java.org.ooqle.entity.WorldObjectTest;
 @Suite.SuiteClasses({
         PointTest.class,
         WorldObjectTest.class,
-        Grid.class
+        GridTest.class,
+        WorldModelTest.class
 })
 public class TestCases{}
