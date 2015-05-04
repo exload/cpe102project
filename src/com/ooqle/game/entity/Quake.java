@@ -10,6 +10,11 @@ public class Quake extends AnimatedActor
 
     public Quake(String name, Point position)
     {
-        super(name, position);
+        super(name, "unknown", position);
+    }
+
+    public String entityString()
+    {
+        return "unknown";
     }
 }

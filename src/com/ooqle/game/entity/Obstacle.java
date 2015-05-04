@@ -9,6 +9,6 @@ public class Obstacle extends WorldObject
 {
     public Obstacle(String name, Point position)
     {
-        super(name, position);
+        super(name, "obstacle", position);
     }
 }

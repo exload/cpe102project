@@ -10,6 +10,11 @@ public class Ore extends Actor
 
     public Ore(String name, Point position)
     {
-        super(name, position);
+        super(name, "ore", position);
+    }
+
+    public String entityString()
+    {
+        return super.entityString() + " " + this.getRate();
     }
 }

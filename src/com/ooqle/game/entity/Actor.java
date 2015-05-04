@@ -10,9 +10,9 @@ public class Actor extends Entity
     private int resourceLimit;
     private int resourceCount;
 
-    public Actor(String name, Point position)
+    public Actor(String name, String type, Point position)
     {
-        super(name, position);
+        super(name, type, position);
         //TODO: Set resource limit enum
         this.resourceCount = 0;
     }

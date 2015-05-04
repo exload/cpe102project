@@ -3,12 +3,18 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
-import com.ooqle.game.Point;
-
-public class Background extends WorldObject
+public class Background
 {
-    public Background(String name, Point position)
+    private String name;
+
+    public Background(String name)
     {
-        super(name, position);
+
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

@@ -10,6 +10,21 @@ public class OreBlob extends MovableActor
 
     public OreBlob(String name, Point position)
     {
-        super(name, position);
+        super(name, "unknown", position);
+    }
+
+    public void toVein()
+    {
+        //TODO: Implement me
+    }
+
+    public void nextPosition()
+    {
+        //TODO: Implement me
+    }
+
+    public String entityString()
+    {
+        return "unknown";
     }
 }

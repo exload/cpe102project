@@ -9,9 +9,9 @@ public class AnimatedActor extends Actor
 {
     private int animationRate;
 
-    public AnimatedActor(String name, Point position)
+    public AnimatedActor(String name, String type, Point position)
     {
-        super(name, position);
+        super(name, type, position);
     }
 
 

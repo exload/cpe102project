@@ -10,9 +10,9 @@ public class Entity extends WorldObject
 {
     private int rate;
 
-    public Entity(String name, Point position)
+    public Entity(String name, String type, Point position)
     {
-        super(name, position);
+        super(name, type, position);
     }
 
 

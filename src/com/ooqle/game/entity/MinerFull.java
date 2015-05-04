@@ -10,6 +10,11 @@ public class MinerFull extends Miner
 
     public MinerFull(String name, Point position)
     {
-        super(name, position);
+        super(name, "unknown", position);
     }
+
+   public String entityString()
+   {
+       return "unknown";
+   }
 }

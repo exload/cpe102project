@@ -8,8 +8,8 @@ import com.ooqle.game.Point;
 public class Miner extends AnimatedActor
 {
 
-    public Miner(String name, Point position)
+    public Miner(String name, String type, Point position)
     {
-        super(name, position);
+        super(name, type, position);
     }
 }
