@@ -53,6 +53,11 @@ public class Point
         return otherPt.getX() == this.getX() && otherPt.getY() == this.getY();
     }
 
+    public Point clone()
+    {
+        return new Point(this.getX(), this.getY());
+    }
+
     public String toString()
     {
         return this.getX() + " " + this.getY();
