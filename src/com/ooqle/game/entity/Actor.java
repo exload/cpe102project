@@ -7,7 +7,6 @@ import com.ooqle.game.Point;
 
 public class Actor extends Entity
 {
-    private int resourceLimit;
     private int resourceCount;
 
     public Actor(String name, String type, Point position, int rate)
@@ -25,10 +24,5 @@ public class Actor extends Entity
     public void setResourceCount(int resourceCount)
     {
         this.resourceCount = resourceCount;
-    }
-
-    public int getResourceLimit()
-    {
-        return resourceLimit;
     }
 }
