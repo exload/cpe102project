@@ -4,14 +4,15 @@ package test.java.org.ooqle.entity;
 */
 
 import com.ooqle.game.Point;
+import com.ooqle.game.entity.Entity;
 import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WorldObjectTest
+public class EntityTests
 {
-    private WorldObject worldObj = new WorldObject("worldobject", new Point(1, 2));
+    private Entity worldObj = new Entity("worldobject", "type", new Point(1, 2), 1);
 
     @Test
     public void testGetName()
@@ -30,5 +31,19 @@ public class WorldObjectTest
     {
         worldObj.setPosition(new Point(-1, 0));
         assertEquals(new Point(-1, 0), worldObj.getPosition());
+    }
+
+    @Test
+    public void testGetType()
+    {
+        assertEquals("type", worldObj.getType());
+    }
+
+    @Test
+    public void testEntityString()
+    {
+        String s = " ";
+        String expected = worldObj.getType() + s + worldObj.getName() + s + worldObj.getPosition().toString();
+        assertEquals(expected, worldObj.entityString());
     }
 }
