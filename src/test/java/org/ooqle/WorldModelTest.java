@@ -36,7 +36,7 @@ public class WorldModelTest {
         theworld.addEntity(new Ore("augie", new Point(6, 6), 3));
         theworld.addEntity(new Ore("kenny", new Point(8, 8), 1));
 
-        assertEquals(theworld.findNearestOfType(new Point(4, 4), Ore.class).getName(), "augie");
+        assertEquals(theworld.findNearestOfType(new Point(4, 4), Ore.class).getName(), "augie"); 
     }
 
     @Test
