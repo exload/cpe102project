@@ -3,15 +3,14 @@ package test.java.org.ooqle;
 * @author Kenny Williams
 */
 
-import com.ooqle.game.Grid;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import test.java.org.ooqle.entity.WorldObjectTest;
+import test.java.org.ooqle.entity.EntityTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         PointTest.class,
-        WorldObjectTest.class,
+        EntityTests.class,
         GridTest.class,
         WorldModelTest.class
 })
