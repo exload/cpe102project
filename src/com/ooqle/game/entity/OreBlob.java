@@ -21,13 +21,13 @@ public class OreBlob extends MovableActor
         Point entityPt = this.getPosition().clone();
         if (vein == null)
         {
-            return new Tuple(entityPt, false);
+            return new Tuple<>(entityPt, false);
         }
         Point veinPt = vein.getPosition().clone();
         if(entityPt.adjacent(veinPt))
         {
             vein.removeEntity(world);
-            return new Tuple(veinPt, true);
+            return new Tuple<>(veinPt, true);
         }else
         {
             Point newPt = this.nextPosition(world, veinPt);
@@ -36,7 +36,7 @@ public class OreBlob extends MovableActor
             {
                 ((Ore) oldEntity).removeEntity(world);
             }
-            return new Tuple(world.moveEntity(this, newPt), false);
+            return new Tuple<>(world.moveEntity(this, newPt), false);
         }
     }
 
