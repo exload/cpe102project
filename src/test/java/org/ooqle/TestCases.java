@@ -3,10 +3,10 @@ package test.java.org.ooqle;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.entity.WorldObject;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.*;
-import test.java.org.ooqle.util.GameUtilsTests;
 import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
@@ -21,5 +21,7 @@ import test.java.org.ooqle.util.TupleTests;
         MinerFullTests.class,
         MoveableActorTest.class,
         OreTests.class,
+        VeinTests.class,
+        WorldObjectTests.class
 })
 public class TestCases{}
