@@ -88,11 +88,15 @@ public class WorldModel {
         this.removeEntityAt(entity.getPosition());
     }
 
+    /**
+     * precondition: object at given point is an Entity
+     * @param pt
+     */
     public void removeEntityAt(Point pt)
     {
         if(this.withinBounds(pt) && this.occupancy.getCell(pt) != null)
         {
-            WorldObject entity = this.occupancy.getCell(pt);
+            Entity entity = (Entity) this.occupancy.getCell(pt);
             entity.setPosition(new Point(-1, -1));
             this.entities.remove(entity);
             this.occupancy.setCell(pt, null);
