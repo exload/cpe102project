@@ -23,6 +23,7 @@ public class VeinTests
         assertEquals(1, v.getResourceDistance());
     }
 
+
     @Test
     public void testFindOpenAround1()
     {
