@@ -13,12 +13,12 @@ public class BlacksmithTests {
     Blacksmith smith = new Blacksmith("augie", new Point(2, 1), 4, 2);
 
     @Test
-    public void TestEntityString() {
+    public void testEntityString() {
        assertEquals(smith.entityString(), "blacksmith augie 2 1 4 2");
     }
 
     @Test
-    public void TestGetResourceDistance() {
+    public void testGetResourceDistance() {
         assertEquals(smith.getResourceDistance(), 2);
     }
 
