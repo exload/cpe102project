@@ -6,6 +6,7 @@ package test.java.org.ooqle;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.*;
+import test.java.org.ooqle.util.GameUtilsTests;
 import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
@@ -19,6 +20,7 @@ import test.java.org.ooqle.util.TupleTests;
         MinerTests.class,
         MinerFullTests.class,
         MoveableActorTest.class,
-        OreTests.class
+        OreTests.class,
+        GameUtilsTests.class
 })
 public class TestCases{}
