@@ -11,9 +11,9 @@ import com.ooqle.game.util.Tuple;
 public class OreBlob extends MovableActor
 {
 
-    public OreBlob(String name, Point position, int rate)
+    public OreBlob(String name, Point position, int rate, int animationRate)
     {
-        super(name, "unknown", position, rate);
+        super(name, "unknown", position, rate, animationRate);
     }
 
     public Tuple toVein(WorldModel world, Vein vein)

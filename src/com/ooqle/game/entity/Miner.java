@@ -9,9 +9,9 @@ public class Miner extends AnimatedActor
 {
     private int resourceLimit;
 
-    public Miner(String name, String type, Point position, int rate, int resourceLimit)
+    public Miner(String name, String type, Point position, int rate, int animationRate, int resourceLimit)
     {
-        super(name, type, position, rate);
+        super(name, type, position, rate, animationRate);
         this.resourceLimit = resourceLimit;
     }
 

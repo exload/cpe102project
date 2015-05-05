@@ -9,9 +9,9 @@ import com.ooqle.game.util.GameUtils;
 
 public class MovableActor extends AnimatedActor
 {
-    public MovableActor(String name, String type, Point position, int rate)
+    public MovableActor(String name, String type, Point position, int rate, int animationRate)
     {
-        super(name, type, position, rate);
+        super(name, type, position, rate, animationRate);
     }
 
     public Point nextPosition(WorldModel world, Point destPt)

@@ -8,9 +8,9 @@ import com.ooqle.game.Point;
 public class MinerFull extends Miner
 {
 
-    public MinerFull(String name, Point position, int rate, int resourceLimit)
+    public MinerFull(String name, Point position, int rate, int resourceLimit, int animationRate)
     {
-        super(name, "unknown", position, rate, resourceLimit);
+        super(name, "unknown", position, rate, animationRate,resourceLimit);
     }
 
    public String entityString()
