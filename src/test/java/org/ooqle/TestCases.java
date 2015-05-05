@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.AnimatedActorTest;
 import test.java.org.ooqle.entity.EntityTests;
+import test.java.org.ooqle.entity.MinerTests;
 import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
@@ -16,6 +17,7 @@ import test.java.org.ooqle.util.TupleTests;
         GridTest.class,
         WorldModelTest.class,
         AnimatedActorTest.class,
-        TupleTests.class
+        TupleTests.class,
+        MinerTests.class
 })
 public class TestCases{}
