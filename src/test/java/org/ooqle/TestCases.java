@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.AnimatedActorTest;
 import test.java.org.ooqle.entity.EntityTests;
+import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -14,6 +15,7 @@ import test.java.org.ooqle.entity.EntityTests;
         EntityTests.class,
         GridTest.class,
         WorldModelTest.class,
-        AnimatedActorTest.class
+        AnimatedActorTest.class,
+        TupleTests.class
 })
 public class TestCases{}
