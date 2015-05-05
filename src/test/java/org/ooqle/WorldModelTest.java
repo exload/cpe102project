@@ -16,11 +16,11 @@ import static org.junit.Assert.assertEquals;
  * Created by augiedoebling on 5/3/15.
  */
 public class WorldModelTest {
-    private Background ooqle =  new Background("ooqle", new Point(1, 1));
+    private Background ooqle =  new Background("ooqle");
     private WorldModel theworld = new WorldModel(10, 10, ooqle);
-    private Entity kenny = new Entity("kenny", new Point(1, 2));
-    private Entity eric = new Entity("eric", new Point(1, 3));
-    private Entity sameer = new Entity("sameer", new Point(1, 4));
+    private Entity kenny = new Entity("kenny", "person",new Point(1, 2), 2);
+    private Entity eric = new Entity("eric", "person",new Point(1, 3), 2);
+    private Entity sameer = new Entity("sameer", "person", new Point(1, 4), 2);
 
     @Test
     public void testWithinBounds() {
@@ -37,9 +37,9 @@ public class WorldModelTest {
 
     @Test
     public void testAddEntity() {
-        Entity kenny = new Entity("kenny", new Point(1, 2));
-        Entity eric = new Entity("eric", new Point(1, 3));
-        Entity sameer = new Entity("sameer", new Point(1, 4));
+        Entity kenny = new Entity("kenny", "person", new Point(1, 2), 2);
+        Entity eric = new Entity("eric","person", new Point(1, 3), 2);
+        Entity sameer = new Entity("sameer","person", new Point(1, 4), 2);
 
         theworld.addEntity(kenny);
         theworld.addEntity(eric);
@@ -81,23 +81,26 @@ public class WorldModelTest {
     @Test
     public void testSetBackground() {
         Point newbackgroundpoint = new Point(2, 3);
-        Background google = new Background("google", new Point(2, 4));
+        Background google = new Background("google");
 
         theworld.setBackground(newbackgroundpoint, google);
 
         assertEquals(theworld.getBackground(newbackgroundpoint), google);
     }
 
-//    @Test
-//    public void testGetOccupant() {
-//        assertEquals(theworld.getTileOccpant(eric.getPosition()), eric);
-//        assertEquals(theworld.getTileOccpant(kenny.getPosition()), kenny);
-//    }
+    @Test
+    public void testGetOccupant() {
+        theworld.addEntity(eric);
+        theworld.addEntity(kenny);
+        assertEquals(theworld.getTileOccpant(eric.getPosition()), eric);
+        assertEquals(theworld.getTileOccpant(kenny.getPosition()), kenny);
+    }
 
     @Test
     public void testGetEntities() {
+        theworld.addEntity(eric);
+        theworld.addEntity(kenny);
         assertEquals(theworld.getEntities().get(0), eric);
         assertEquals(theworld.getEntities().get(1), kenny);
-        assertEquals(theworld.getEntities().get(2), null);
     }
 }
