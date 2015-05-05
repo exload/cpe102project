@@ -38,4 +38,9 @@ public class Tuple<T, U>
         Tuple t = (Tuple) other;
         return this.getKey().equals(t.getKey()) && this.getValue().equals(t.getValue());
     }
+
+    public String toString()
+    {
+        return "Tuple: Key=" + this.getKey()+"; Value=" + this.getValue();
+    }
 }
