@@ -177,6 +177,7 @@ public class WorldModel {
                 {
                     entity = other.getKey();
                     integer = other.getValue();
+                    first = false;
                 }
                 else
                 {
