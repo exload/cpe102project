@@ -41,6 +41,6 @@ public class Tuple<T, U>
 
     public String toString()
     {
-        return "Tuple: Key=" + this.getKey()+"; Value=" + this.getValue();
+        return "(" + this.getKey() + ", " + this.getValue() + ")";
     }
 }
