@@ -5,10 +5,7 @@ package test.java.org.ooqle;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import test.java.org.ooqle.entity.AnimatedActorTest;
-import test.java.org.ooqle.entity.EntityTests;
-import test.java.org.ooqle.entity.MinerFullTests;
-import test.java.org.ooqle.entity.MinerTests;
+import test.java.org.ooqle.entity.*;
 import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
@@ -20,6 +17,7 @@ import test.java.org.ooqle.util.TupleTests;
         AnimatedActorTest.class,
         TupleTests.class,
         MinerTests.class,
-        MinerFullTests.class
+        MinerFullTests.class,
+        MoveableActorTest.class,
 })
 public class TestCases{}
