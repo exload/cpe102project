@@ -11,6 +11,7 @@ import static org.junit.Assert.assertEquals;
 public class WorldObjectTests
 {
     private WorldObject obj = new WorldObject("name");
+
     @Test
     public void testGetName()
     {

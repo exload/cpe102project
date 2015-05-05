@@ -9,11 +9,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by augiedoebling on 5/4/15.
  */
-public class MinerFullTests {
+public class MinerFullTests
+{
     MinerFull theminer = new MinerFull("miner", new Point(2, 1), 3, 2, 5);
 
     @Test
-    public void testEntityString(){
+    public void testEntityString()
+    {
         assertEquals(theminer.entityString(), "unknown");
     }
 }

@@ -29,4 +29,6 @@ import test.java.org.ooqle.util.TupleTests;
         MinerNotFullTests.class,
         BlacksmithTests.class
 })
-public class TestCases{}
+public class TestCases
+{
+}

@@ -16,15 +16,17 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by augiedoebling on 5/3/15.
  */
-public class WorldModelTest {
-    private Background ooqle =  new Background("ooqle");
+public class WorldModelTest
+{
+    private Background ooqle = new Background("ooqle");
     private WorldModel theworld = new WorldModel(10, 10, ooqle);
-    private Entity kenny = new Entity("kenny", "person",new Point(1, 2), 2);
-    private Entity eric = new Entity("eric", "person",new Point(1, 3), 2);
+    private Entity kenny = new Entity("kenny", "person", new Point(1, 2), 2);
+    private Entity eric = new Entity("eric", "person", new Point(1, 3), 2);
     private Entity sameer = new Entity("sameer", "person", new Point(1, 4), 2);
 
     @Test
-    public void testWithinBounds() {
+    public void testWithinBounds()
+    {
         assertEquals(theworld.withinBounds(new Point(9, 9)), true);
         assertEquals(theworld.withinBounds(new Point(11, 3)), false);
     }
@@ -32,18 +34,20 @@ public class WorldModelTest {
     //TODO: add findnearestoftype
 
     @Test
-    public void testFindNearestOfType() {
+    public void testFindNearestOfType()
+    {
         theworld.addEntity(new Ore("augie", new Point(6, 6), 3));
         theworld.addEntity(new Ore("kenny", new Point(8, 8), 1));
 
-        assertEquals(theworld.findNearestOfType(new Point(4, 4), Ore.class).getName(), "augie"); 
+        assertEquals(theworld.findNearestOfType(new Point(4, 4), Ore.class).getName(), "augie");
     }
 
     @Test
-    public void testAddEntity() {
+    public void testAddEntity()
+    {
         Entity kenny = new Entity("kenny", "person", new Point(1, 2), 2);
-        Entity eric = new Entity("eric","person", new Point(1, 3), 2);
-        Entity sameer = new Entity("sameer","person", new Point(1, 4), 2);
+        Entity eric = new Entity("eric", "person", new Point(1, 3), 2);
+        Entity sameer = new Entity("sameer", "person", new Point(1, 4), 2);
 
         theworld.addEntity(kenny);
         theworld.addEntity(eric);
@@ -56,7 +60,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testMoveEntity() {
+    public void testMoveEntity()
+    {
         Point kennyposition2 = new Point(1, 5);
         theworld.moveEntity(kenny, kennyposition2);
 
@@ -65,7 +70,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testRemoveEntity() {
+    public void testRemoveEntity()
+    {
         Point newemptypoint = sameer.getPosition();
 
         theworld.removeEntityAt(newemptypoint);
@@ -74,7 +80,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testGetBackground() {
+    public void testGetBackground()
+    {
         Point backgroundpoint = new Point(2, 1);
 
         WorldObject getbackgroundobject = theworld.getBackground(backgroundpoint);
@@ -83,7 +90,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testSetBackground() {
+    public void testSetBackground()
+    {
         Point newbackgroundpoint = new Point(2, 3);
         Background google = new Background("google");
 
@@ -93,7 +101,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testGetOccupant() {
+    public void testGetOccupant()
+    {
         theworld.addEntity(eric);
         theworld.addEntity(kenny);
         assertEquals(theworld.getTileOccpant(eric.getPosition()), eric);
@@ -101,7 +110,8 @@ public class WorldModelTest {
     }
 
     @Test
-    public void testGetEntities() {
+    public void testGetEntities()
+    {
         theworld.addEntity(eric);
         theworld.addEntity(kenny);
         assertEquals(theworld.getEntities().get(0), eric);

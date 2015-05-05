@@ -36,7 +36,7 @@ public class OreBlobTests
     public void testNextPosition1()
     {
         Point expected = blob.getPosition().clone();
-        assertEquals(expected, blob.nextPosition(world, new Point(0,0)));
+        assertEquals(expected, blob.nextPosition(world, new Point(0, 0)));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class OreBlobTests
     {
         Point expected = new Point(0, 1);
         world.addEntity(new Ore("e", new Point(0, 1), 1));
-        assertEquals(expected, blob.nextPosition(world, new Point(0,1)));
+        assertEquals(expected, blob.nextPosition(world, new Point(0, 1)));
     }
 
     @Test

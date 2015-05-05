@@ -12,12 +12,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class GridTest {
+public class GridTest
+{
 
     private Grid thegrid = new Grid(5, 5, new WorldObject("Augie"));
 
     @Test
-    public void testSetCell() {
+    public void testSetCell()
+    {
         Point pt1 = new Point(3, 3);
         WorldObject kenny = new WorldObject("kenny");
 
@@ -27,7 +29,8 @@ public class GridTest {
     }
 
     @Test
-    public void testGetCell() {
+    public void testGetCell()
+    {
         WorldObject sameeer = new WorldObject("sameer");
 
         thegrid.setCell(new Point(4, 1), sameeer);

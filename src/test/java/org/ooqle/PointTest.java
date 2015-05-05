@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class PointTest
 {
     private Point pt = new Point(2, 2);
+
     @Test
     public void testGetX()
     {

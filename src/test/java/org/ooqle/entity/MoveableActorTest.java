@@ -11,7 +11,8 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by augiedoebling on 5/4/15.
  */
-public class MoveableActorTest {
+public class MoveableActorTest
+{
 
     MovableActor actor = new MovableActor("augie", "actor", new Point(2, 1), 2, 3);
     WorldModel world = new WorldModel(3, 2, new WorldObject("betsy"));
@@ -20,7 +21,8 @@ public class MoveableActorTest {
     Point pt2 = new Point(2, -1);
 
     @Test
-    public void testNextPosition() {
+    public void testNextPosition()
+    {
         assertEquals(actor.nextPosition(world, point), new Point(3, 1));
         assertEquals(actor.nextPosition(world, pt1), new Point(1, 1));
         assertEquals(actor.nextPosition(world, pt2), new Point(2, 0));
