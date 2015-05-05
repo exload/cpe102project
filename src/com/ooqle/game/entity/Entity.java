@@ -35,15 +35,15 @@ public class Entity extends WorldObject
         return this.type;
     }
 
+    public int getRate()
+    {
+        return rate;
+    }
+
     public String entityString()
     {
         String s = " ";
         return this.type + s + this.getName() + s + this.getPosition().toString();
-    }
-
-    public int getRate()
-    {
-        return rate;
     }
 
     public void removeEntity(WorldModel world)
