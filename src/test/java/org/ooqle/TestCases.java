@@ -26,6 +26,7 @@ import test.java.org.ooqle.util.TupleTests;
         WorldObjectTests.class,
         GameUtilsTests.class,
         OreBlobTests.class,
-        MinerNotFullTests.class
+        MinerNotFullTests.class,
+        BlacksmithTests.class
 })
 public class TestCases{}
