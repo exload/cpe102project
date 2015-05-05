@@ -21,6 +21,5 @@ import test.java.org.ooqle.util.TupleTests;
         MinerFullTests.class,
         MoveableActorTest.class,
         OreTests.class,
-        GameUtilsTests.class
 })
 public class TestCases{}
