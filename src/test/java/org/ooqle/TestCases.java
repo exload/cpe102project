@@ -7,6 +7,7 @@ import com.ooqle.game.entity.WorldObject;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.*;
+import test.java.org.ooqle.util.GameUtilsTests;
 import test.java.org.ooqle.util.TupleTests;
 
 @RunWith(Suite.class)
@@ -22,6 +23,7 @@ import test.java.org.ooqle.util.TupleTests;
         MoveableActorTest.class,
         OreTests.class,
         VeinTests.class,
-        WorldObjectTests.class
+        WorldObjectTests.class,
+        GameUtilsTests.class
 })
 public class TestCases{}
