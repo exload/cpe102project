@@ -36,6 +36,6 @@ public class Tuple<T, U>
             return false;
         }
         Tuple t = (Tuple) other;
-        return this.getKey() == t.getKey() && this.getValue() == t.getValue();
+        return this.getKey().equals(t.getKey()) && this.getValue().equals(t.getValue());
     }
 }
