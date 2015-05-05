@@ -7,6 +7,7 @@ import com.ooqle.game.util.Tuple;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TupleTests
 {
@@ -22,5 +23,12 @@ public class TupleTests
     public void testGetValue()
     {
         assertEquals(true, t.getValue());
+    }
+
+    @Test
+    public void testEquals()
+    {
+        Tuple o = new Tuple<>("test", true);
+        assertTrue(t.equals(o));
     }
 }

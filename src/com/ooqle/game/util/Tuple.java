@@ -23,4 +23,19 @@ public class Tuple<T, U>
     {
         return u;
     }
+
+    public boolean equals(Object other)
+    {
+        if(this == other)
+        {
+            return true;
+        }
+
+        if(!(other instanceof Tuple))
+        {
+            return false;
+        }
+        Tuple t = (Tuple) other;
+        return this.getKey().equals(t.getKey()) && this.getValue().equals(t.getValue());
+    }
 }
