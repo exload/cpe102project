@@ -40,6 +40,12 @@ public class EntityTests
     }
 
     @Test
+    public void testGetRate()
+    {
+        assertEquals(1, worldObj.getRate());
+    }
+
+    @Test
     public void testEntityString()
     {
         String s = " ";
