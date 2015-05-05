@@ -22,6 +22,6 @@ import test.java.org.ooqle.util.TupleTests;
         MoveableActorTest.class,
         OreTests.class,
         VeinTests.class,
-        WorldObject.class
+        WorldObjectTests.class
 })
 public class TestCases{}
