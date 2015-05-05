@@ -9,12 +9,13 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by augiedoebling on 5/4/15.
  */
-public class MinerNotFullTests {
+public class MinerNotFullTests
+{
     MinerNotFull miner = new MinerNotFull("miner", new Point(2, 1), 3, 2, 5);
 
     @Test
-    public void testEntityString(){
-        //System.out.println(miner.entityString());
+    public void testEntityString()
+    {
         assertEquals(miner.entityString(), "miner miner 2 1 5 3 2");
     }
 }
