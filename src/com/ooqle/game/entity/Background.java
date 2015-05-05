@@ -3,18 +3,10 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
-public class Background
+public class Background extends WorldObject
 {
-    private String name;
-
     public Background(String name)
     {
-
-        this.name = name;
-    }
-
-    public String getName()
-    {
-        return name;
+        super(name);
     }
 }
