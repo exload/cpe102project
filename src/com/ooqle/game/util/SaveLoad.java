@@ -62,24 +62,29 @@ public class SaveLoad
                             Integer.parseInt((String) jwob.get("resourceLimit"))));
 
                     newworld.addWorldObject(miner);
+                    scheduleEntity(newworld, miner);
                 }
                 else if(jwob.get("type").equals("vein"))
                 {
-                    newworld.addWorldObject(new Vein(
+                    Vein vein = new Vein(
                             "vein",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
                             Arrays.asList(Game.getImage("images/vein.bmp")),
                             Integer.parseInt((String) jwob.get("rate")),
-                            Integer.parseInt((String) jwob.get("animationrate"))));
+                            Integer.parseInt((String) jwob.get("resourcedistance")));
+
+                    newworld.addWorldObject(vein);
+
+                    scheduleEntity(newworld, vein);
                 }
                 else if(jwob.get("type").equals("blacksmith"))
                 {
-                    //Blacksmith(String name, Point position, int rate, List<PImage> imgs, int resourceDistance)
-                    newworld.addWorldObject(new Blacksmith(
-                                "blacksmith",
-                                new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
-                                Integer.parseInt((String) jwob.get("rate")),
-                                Arrays.asList(Game.getImage("images/blacksmith.bmp"))));
+                    Blacksmith blacksmith = new Blacksmith(
+                            "blacksmith",
+                            new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
+                            Integer.parseInt((String) jwob.get("rate")),
+                            Arrays.asList(Game.getImage("images/blacksmith.bmp")))
+                    newworld.addWorldObject(blacksmith);
                 }
                 else if(jwob.get("type").equals("obstacle"))
                 {
@@ -101,6 +106,25 @@ public class SaveLoad
         }
 
         return newworld;
+    }
+
+    public static void scheduleEntity(World world, WorldObject worldobject)
+    {
+        if(worldobject.getClass() == Miner.class)
+        {
+            MinerNotFull miner = (MinerNotFull) worldobject;
+            miner.schedule(world, 0);
+        }
+        if(worldobject.getClass() == Vein.class)
+        {
+            Vein vein = (Vein) worldobject;
+            vein.schedule(world, 0);
+        }
+        if(worldobject.getClass() == Ore.class)
+        {
+            Ore ore = (Ore) worldobject;
+            ore.schedule(world, 0);
+        }
     }
 
     public static void main(String[] args) {
