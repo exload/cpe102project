@@ -149,11 +149,11 @@ public class World
         if (actionQueue.containsKey(time))
         {
             actions = new ArrayList<>();
-            actions.add(action);
         } else
         {
             actions = actionQueue.get(time);
         }
+        actions.add(action);
         actionQueue.put(time, actions);
     }
 
@@ -173,11 +173,14 @@ public class World
 
     public void updateOnTime(long ticks)
     {
-        if (actionQueue.containsKey(ticks))
+        for(Map.Entry<Long, List<Action>> kv : actionQueue.entrySet())
         {
-            for (Action a : actionQueue.get(ticks))
+            if(kv.getKey() < ticks)
             {
-                a.run(ticks);
+                for (Action a : actionQueue.get(ticks))
+                {
+                    a.run(ticks);
+                }
             }
         }
     }

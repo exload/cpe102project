@@ -27,6 +27,8 @@ public class Game extends PApplet
     private int xsize;
     private int ysize;
 
+    private long startTime;
+
     private static HashMap<String, PImage> imgs;
 
     public HashMap<String, PImage> loadImages(File dir)
@@ -76,6 +78,8 @@ public class Game extends PApplet
         imgs = loadImages(new File("res"));
 
         theworld = SaveLoad.load();
+
+        startTime = System.currentTimeMillis();
     }
 
     public void keyPressed()
@@ -134,8 +138,8 @@ public class Game extends PApplet
 
     public void draw()
     {
-        long time = System.currentTimeMillis();
-        theworld.updateOnTime(time);
+        long ticks = System.currentTimeMillis() - startTime;
+        theworld.updateOnTime(ticks);
         drawBG();
         drawWorldObjects();
     }
