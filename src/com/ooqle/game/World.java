@@ -16,7 +16,7 @@ public class World
 {
     private int width;
     private int height;
-    private ArrayList<WorldObject> worldObjectList;
+    private List<WorldObject> worldObjectList;
     private Map<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
@@ -28,6 +28,7 @@ public class World
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
         actionQueue = new HashMap<>();
+        worldObjectList = new ArrayList<>();
     }
 
     public Grid<Background> getBackgroundGrid()

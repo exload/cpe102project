@@ -3,6 +3,9 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.entity.Background;
+import com.ooqle.game.util.SaveLoad;
+import com.ooqle.game.util.WorldObjectSettings;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,6 +16,10 @@ import java.util.List;
 
 public class Game extends PApplet
 {
+    private  Background thebackground;
+
+    private World theworld;
+
     private static HashMap<String, PImage> imgs;
 
     public HashMap<String, PImage> loadImages(File dir)
@@ -48,10 +55,16 @@ public class Game extends PApplet
         super.image(img, a * 32, b * 32);
     }
 
+    //setup world
+
     public void setup()
     {
         size(640, 480);
         imgs = loadImages(new File("res"));
+
+        thebackground = new Background(getImage("images/grass.bmp"));
+
+        theworld = SaveLoad.load();
     }
 
     public void keyPressed()
@@ -76,6 +89,13 @@ public class Game extends PApplet
     private void drawBG()
     {
 
+        for (int y = 0; y < WorldObjectSettings.GAMEHEIGHT; y++)
+        {
+            for (int x = 0; x < WorldObjectSettings.GAMEWIDTH; x++)
+            {
+                image(theworld.getBackgroundAt(new Point(x, y)).getImage(), x, y);
+            }
+        }
     }
 
     public void draw()
