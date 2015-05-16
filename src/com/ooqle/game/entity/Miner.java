@@ -7,6 +7,7 @@ import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.Tuple;
+import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.Collections;
@@ -94,5 +95,12 @@ public abstract class Miner extends MovableActor
     {
         this.scheduleAction(world, this.createAction(world), ticks + this.getRate());
         this.scheduleAnimation(world);
+    }
+
+    public JSONObject entityJSON()
+    {
+        JSONObject out = super.entityJSON();
+        out.put("resourceLimit", this.getResourceLimit());
+        return out;
     }
 }

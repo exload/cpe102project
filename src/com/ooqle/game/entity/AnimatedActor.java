@@ -6,6 +6,7 @@ package com.ooqle.game.entity;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
+import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.Collections;
@@ -50,5 +51,12 @@ public class AnimatedActor extends Actor
     public void scheduleAnimation(World world)
     {
         scheduleAnimation(world, 0);
+    }
+
+    public JSONObject entityJSON()
+    {
+        JSONObject out = super.entityJSON();
+        out.put("animationrate", this.getAnimationRate());
+        return out;
     }
 }

@@ -4,6 +4,8 @@ package com.ooqle.game;
 */
 
 
+import org.json.simple.JSONObject;
+
 public class Point
 {
     private int x;
@@ -61,5 +63,13 @@ public class Point
     public String toString()
     {
         return this.getX() + " " + this.getY();
+    }
+
+    public JSONObject toJSON()
+    {
+        JSONObject out = new JSONObject();
+        out.put("x", this.getX());
+        out.put("y", this.getY());
+        return out;
     }
 }

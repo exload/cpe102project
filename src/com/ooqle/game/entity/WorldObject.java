@@ -6,6 +6,7 @@ package com.ooqle.game.entity;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
+import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.ArrayList;
@@ -115,5 +116,13 @@ public class WorldObject
     {
         String s = " ";
         return this.type + s + this.getName() + s + this.getPosition().toString();
+    }
+
+    public JSONObject entityJSON()
+    {
+        JSONObject out = new JSONObject();
+        out.put("type", this.type);
+        out.put("location", this.getPosition().toJSON());
+        return out;
     }
 }

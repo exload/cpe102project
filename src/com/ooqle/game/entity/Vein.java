@@ -7,6 +7,7 @@ import com.ooqle.game.ActionManager;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
+import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.ArrayList;
@@ -80,5 +81,12 @@ public class Vein extends Actor
     {
         String s = " ";
         return super.entityString() + s + this.getRate() + s + this.getResourceDistance();
+    }
+
+    public JSONObject entityJSON()
+    {
+        JSONObject out = super.entityJSON();
+        out.put("resourcedistance", this.getResourceDistance());
+        return out;
     }
 }
