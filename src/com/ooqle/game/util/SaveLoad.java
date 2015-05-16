@@ -83,16 +83,20 @@ public class SaveLoad
                             "blacksmith",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
                             Integer.parseInt((String) jwob.get("rate")),
-                            Arrays.asList(Game.getImage("images/blacksmith.bmp")))
+                            Arrays.asList(Game.getImage("images/blacksmith.bmp")));
+
                     newworld.addWorldObject(blacksmith);
+                    scheduleEntity(newworld, blacksmith);
                 }
                 else if(jwob.get("type").equals("obstacle"))
                 {
-                    newworld.addWorldObject(new Obstacle(
+                    Obstacle obstacle = new Obstacle(
                             "obstacle",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
-                            Arrays.asList(Game.getImage("images/obstacle.bmp"))
-                    ));
+                            Arrays.asList(Game.getImage("images/obstacle.bmp")));
+
+                    newworld.addWorldObject(obstacle);
+                    scheduleEntity(newworld, obstacle);
                 }
                 else
                 {
