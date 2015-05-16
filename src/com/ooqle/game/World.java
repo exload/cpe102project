@@ -149,11 +149,11 @@ public class World
         if (actionQueue.containsKey(time))
         {
             actions = new ArrayList<>();
-            actions.add(action);
         } else
         {
             actions = actionQueue.get(time);
         }
+        actions.add(action);
         actionQueue.put(time, actions);
     }
 
