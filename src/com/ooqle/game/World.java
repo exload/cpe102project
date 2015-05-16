@@ -17,7 +17,7 @@ public class World
     private int width;
     private int height;
     private List<WorldObject> worldObjectList;
-    private Map<Long, Action> actionQueue;
+    private Map<Long, List<Action>> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
 
@@ -145,12 +145,41 @@ public class World
 
     public void scheduleAction(Action action, long time)
     {
-        actionQueue.put(time, action);
+        List<Action> actions;
+        if (actionQueue.containsKey(time))
+        {
+            actions = new ArrayList<>();
+            actions.add(action);
+        } else
+        {
+            actions = actionQueue.get(time);
+        }
+        actionQueue.put(time, actions);
     }
 
     public void unscheduleAction(Action action)
     {
-        actionQueue.values().remove(action);
+        for (List<Action> actions : actionQueue.values())
+        {
+            for (int i = 0; i < actions.size(); i++)
+            {
+                if (actions.get(i) == action)
+                {
+                    actions.remove(i);
+                }
+            }
+        }
+    }
+
+    public void updateOnTime(long ticks)
+    {
+        if (actionQueue.containsKey(ticks))
+        {
+            for (Action a : actionQueue.get(ticks))
+            {
+                a.run(ticks);
+            }
+        }
     }
 
     /*

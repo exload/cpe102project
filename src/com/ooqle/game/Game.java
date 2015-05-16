@@ -115,7 +115,6 @@ public class Game extends PApplet
 
     private void drawBG()
     {
-
         for (int y = 0; y < WorldObjectSettings.GAMEHEIGHT; y++)
         {
             for (int x = 0; x < WorldObjectSettings.GAMEWIDTH; x++)
@@ -136,7 +135,7 @@ public class Game extends PApplet
     public void draw()
     {
         long time = System.currentTimeMillis();
-
+        theworld.updateOnTime(time);
         drawBG();
         drawWorldObjects();
     }
