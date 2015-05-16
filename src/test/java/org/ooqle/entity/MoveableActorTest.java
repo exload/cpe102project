@@ -1,7 +1,7 @@
 package test.java.org.ooqle.entity;
 
 import com.ooqle.game.Point;
-import com.ooqle.game.WorldModel;
+import com.ooqle.game.World;
 import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class MoveableActorTest
 {
 
     MovableActor actor = new MovableActor("augie", "actor", new Point(2, 1), 2, 3);
-    WorldModel world = new WorldModel(3, 2, new WorldObject("betsy"));
+    World world = new World(3, 2, new WorldObject("betsy"));
     Point point = new Point(5, 3);
     Point pt1 = new Point(0, 0);
     Point pt2 = new Point(2, -1);

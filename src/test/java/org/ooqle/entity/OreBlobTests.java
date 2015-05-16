@@ -4,7 +4,7 @@ package test.java.org.ooqle.entity;
 */
 
 import com.ooqle.game.Point;
-import com.ooqle.game.WorldModel;
+import com.ooqle.game.World;
 import com.ooqle.game.entity.*;
 import com.ooqle.game.util.Tuple;
 import org.junit.Test;
@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
 public class OreBlobTests
 {
     private OreBlob blob = new OreBlob("blob", new Point(0, 0), 1, 1);
-    private WorldModel world = new WorldModel(10, 10, new Background("bg"));
+    private World world = new World(10, 10, new Background("bg"));
     private Vein v = new Vein("vein", new Point(1, 0), 1, 1);
 
     @Test

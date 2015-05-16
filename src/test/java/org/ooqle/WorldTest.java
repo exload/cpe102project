@@ -1,12 +1,14 @@
 package test.java.org.ooqle;
 
 import com.ooqle.game.Point;
-import com.ooqle.game.WorldModel;
+import com.ooqle.game.World;
 import com.ooqle.game.entity.Background;
 import com.ooqle.game.entity.Entity;
 import com.ooqle.game.entity.Ore;
+import com.ooqle.game.entity.Quake;
 import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +18,14 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by augiedoebling on 5/3/15.
  */
-public class WorldModelTest
+public class WorldTest
 {
-    private Background ooqle = new Background("ooqle");
-    private WorldModel theworld = new WorldModel(10, 10, ooqle);
-    private Entity kenny = new Entity("kenny", "person", new Point(1, 2), 2);
-    private Entity eric = new Entity("eric", "person", new Point(1, 3), 2);
-    private Entity sameer = new Entity("sameer", "person", new Point(1, 4), 2);
+    private List<PImage> imgs = new ArrayList<>();
+    private Background ooqle = new Background(new PImage());
+    private World theworld = new World(10, 10, ooqle);
+    private Ore kenny = new Ore("kenny", new Point(1, 2), imgs, 2);
+    private Ore eric = new Ore("eric", new Point(1, 3), imgs, 2);
+    private Ore sameer = new Ore("sameer", new Point(1, 4), imgs, 2);
 
     @Test
     public void testWithinBounds()
@@ -36,8 +39,8 @@ public class WorldModelTest
     @Test
     public void testFindNearestOfType()
     {
-        theworld.addEntity(new Ore("augie", new Point(6, 6), 3));
-        theworld.addEntity(new Ore("kenny", new Point(8, 8), 1));
+        theworld.addWorldObject(new Ore("augie", new Point(6, 6), imgs, 3));
+        theworld.addWorldObject(new Ore("kenny", new Point(8, 8), imgs, 1));
 
         assertEquals(theworld.findNearestOfType(new Point(4, 4), Ore.class).getName(), "augie");
     }
@@ -45,15 +48,15 @@ public class WorldModelTest
     @Test
     public void testAddEntity()
     {
-        Entity kenny = new Entity("kenny", "person", new Point(1, 2), 2);
-        Entity eric = new Entity("eric", "person", new Point(1, 3), 2);
-        Entity sameer = new Entity("sameer", "person", new Point(1, 4), 2);
+        Ore kenny = new Ore("kenny", new Point(1, 2), imgs, 2);
+        Ore eric = new Ore("eric", new Point(1, 3), imgs, 2);
+        Ore sameer = new Ore("sameer", new Point(1, 4), imgs, 2);
 
-        theworld.addEntity(kenny);
-        theworld.addEntity(eric);
-        theworld.addEntity(sameer);
+        theworld.addWorldObject(kenny);
+        theworld.addWorldObject(eric);
+        theworld.addWorldObject(sameer);
 
-        List<Entity> entities = theworld.getEntities();
+        List<WorldObject> entities = theworld.getWorldObjects();
 
         assertEquals(entities.get(0).getName(), "kenny");
         assertEquals(entities.get(1).getName(), "eric");
@@ -63,7 +66,7 @@ public class WorldModelTest
     public void testMoveEntity()
     {
         Point kennyposition2 = new Point(1, 5);
-        theworld.moveEntity(kenny, kennyposition2);
+        theworld.moveWorldObject(kenny, kennyposition2);
 
         assertEquals(kenny.getPosition().getY(), kennyposition2.getY());
         assertEquals(kenny.getPosition().getX(), kennyposition2.getX());
@@ -76,7 +79,7 @@ public class WorldModelTest
 
         theworld.removeEntityAt(newemptypoint);
 
-        assertEquals(theworld.getTileOccpant(newemptypoint), null);
+        assertEquals(theworld.getWorldObjectAt(newemptypoint), null);
     }
 
     @Test
@@ -84,7 +87,7 @@ public class WorldModelTest
     {
         Point backgroundpoint = new Point(2, 1);
 
-        WorldObject getbackgroundobject = theworld.getBackground(backgroundpoint);
+        Background getbackgroundobject = theworld.getBackgroundAt(backgroundpoint);
 
         assertEquals(getbackgroundobject, ooqle);
     }

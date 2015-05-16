@@ -3,7 +3,6 @@ package test.java.org.ooqle;
 * @author Kenny Williams
 */
 
-import com.ooqle.game.entity.MinerNotFull;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import test.java.org.ooqle.entity.*;
@@ -15,7 +14,7 @@ import test.java.org.ooqle.util.TupleTests;
         PointTest.class,
         EntityTests.class,
         GridTest.class,
-        WorldModelTest.class,
+        WorldTest.class,
         AnimatedActorTest.class,
         TupleTests.class,
         MinerTests.class,
