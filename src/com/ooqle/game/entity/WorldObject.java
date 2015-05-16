@@ -18,6 +18,7 @@ public class WorldObject
     private String type;
     private Point position;
     private int rate;
+    private int currentImg;
     private List<PImage> imgs;
     private List<Action> pendingActions;
 
@@ -67,9 +68,20 @@ public class WorldObject
         this.imgs = imgs;
     }
 
+    public PImage getImage()
+    {
+        return this.getImages().get(this.currentImg);
+    }
+
+    public void nextImage()
+    {
+        this.currentImg = (this.currentImg + 1) % this.getImages().size();
+    }
+
     public void removeEntity(World world)
     {
-        //TODO: Implement me
+        this.getPendingActions().forEach(world::unscheduleAction);
+        this.getPendingActions().clear();
     }
 
     public void addPendingAction(Action action)
