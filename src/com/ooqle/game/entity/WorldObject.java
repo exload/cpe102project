@@ -77,6 +77,11 @@ public class WorldObject
         this.getPendingActions().add(action);
     }
 
+    public void removePendingAction(Action action)
+    {
+        this.getPendingActions().remove(action);
+    }
+
     public List<Action> getPendingActions()
     {
         return this.getPendingActions();
