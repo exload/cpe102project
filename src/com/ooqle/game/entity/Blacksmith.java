@@ -10,22 +10,24 @@ import java.util.List;
 
 public class Blacksmith extends Actor
 {
-    private int resourceDistance;
-
-    public Blacksmith(String name, Point position, int rate, List<PImage> imgs, int resourceDistance)
-    {
-        super(name, "blacksmith", position, imgs, rate);
-        this.resourceDistance = resourceDistance;
-    }
+    private int resourceCount;
 
     public Blacksmith(String name, Point position, int rate, List<PImage> imgs)
     {
-        this(name, position, rate, imgs, 1);
+        super(name, "blacksmith", position, imgs, rate);
+        this.resourceCount = 0;
     }
 
-    public int getResourceDistance()
+    @Override
+    public int getResourceCount()
     {
-        return this.resourceDistance;
+        return resourceCount;
+    }
+
+    @Override
+    public void setResourceCount(int resourceCount)
+    {
+        this.resourceCount = resourceCount;
     }
 
     public String entityString()
@@ -33,6 +35,4 @@ public class Blacksmith extends Actor
         String s = " ";
         return super.entityString() + s + this.getRate() + s + this.getResourceDistance();
     }
-
-
 }
