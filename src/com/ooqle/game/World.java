@@ -93,6 +93,11 @@ public class World
         return null;
     }
 
+    public void setBackground(Point pt, Background bg)
+    {
+        this.getBackgroundGrid().setCell(pt, bg);
+    }
+
     public Background getBackgroundAt(Point pt)
     {
         return this.getBackgroundGrid().getCell(pt);
