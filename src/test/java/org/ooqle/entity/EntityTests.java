@@ -4,7 +4,6 @@ package test.java.org.ooqle.entity;
 */
 
 import com.ooqle.game.Point;
-import com.ooqle.game.entity.Entity;
 import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
 

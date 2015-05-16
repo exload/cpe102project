@@ -27,7 +27,7 @@ public class ActionManager {
 
         OreBlob blob = new OreBlob(name, pt, blob_imgs, rate, randomWithRange(WorldObjectSettings.BLOB_ANIMATION_MIN,
                 WorldObjectSettings.BLOB_ANIMATION_MAX) * WorldObjectSettings.BLOB_ANIMATION_RATE_SCALE);
-        blob.schedule(world, ticks, i_store);
+        blob.schedule(world, ticks);
 
         return blob;
     }
@@ -35,8 +35,8 @@ public class ActionManager {
     public Ore create_ore(WorldObject world, String name, Point pt, int rate, long ticks)
     {
         PImage ore_imgs = Game.getImage("images/ore.bmp");
-        Ore ore = new Ore(name, pt, ore_imgs, rate);
-        ore.schedule(world, ticks, i_store);
+        Ore ore = new Ore(name, pt, Arrays.asList(ore_imgs), rate);
+        ore.schedule(world, ticks);
 
         return ore;
     }
@@ -45,7 +45,7 @@ public class ActionManager {
     {
         List<PImage> quake_imgs = Game.getImages("images/quake*.bmp", 6);
 
-        Quake quake = new Quake("quake", pt, quake_imgs, WorldObjectSettings.QUAKE_ANIMATION_RATE);
+        Quake quake = new Quake("quake", pt, quake_imgs, WorldObjectSettings.QUAKE_ANIMATION_RATE, 2);
         quake.schedule(world, ticks);
 
         return quake;
@@ -53,7 +53,7 @@ public class ActionManager {
 
     public Vein create_vein(String name, Point pt, int rate)
     {
-        Vein vein = new Vein("vein"+ name, pt, Game.getImage("images/vein.bmp"), rate);
+        Vein vein = new Vein("vein"+ name, pt, Arrays.asList(Game.getImage("images/vein.bmp")), rate);
 
         return vein;
     }

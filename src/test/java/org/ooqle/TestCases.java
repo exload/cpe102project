@@ -12,7 +12,6 @@ import test.java.org.ooqle.util.TupleTests;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         PointTest.class,
-        EntityTests.class,
         GridTest.class,
         WorldTest.class,
         AnimatedActorTest.class,

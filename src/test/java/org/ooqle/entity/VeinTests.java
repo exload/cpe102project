@@ -3,19 +3,23 @@ package test.java.org.ooqle.entity;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.Game;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.entity.Background;
-import com.ooqle.game.entity.Entity;
 import com.ooqle.game.entity.Vein;
+import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
+import processing.core.PImage;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
 public class VeinTests
 {
-    private Vein v = new Vein("vein", new Point(0, 0), 1, 1);
-    private World world = new World(10, 10, new Background("bg"));
+    private Vein v = new Vein("vein", new Point(0, 0), Arrays.asList(Game.getImage("images/vein.bmp")), 1);
+    private World world = new World(10, 10, new Background(new PImage()));
 
     @Test
     public void testResourceDistance()
@@ -34,7 +38,7 @@ public class VeinTests
     @Test
     public void testFindOpenAround2()
     {
-        world.addEntity(new Entity("e", "t", new Point(0, 0), 1));
+        world.addWorldObject(new WorldObject("e", "t", new Point(0, 0), Arrays.asList(Game.getImage("images/ore.bmp")), 1));
         Point p = v.findOpenAround(world);
         assertEquals(new Point(1, 0), p);
     }
