@@ -3,9 +3,7 @@ package test.java.org.ooqle;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.entity.Background;
-import com.ooqle.game.entity.Entity;
 import com.ooqle.game.entity.Ore;
-import com.ooqle.game.entity.Quake;
 import com.ooqle.game.entity.WorldObject;
 import org.junit.Test;
 import processing.core.PImage;
@@ -96,28 +94,28 @@ public class WorldTest
     public void testSetBackground()
     {
         Point newbackgroundpoint = new Point(2, 3);
-        Background google = new Background("google");
+        Background google = new Background(new PImage());
 
         theworld.setBackground(newbackgroundpoint, google);
 
-        assertEquals(theworld.getBackground(newbackgroundpoint), google);
+        assertEquals(theworld.getBackgroundAt(newbackgroundpoint), google);
     }
 
     @Test
     public void testGetOccupant()
     {
-        theworld.addEntity(eric);
-        theworld.addEntity(kenny);
-        assertEquals(theworld.getTileOccpant(eric.getPosition()), eric);
-        assertEquals(theworld.getTileOccpant(kenny.getPosition()), kenny);
+        theworld.addWorldObject(eric);
+        theworld.addWorldObject(kenny);
+        assertEquals(theworld.getWorldObjectAt(eric.getPosition()), eric);
+        assertEquals(theworld.getWorldObjectAt(kenny.getPosition()), kenny);
     }
 
     @Test
     public void testGetEntities()
     {
-        theworld.addEntity(eric);
-        theworld.addEntity(kenny);
-        assertEquals(theworld.getEntities().get(0), eric);
-        assertEquals(theworld.getEntities().get(1), kenny);
+        theworld.addWorldObject(eric);
+        theworld.addWorldObject(kenny);
+        assertEquals(theworld.getWorldObjects().get(0), eric);
+        assertEquals(theworld.getWorldObjects().get(1), kenny);
     }
 }
