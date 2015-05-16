@@ -33,6 +33,6 @@ public class Blacksmith extends Actor
     public String entityString()
     {
         String s = " ";
-        return super.entityString() + s + this.getRate() + s + this.getResourceDistance();
+        return super.entityString() + s + this.getRate() + s + this.getResourceCount();
     }
 }
