@@ -43,6 +43,11 @@ public class Game extends PApplet
         return out;
     }
 
+    public void image(PImage img, float a, float b)
+    {
+        super.image(img, a * 32, b * 32);
+    }
+
     public void setup()
     {
         size(640, 480);
@@ -64,9 +69,20 @@ public class Game extends PApplet
         }
     }
 
+    /*
+    Drawing stuff
+     */
+
+    private void drawBG()
+    {
+
+    }
+
     public void draw()
     {
         long time = System.currentTimeMillis();
+
+        drawBG();
     }
 
     /*
@@ -104,6 +120,6 @@ public class Game extends PApplet
 
     public static void main(String[] args)
     {
-        PApplet.main("Metro Monsters");
+        PApplet.main("com.ooqle.game.Game");
     }
 }
