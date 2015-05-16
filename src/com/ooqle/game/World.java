@@ -177,7 +177,7 @@ public class World
         {
             if(kv.getKey() < ticks)
             {
-                for (Action a : actionQueue.get(ticks))
+                for (Action a : actionQueue.get(kv.getKey()))
                 {
                     a.run(ticks);
                 }
