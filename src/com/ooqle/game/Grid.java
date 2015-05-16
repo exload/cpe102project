@@ -36,4 +36,9 @@ public class Grid <T> {
     {
         return this.cells[pt.getY()][pt.getX()];
     }
+
+    public T[][] getGrid()
+    {
+        return this.cells;
+    }
 }
