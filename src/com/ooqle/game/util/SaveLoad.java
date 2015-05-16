@@ -114,17 +114,18 @@ public class SaveLoad
 
     public static void scheduleEntity(World world, WorldObject worldobject)
     {
-        if(worldobject.getClass() == Miner.class)
+        if(worldobject instanceof Miner)
         {
+            System.out.println("miner");
             MinerNotFull miner = (MinerNotFull) worldobject;
             miner.schedule(world, 0);
         }
-        if(worldobject.getClass() == Vein.class)
+        if(worldobject instanceof Vein)
         {
             Vein vein = (Vein) worldobject;
             vein.schedule(world, 0);
         }
-        if(worldobject.getClass() == Ore.class)
+        if(worldobject instanceof Ore)
         {
             Ore ore = (Ore) worldobject;
             ore.schedule(world, 0);
