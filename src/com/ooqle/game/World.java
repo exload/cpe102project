@@ -69,8 +69,7 @@ public class World
             WorldObject oldEntity = this.getWorldObjectGrid().getCell(pt);
             if (oldEntity != null)
             {
-                //TODO: clearPendingActions is not yet implemented
-                //Need to remove oldEntity from worldObjectList?
+                oldEntity.clearPendingActions(this);
             }
             this.getWorldObjectGrid().setCell(pt, obj);
             this.worldObjectList.add(obj);
