@@ -5,6 +5,7 @@ package com.ooqle.game;
 
 import com.ooqle.game.entity.Background;
 import com.ooqle.game.entity.WorldObject;
+import com.ooqle.game.util.Action;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class World
     private int width;
     private int height;
     private ArrayList<WorldObject> worldObjectList;
+    private Map<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
 
@@ -25,6 +27,7 @@ public class World
         this.height = height;
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
+        actionQueue = new HashMap<>();
     }
 
     public Grid<Background> getBackgroundGrid()
@@ -135,6 +138,24 @@ public class World
         }
         return nearestEntity(oftype);
     }
+
+    /*
+    Actions
+     */
+
+    public void scheduleAction(Action action, long time)
+    {
+        actionQueue.put(time, action);
+    }
+
+    public void unscheduleAction(Action action)
+    {
+        actionQueue.values().remove(action);
+    }
+
+    /*
+    Static Functions
+     */
 
     public static WorldObject nearestEntity(HashMap<WorldObject, Integer> entityDist)
     {

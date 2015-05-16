@@ -5,8 +5,10 @@ package com.ooqle.game.entity;
 
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
+import com.ooqle.game.util.Action;
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +19,7 @@ public class WorldObject
     private Point position;
     private int rate;
     private List<PImage> imgs;
+    private List<Action> pendingActions;
 
     //TODO: Find out object type for list of images
     public WorldObject(String name, String type, Point position, List<PImage> imgs, int rate)
@@ -26,6 +29,7 @@ public class WorldObject
         this.position = position;
         this.imgs = imgs;
         this.rate = rate;
+        this.pendingActions = new ArrayList<>();
     }
 
     public String getName()
@@ -66,6 +70,28 @@ public class WorldObject
     public void removeEntity(World world)
     {
         //TODO: Implement me
+    }
+
+    public void addPendingAction(Action action)
+    {
+        this.getPendingActions().add(action);
+    }
+
+    public List<Action> getPendingActions()
+    {
+        return this.getPendingActions();
+    }
+
+    public void clearPendingActions(World world)
+    {
+        this.getPendingActions().forEach(world::unscheduleAction);
+        this.getPendingActions().clear();
+    }
+
+    public void scheduleAction(World world, Action action, long time)
+    {
+        this.addPendingAction(action);
+        world.scheduleAction(action, time);
     }
 
     public String entityString()
