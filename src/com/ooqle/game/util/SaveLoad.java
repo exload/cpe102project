@@ -45,7 +45,7 @@ public class SaveLoad
                 }
             }
 
-            JSONArray worldobjects = (JSONArray) obj2.get("worldobjects");
+            JSONArray worldobjects = (JSONArray) obj2.get("worldObjects");
 
             for(Object worldob : worldobjects)
             {
@@ -58,7 +58,7 @@ public class SaveLoad
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
                             miner_imgs,
                             Integer.parseInt((String) jwob.get("rate")),
-                            Integer.parseInt((String) jwob.get("animationrate")),
+                            Integer.parseInt((String) jwob.get("animationRate")),
                             Integer.parseInt((String) jwob.get("resourceLimit"))));
 
                     newworld.addWorldObject(miner);
@@ -71,7 +71,7 @@ public class SaveLoad
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
                             Arrays.asList(Game.getImage("images/vein.bmp")),
                             Integer.parseInt((String) jwob.get("rate")),
-                            Integer.parseInt((String) jwob.get("resourcedistance")));
+                            Integer.parseInt((String) jwob.get("resourceDistance")));
 
                     newworld.addWorldObject(vein);
 

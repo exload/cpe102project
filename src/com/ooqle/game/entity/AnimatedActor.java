@@ -56,7 +56,7 @@ public class AnimatedActor extends Actor
     public JSONObject entityJSON()
     {
         JSONObject out = super.entityJSON();
-        out.put("animationrate", this.getAnimationRate());
+        out.put("animationRate", this.getAnimationRate());
         return out;
     }
 }

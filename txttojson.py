@@ -29,7 +29,7 @@ with open("newworld", 'w+')as outfile:
 
          entity['resourceLimit'] = words[4]
          entity['rate'] = words[5]
-         entity['animationrate'] = words[6]
+         entity['animationRate'] = words[6]
 
          wod.append(entity)
 
@@ -42,7 +42,7 @@ with open("newworld", 'w+')as outfile:
          entity['location'] = loc
 
          entity['rate'] = words[4]
-         entity['resourcedistance'] = words[5]
+         entity['resourceDistance'] = words[5]
 
          wod.append(entity)
 
@@ -56,7 +56,7 @@ with open("newworld", 'w+')as outfile:
 
          entity['resourceLimit'] = words[4]
          entity['rate'] = words[5]
-         entity['animationrate'] = words[6]
+         entity['animationRate'] = words[6]
 
          wod.append(entity)
 
@@ -84,7 +84,7 @@ with open("newworld", 'w+')as outfile:
          print "Error, type: " + words[0] + " undefined"
 
 
-   dic['worldobjects'] = wod
+   dic['worldObjects'] = wod
    dic['background'] = bacd
 
    outfile.write(json.dumps(dic))
