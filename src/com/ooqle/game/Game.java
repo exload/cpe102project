@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class Game extends PApplet
 {
-    private HashMap<String, PImage> imgs;
+    private static HashMap<String, PImage> imgs;
 
     public HashMap<String, PImage> loadImages(File dir)
     {
@@ -55,6 +55,15 @@ public class Game extends PApplet
     public void draw()
     {
 
+    }
+
+    /*
+    Static shiz
+     */
+
+    public static PImage getImage(String path)
+    {
+        return imgs.get(path);
     }
 
     public static void main(String[] args)
