@@ -11,6 +11,8 @@ import java.util.HashMap;
 
 public class Game extends PApplet
 {
+    private HashMap<String, PImage> imgs;
+
     public HashMap<String, PImage> loadImages(File dir)
     {
         HashMap<String, PImage> out = new HashMap<>();
@@ -37,6 +39,12 @@ public class Game extends PApplet
             }
         }
         return out;
+    }
+
+    public void setup()
+    {
+        size(640, 480);
+        imgs = loadImages(new File("res"));
     }
 
     public void keyPressed()
