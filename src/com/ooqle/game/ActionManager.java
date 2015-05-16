@@ -47,7 +47,7 @@ public class ActionManager
         return quake;
     }
 
-    public static Vein createQein(String name, Point pt, int rate)
+    public static Vein createVein(String name, Point pt, int rate)
     {
 
         return new Vein("vein" + name, pt, Collections.singletonList(Game.getImage("images/vein.bmp")), rate);
