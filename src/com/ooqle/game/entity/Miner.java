@@ -4,11 +4,16 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import com.ooqle.game.World;
+import com.ooqle.game.util.Action;
+import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-public class Miner extends AnimatedActor
+public abstract class Miner extends MovableActor
 {
     private int resourceLimit;
 
@@ -18,8 +23,71 @@ public class Miner extends AnimatedActor
         this.resourceLimit = resourceLimit;
     }
 
+    abstract Miner transform(World world);
+    abstract Class nearestTypeForSearching();
+
     public int getResourceLimit()
     {
         return resourceLimit;
+    }
+
+    public Tuple<List<Point>,Boolean> applyAction(World world, WorldObject ore)
+    {
+        Point pos = this.getPosition();
+        if(ore == null)
+        {
+            return new Tuple<>(Collections.singletonList(pos), false);
+        }
+        Point orePt = ore.getPosition();
+        if(pos.adjacent(orePt))
+        {
+            this.setResourceCount(1 + this.getResourceCount());
+            ore.removeEntity(world);
+            return new Tuple<>(Collections.singletonList(orePt), true);
+        }else
+        {
+            Point newPt = this.nextPosition(world, orePt);
+            return new Tuple<>(Collections.singletonList(newPt), false);
+        }
+    }
+
+    public Tuple<List<Point>, Boolean> getNearest(World world, Class type)
+    {
+        Point pos = this.getPosition();
+        WorldObject nearestOfType = world.findNearestOfType(pos, type);
+        return this.applyAction(world, nearestOfType);
+    }
+
+    private Miner tryTransform(World world)
+    {
+        Miner newObj = this.transform(world);
+        if(this != newObj)
+        {
+            this.clearPendingActions(world);
+            world.removeEntityAt(this.getPosition());
+            world.addWorldObject(newObj);
+            this.scheduleAnimation(world);
+        }
+        return newObj;
+    }
+
+    public Action createAction(World world)
+    {
+        Action a = (long currentTicks) ->
+        {
+            Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
+            boolean found = tup.getValue();
+            Miner newEntity = this;
+
+            if(found)
+            {
+                newEntity = this.tryTransform(world);
+            }
+
+            newEntity.scheduleAction(world, newEntity.createAction(world), currentTicks + this.getRate());
+            return tup.getKey();
+        };
+        this.removePendingAction(a);
+        return a;
     }
 }
