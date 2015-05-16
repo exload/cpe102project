@@ -4,13 +4,16 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class Ore extends Actor
 {
 
-    public Ore(String name, Point position, int rate)
+    public Ore(String name, Point position, List<PImage> imgs, int rate)
     {
-        super(name, "ore", position, rate);
+        super(name, "ore", position, imgs, rate);
     }
 
     public String entityString()

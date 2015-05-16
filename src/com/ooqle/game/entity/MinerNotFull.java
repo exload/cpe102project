@@ -4,13 +4,16 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class MinerNotFull extends Miner
 {
 
-    public MinerNotFull(String name, Point position, int rate, int animationRate, int resourceLimit)
+    public MinerNotFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
     {
-        super(name, "miner", position, rate, animationRate, resourceLimit);
+        super(name, "miner", position, imgs, rate, animationRate, resourceLimit);
     }
 
     public String entityString()

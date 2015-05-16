@@ -4,20 +4,23 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class Blacksmith extends Actor
 {
     private int resourceDistance;
 
-    public Blacksmith(String name, Point position, int rate, int resourceDistance)
+    public Blacksmith(String name, Point position, int rate, List<PImage> imgs, int resourceDistance)
     {
-        super(name, "blacksmith", position, rate);
+        super(name, "blacksmith", position, imgs, rate);
         this.resourceDistance = resourceDistance;
     }
 
-    public Blacksmith(String name, Point position, int rate)
+    public Blacksmith(String name, Point position, int rate, List<PImage> imgs)
     {
-        this(name, position, rate, 1);
+        this(name, position, rate, imgs, 1);
     }
 
     public int getResourceDistance()

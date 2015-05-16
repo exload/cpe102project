@@ -4,21 +4,24 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
-import com.ooqle.game.WorldModel;
+import com.ooqle.game.World;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class Vein extends Actor
 {
     private int resourceDistance;
 
-    public Vein(String name, Point position, int rate, int resourceDistance)
+    public Vein(String name, Point position, List<PImage> imgs, int rate, int resourceDistance)
     {
-        super(name, "vein", position, rate);
+        super(name, "vein", position, imgs, rate);
         this.resourceDistance = resourceDistance;
     }
 
-    public Vein(String name, Point position, int rate)
+    public Vein(String name, Point position, List<PImage> imgs, int rate)
     {
-        this(name, position, rate, 1);
+        this(name, position, imgs, rate, 1);
     }
 
     public int getResourceDistance()
@@ -26,7 +29,7 @@ public class Vein extends Actor
         return resourceDistance;
     }
 
-    public Point findOpenAround(WorldModel world)
+    public Point findOpenAround(World world)
     {
         for(int dy = (-1 * this.getResourceDistance()); dy < (this.getResourceDistance() + 1); dy++)
         {

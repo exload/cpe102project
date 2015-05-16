@@ -4,19 +4,22 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
-import com.ooqle.game.WorldModel;
+import com.ooqle.game.World;
 import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class OreBlob extends MovableActor
 {
 
-    public OreBlob(String name, Point position, int rate, int animationRate)
+    public OreBlob(String name, Point position, List<PImage> imgs, int rate, int animationRate)
     {
-        super(name, "unknown", position, rate, animationRate);
+        super(name, "unknown", position, imgs, rate, animationRate);
     }
 
-    public Tuple toVein(WorldModel world, Vein vein)
+    public Tuple toVein(World world, Vein vein)
     {
         Point entityPt = this.getPosition().clone();
         if (vein == null)
@@ -31,25 +34,25 @@ public class OreBlob extends MovableActor
         }else
         {
             Point newPt = this.nextPosition(world, veinPt);
-            WorldObject oldEntity = world.getTileOccpant(newPt);
+            WorldObject oldEntity = world.getWorldObjectAt(newPt);
             if(oldEntity instanceof Ore)
             {
-                ((Ore) oldEntity).removeEntity(world);
+                oldEntity.removeEntity(world);
             }
-            return new Tuple<>(world.moveEntity(this, newPt), false);
+            return new Tuple<>(world.moveWorldObject(this, newPt), false);
         }
     }
 
-    public Point nextPosition(WorldModel world, Point destPt)
+    public Point nextPosition(World world, Point destPt)
     {
         int horiz = GameUtils.sign(destPt.getX() - this.getPosition().getX());
         Point newPt = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
 
-        if(horiz == 0 || (world.isOccupied(newPt) && !(world.getTileOccpant(newPt) instanceof Ore)))
+        if(horiz == 0 || (world.isOccupied(newPt) && !(world.getWorldObjectAt(newPt) instanceof Ore)))
         {
             int vert = GameUtils.sign(destPt.getY() - this.getPosition().getY());
             newPt = new Point(this.getPosition().getX(), this.getPosition().getY() +  vert);
-            if(vert == 0 || !(world.getTileOccpant(newPt) instanceof Ore))
+            if(vert == 0 || !(world.getWorldObjectAt(newPt) instanceof Ore))
             {
                 newPt = new Point(this.getPosition().getX(), this.getPosition().getY());
             }

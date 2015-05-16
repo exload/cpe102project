@@ -4,14 +4,17 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
 
-public class Actor extends Entity
+import java.util.List;
+
+public class Actor extends WorldObject
 {
     private int resourceCount;
 
-    public Actor(String name, String type, Point position, int rate)
+    public Actor(String name, String type, Point position, List<PImage> imgs, int rate)
     {
-        super(name, type, position, rate);
+        super(name, type, position, imgs, rate);
         //TODO: Set resource limit enum
         this.resourceCount = 0;
     }

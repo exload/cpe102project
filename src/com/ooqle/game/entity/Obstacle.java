@@ -4,11 +4,14 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
 
-public class Obstacle extends Entity
+import java.util.List;
+
+public class Obstacle extends WorldObject
 {
-    public Obstacle(String name, Point position)
+    public Obstacle(String name, Point position, List<PImage> imgs)
     {
-        super(name, "obstacle", position, 0);
+        super(name, "obstacle", position, imgs, 0);
     }
 }

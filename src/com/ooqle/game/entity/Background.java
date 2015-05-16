@@ -3,10 +3,24 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
-public class Background extends WorldObject
+import processing.core.PImage;
+
+public class Background
 {
-    public Background(String name)
+    private PImage img;
+
+    public Background(PImage img)
     {
-        super(name);
+        this.img = img;
+    }
+
+    public PImage getImage()
+    {
+        return img;
+    }
+
+    public void setImage(PImage img)
+    {
+        this.img = img;
     }
 }

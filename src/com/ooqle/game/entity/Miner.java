@@ -4,14 +4,17 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import processing.core.PImage;
+
+import java.util.List;
 
 public class Miner extends AnimatedActor
 {
     private int resourceLimit;
 
-    public Miner(String name, String type, Point position, int rate, int animationRate, int resourceLimit)
+    public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
     {
-        super(name, type, position, rate, animationRate);
+        super(name, type, position, imgs, rate, animationRate);
         this.resourceLimit = resourceLimit;
     }
 
