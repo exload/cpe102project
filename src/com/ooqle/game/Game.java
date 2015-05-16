@@ -51,12 +51,22 @@ public class Game extends PApplet
 
     public void keyPressed()
     {
-
+        switch(key)
+        {
+            case UP:
+                break;
+            case RIGHT:
+                break;
+            case DOWN:
+                break;
+            case LEFT:
+                break;
+        }
     }
 
     public void draw()
     {
-
+        long time = System.currentTimeMillis();
     }
 
     /*
