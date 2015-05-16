@@ -4,8 +4,11 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.Point;
+import com.ooqle.game.World;
+import com.ooqle.game.util.Action;
 import processing.core.PImage;
 
+import java.util.Collections;
 import java.util.List;
 
 public class AnimatedActor extends Actor
@@ -18,9 +21,34 @@ public class AnimatedActor extends Actor
         this.animationRate = animationRate;
     }
 
-
     public int getAnimationRate()
     {
         return animationRate;
+    }
+
+    public Action createAnimationAction(World world, int repeatCount)
+    {
+        Action a = (long currentTicks) ->
+        {
+            this.nextImage();
+
+            if (repeatCount != -1)
+            {
+                this.scheduleAction(world, this.createAnimationAction(world, Math.max(repeatCount - 1, 0)), currentTicks + this.getAnimationRate());
+            }
+            return Collections.singletonList(this.getPosition());
+        };
+        this.removePendingAction(a);
+        return a;
+    }
+
+    public void scheduleAnimation(World world, int repeatCount)
+    {
+        this.scheduleAction(world, this.createAnimationAction(world, repeatCount), this.getAnimationRate());
+    }
+
+    public void scheduleAnimation(World world)
+    {
+        scheduleAnimation(world, 0);
     }
 }
