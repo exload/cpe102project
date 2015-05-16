@@ -87,32 +87,26 @@ public class Game extends PApplet
                 {
                     yShift -= 1;
                 }
-                System.out.println("up");
                 break;
             case 'd':
                 if(xShift < xsize/WorldObjectSettings.TILESIZE)
                 {
                     xShift += 1;
                 }
-                System.out.println("right");
                 break;
             case 's':
                 if(yShift < ysize/WorldObjectSettings.TILESIZE)
                 {
                     yShift += 1;
                 }
-                System.out.println("down");
                 break;
             case 'a':
                 if(xShift > 0)
                 {
                     xShift -= 1;
                 }
-                System.out.println("left");
                 break;
         }
-        System.out.println(xShift);
-        System.out.println(yShift);
     }
 
     /*
