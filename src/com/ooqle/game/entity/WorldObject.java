@@ -84,7 +84,7 @@ public class WorldObject
 
     public List<Action> getPendingActions()
     {
-        return this.getPendingActions();
+        return this.pendingActions;
     }
 
     public void clearPendingActions(World world)
