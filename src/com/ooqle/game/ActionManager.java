@@ -27,7 +27,7 @@ public class ActionManager {
 
         OreBlob blob = new OreBlob(name, pt, blob_imgs, rate, randomWithRange(WorldObjectSettings.BLOB_ANIMATION_MIN,
                 WorldObjectSettings.BLOB_ANIMATION_MAX) * WorldObjectSettings.BLOB_ANIMATION_RATE_SCALE);
-        blob.schedule(world, ticks);
+        //blob.schedule(world, ticks);
 
         return blob;
     }
@@ -36,7 +36,7 @@ public class ActionManager {
     {
         PImage ore_imgs = Game.getImage("images/ore.bmp");
         Ore ore = new Ore(name, pt, Arrays.asList(ore_imgs), rate);
-        ore.schedule(world, ticks);
+        //ore.schedule(world, ticks);
 
         return ore;
     }
@@ -46,7 +46,7 @@ public class ActionManager {
         List<PImage> quake_imgs = Game.getImages("images/quake*.bmp", 6);
 
         Quake quake = new Quake("quake", pt, quake_imgs, WorldObjectSettings.QUAKE_ANIMATION_RATE, 2);
-        quake.schedule(world, ticks);
+        //quake.schedule(world, ticks);
 
         return quake;
     }
