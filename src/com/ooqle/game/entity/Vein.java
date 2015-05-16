@@ -3,10 +3,13 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.ActionManager;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
+import com.ooqle.game.util.Action;
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Vein extends Actor
@@ -44,6 +47,33 @@ public class Vein extends Actor
             }
         }
         return null;
+    }
+
+    public Action createAction(World world)
+    {
+        Action a = (long currentTicks) ->
+        {
+            List<Point> tiles = new ArrayList<>();
+            Point openPt = this.findOpenAround(world);
+            if(openPt != null)
+            {
+                Ore ore = ActionManager.createOre(world,
+                        "ore - "+this.getName()+" - "+currentTicks,
+                        openPt, currentTicks);
+                world.addWorldObject(ore);
+                tiles.add(openPt);
+            }
+
+            this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
+            return tiles;
+        };
+        this.removePendingAction(a);
+        return a;
+    }
+
+    public void schedule(World world, long ticks)
+    {
+        this.scheduleAction(world, this.createAction(world), ticks + this.getRate());
     }
 
     public String entityString()
