@@ -5,5 +5,5 @@ package com.ooqle.game.util;
 
 public interface Action
 {
-
+    void run(long currentTicks);
 }
