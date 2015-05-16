@@ -116,7 +116,6 @@ public class SaveLoad
     {
         if(worldobject instanceof Miner)
         {
-            System.out.println("miner");
             MinerNotFull miner = (MinerNotFull) worldobject;
             miner.schedule(world, 0);
         }
