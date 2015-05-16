@@ -4,6 +4,7 @@ package com.ooqle.game;
 */
 
 import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.SaveLoad;
 import com.ooqle.game.util.WorldObjectSettings;
 import processing.core.PApplet;
@@ -19,6 +20,12 @@ public class Game extends PApplet
     private  Background thebackground;
 
     private World theworld;
+
+    private int xShift;
+    private int yShift;
+
+    private int xsize;
+    private int ysize;
 
     private static HashMap<String, PImage> imgs;
 
@@ -59,10 +66,14 @@ public class Game extends PApplet
 
     public void setup()
     {
-        size(640, 480);
-        imgs = loadImages(new File("res"));
+        xShift = 0;
+        yShift = 0;
 
-        thebackground = new Background(getImage("images/grass.bmp"));
+        xsize = WorldObjectSettings.PIXELWIDTH;
+        ysize = WorldObjectSettings.PIXELHEIGHT;
+
+        size(xsize, ysize);
+        imgs = loadImages(new File("res"));
 
         theworld = SaveLoad.load();
     }
@@ -71,15 +82,37 @@ public class Game extends PApplet
     {
         switch(key)
         {
-            case UP:
+            case 'w':
+                if(yShift > 0)
+                {
+                    yShift -= 1;
+                }
+                System.out.println("up");
                 break;
-            case RIGHT:
+            case 'd':
+                if(xShift < xsize/WorldObjectSettings.TILESIZE)
+                {
+                    xShift += 1;
+                }
+                System.out.println("right");
                 break;
-            case DOWN:
+            case 's':
+                if(yShift < ysize/WorldObjectSettings.TILESIZE)
+                {
+                    yShift += 1;
+                }
+                System.out.println("down");
                 break;
-            case LEFT:
+            case 'a':
+                if(xShift > 0)
+                {
+                    xShift -= 1;
+                }
+                System.out.println("left");
                 break;
         }
+        System.out.println(xShift);
+        System.out.println(yShift);
     }
 
     /*
@@ -93,8 +126,16 @@ public class Game extends PApplet
         {
             for (int x = 0; x < WorldObjectSettings.GAMEWIDTH; x++)
             {
-                image(theworld.getBackgroundAt(new Point(x, y)).getImage(), x, y);
+                image(theworld.getBackgroundAt(new Point(x, y)).getImage(), x - xShift, y - yShift);
             }
+        }
+    }
+
+    private void drawWorldObjects()
+    {
+        for(WorldObject wo : theworld.getWorldObjects())
+        {
+            image(wo.getImage(), wo.getPosition().getX() - xShift, wo.getPosition().getY() - yShift);
         }
     }
 
@@ -103,6 +144,7 @@ public class Game extends PApplet
         long time = System.currentTimeMillis();
 
         drawBG();
+        drawWorldObjects();
     }
 
     /*

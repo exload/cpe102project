@@ -22,4 +22,9 @@ public class WorldObjectSettings {
 
     public static final int GAMEHEIGHT = 30;
     public static final int GAMEWIDTH = 40;
+
+    public static final int PIXELWIDTH = 640;
+    public static final int PIXELHEIGHT = 480;
+
+    public static final int TILESIZE = 32;
 }
