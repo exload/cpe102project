@@ -89,4 +89,10 @@ public abstract class Miner extends MovableActor
         this.removePendingAction(a);
         return a;
     }
+
+    public void schedule(World world, long ticks)
+    {
+        this.scheduleAction(world, this.createAction(world), ticks + this.getRate());
+        this.scheduleAnimation(world);
+    }
 }
