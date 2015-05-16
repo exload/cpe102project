@@ -146,7 +146,7 @@ public class World
     public void scheduleAction(Action action, long time)
     {
         List<Action> actions;
-        if (actionQueue.containsKey(time))
+        if (!actionQueue.containsKey(time))
         {
             actions = new ArrayList<>();
         } else
