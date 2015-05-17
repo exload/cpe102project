@@ -67,7 +67,7 @@ public abstract class Miner extends MovableActor
             this.clearPendingActions(world);
             world.removeEntityAt(this.getPosition());
             world.addWorldObject(newObj);
-            this.scheduleAnimation(world);
+            newObj.scheduleAnimation(world);
         }
         return newObj;
     }
