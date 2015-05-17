@@ -7,10 +7,7 @@ import com.ooqle.game.entity.Background;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.Action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class World
 {
@@ -159,6 +156,7 @@ public class World
 
     public void unscheduleAction(Action action)
     {
+        System.out.println(1);
         for (List<Action> actions : actionQueue.values())
         {
             for (int i = 0; i < actions.size(); i++)
@@ -168,16 +166,19 @@ public class World
                     actions.remove(i);
                 }
             }
+            //TODO: Cleanup if actions is empty
         }
     }
 
     public void updateOnTime(long ticks)
     {
-        for(Map.Entry<Long, List<Action>> kv : actionQueue.entrySet())
+        Set<Long> keySet = new TreeSet<>(actionQueue.keySet());
+        for(long time : keySet)
         {
-            if(kv.getKey() < ticks)
+            if(time < ticks)
             {
-                for (Action a : actionQueue.get(ticks))
+                List<Action> aList = new ArrayList<>(actionQueue.get(time));
+                for(Action a : aList)
                 {
                     a.run(ticks);
                 }
