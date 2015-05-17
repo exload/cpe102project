@@ -10,8 +10,6 @@ import com.ooqle.game.util.Tuple;
 import org.json.simple.JSONObject;
 import processing.core.PImage;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public abstract class Miner extends MovableActor

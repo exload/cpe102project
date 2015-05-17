@@ -10,7 +10,6 @@ import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class WorldObject

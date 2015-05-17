@@ -3,7 +3,6 @@ package com.ooqle.game;
 * @author Ooqle Software
 */
 
-
 import org.json.simple.JSONObject;
 
 public class Point
