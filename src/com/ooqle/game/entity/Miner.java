@@ -10,6 +10,7 @@ import com.ooqle.game.util.Tuple;
 import org.json.simple.JSONObject;
 import processing.core.PImage;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -43,11 +44,11 @@ public abstract class Miner extends MovableActor
         {
             this.setResourceCount(1 + this.getResourceCount());
             ore.removeEntity(world);
-            return new Tuple<>(Collections.singletonList(orePt), true);
+            return new Tuple<>(new ArrayList<>(), true);
         }else
         {
             Point newPt = this.nextPosition(world, orePt);
-            return new Tuple<>(Collections.singletonList(newPt), false);
+            return new Tuple<>(world.moveWorldObject(this, newPt), false);
         }
     }
 
