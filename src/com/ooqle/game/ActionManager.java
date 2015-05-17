@@ -19,7 +19,7 @@ public class ActionManager
 
     public static OreBlob createBlob(World world, String name, Point pt, int rate, long ticks)
     {
-        List<PImage> blobImgs = Game.getImages("images/blob*.bmp", 12);
+        List<PImage> blobImgs = Game.getImages("images/blob*.png", 12);
 
         OreBlob blob = new OreBlob(name, pt, blobImgs, rate, randomWithRange(WorldObjectSettings.BLOB_ANIMATION_MIN,
                 WorldObjectSettings.BLOB_ANIMATION_MAX) * WorldObjectSettings.BLOB_ANIMATION_RATE_SCALE);
