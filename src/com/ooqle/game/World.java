@@ -89,6 +89,11 @@ public class World
         }
     }
 
+    public void removeEntity(WorldObject obj)
+    {
+        this.removeEntityAt(obj.getPosition());
+    }
+
     public WorldObject getWorldObjectAt(Point pt)
     {
         if (this.withinBounds(pt))
@@ -152,7 +157,6 @@ public class World
 
     public void unscheduleAction(Action action)
     {
-        System.out.println(2);
         long toRemove = -1;
         //TODO: Look into BiMap
         for (Map.Entry<Long, Action> entry : actionQueue.entrySet())
@@ -168,7 +172,6 @@ public class World
             actionQueue.remove(toRemove);
         }
     }
-
     public void updateOnTime(long ticks)
     {
         if(actionQueue.isEmpty())
@@ -177,11 +180,9 @@ public class World
         }
 
         Map.Entry<Long, Action> next = actionQueue.firstEntry();
-        //System.out.println(actionQueue.keySet());
-        //System.out.println(ticks);
+
         while(ticks >= next.getKey())
         {
-            System.out.println(ticks);
             next.getValue().run(ticks);
             actionQueue.remove(next.getKey());
             next = actionQueue.firstEntry();
