@@ -14,7 +14,7 @@ public class World
     private int width;
     private int height;
     private List<WorldObject> worldObjectList;
-    private Map<Long, List<Action>> actionQueue;
+    private TreeMap<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
 
@@ -24,7 +24,7 @@ public class World
         this.height = height;
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
-        actionQueue = new HashMap<>();
+        actionQueue = new TreeMap<>();
         worldObjectList = new ArrayList<>();
     }
 
@@ -142,47 +142,44 @@ public class World
 
     public void scheduleAction(Action action, long time)
     {
-        List<Action> actions;
-        if (!actionQueue.containsKey(time))
-        {
-            actions = new ArrayList<>();
-        } else
-        {
-            actions = actionQueue.get(time);
-        }
-        actions.add(action);
-        actionQueue.put(time, actions);
+        actionQueue.put(time, action);
     }
 
     public void unscheduleAction(Action action)
     {
-        System.out.println(1);
-        for (List<Action> actions : actionQueue.values())
+        System.out.println(2);
+        long toRemove = -1;
+        //TODO: Look into BiMap
+        for (Map.Entry<Long, Action> entry : actionQueue.entrySet())
         {
-            for (int i = 0; i < actions.size(); i++)
+            if(entry.getValue() == action)
             {
-                if (actions.get(i) == action)
-                {
-                    actions.remove(i);
-                }
+                toRemove = entry.getKey();
+                break;
             }
-            //TODO: Cleanup if actions is empty
+        }
+        if(toRemove != -1)
+        {
+            actionQueue.remove(toRemove);
         }
     }
 
     public void updateOnTime(long ticks)
     {
-        Set<Long> keySet = new TreeSet<>(actionQueue.keySet());
-        for(long time : keySet)
+        if(actionQueue.isEmpty())
         {
-            if(time < ticks)
-            {
-                List<Action> aList = new ArrayList<>(actionQueue.get(time));
-                for(Action a : aList)
-                {
-                    a.run(ticks);
-                }
-            }
+            return;
+        }
+
+        Map.Entry<Long, Action> next = actionQueue.firstEntry();
+        //System.out.println(actionQueue.keySet());
+        //System.out.println(ticks);
+        while(ticks >= next.getKey())
+        {
+            System.out.println(ticks);
+            next.getValue().run(ticks);
+            actionQueue.remove(next.getKey());
+            next = actionQueue.firstEntry();
         }
     }
 

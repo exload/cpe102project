@@ -14,6 +14,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Game extends PApplet
 {
@@ -136,10 +139,17 @@ public class Game extends PApplet
         }
     }
 
+    private long nextTime = 0;
+
     public void draw()
     {
-        long ticks = System.currentTimeMillis() - startTime;
-        theworld.updateOnTime(ticks);
+        long currTime = System.currentTimeMillis();
+        if(currTime >= nextTime)
+        {
+            nextTime = currTime + 100;
+            theworld.updateOnTime(currTime - startTime);
+        }
+
         drawBG();
         drawWorldObjects();
     }
