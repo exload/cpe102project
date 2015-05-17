@@ -83,6 +83,7 @@ public class WorldObject
     {
         this.getPendingActions().forEach(world::unscheduleAction);
         this.getPendingActions().clear();
+        world.removeEntity(this);
     }
 
     public void addPendingAction(Action action)
