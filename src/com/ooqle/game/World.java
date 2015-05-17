@@ -164,37 +164,6 @@ public class World
         actionQueue.put(time, actions);
     }
 
-    public void unscheduleAction(Action action)
-    {
-        long toRemove = -1;
-        Action toRemoveAction = null;
-        List<Long> toRemoveQueue = new ArrayList<>();
-        //TODO: Look into BiMap
-        for (Map.Entry<Long, List<Action>> entry : actionQueue.entrySet())
-        {
-            for(Action a : entry.getValue())
-            {
-                if(a == action)
-                {
-                    toRemove = entry.getKey();
-                    toRemoveAction = a;
-                    break;
-                }
-            }
-            if(entry.getValue().isEmpty())
-            {
-                toRemoveQueue.add(entry.getKey());
-            }
-        }
-        if(toRemove != -1)
-        {
-            //actionQueue.get(toRemove).remove(toRemoveAction);
-        }
-        for(Long l : toRemoveQueue)
-        {
-            //actionQueue.remove(l);
-        }
-    }
     public void updateOnTime(long ticks)
     {
         if(actionQueue.isEmpty())
