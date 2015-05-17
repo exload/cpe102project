@@ -73,14 +73,19 @@ public class World
         }
     }
 
+    public void setWorldObjectAt(Point pt, WorldObject obj)
+    {
+        this.getWorldObjectGrid().setCell(pt, obj);
+    }
+
     public void removeEntityAt(Point pt)
     {
-        if (this.withinBounds(pt) && this.getWorldObjectGrid().getCell(pt) != null)
+        if (this.withinBounds(pt) && this.getWorldObjectAt(pt) != null)
         {
-            WorldObject obj = this.worldObjectGrid.getCell(pt);
+            WorldObject obj = this.getWorldObjectAt(pt);
             obj.setPosition(new Point(-1, -1));
             this.worldObjectList.remove(obj);
-            this.getWorldObjectGrid().setCell(pt, null);
+            this.setWorldObjectAt(pt, null);
         }
     }
 
