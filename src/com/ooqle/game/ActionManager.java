@@ -40,7 +40,7 @@ public class ActionManager
 
     public static Quake createQuake(World world, Point pt, long ticks)
     {
-        List<PImage> quakeImgs = Game.getImages("images/quake*.bmp", 6);
+        List<PImage> quakeImgs = Game.getImages("images/quake*.png", 6);
         Quake quake = new Quake("quake", pt, quakeImgs, WorldObjectSettings.QUAKE_ANIMATION_RATE, 2);
         quake.schedule(world, ticks);
 
