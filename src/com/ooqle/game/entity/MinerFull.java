@@ -5,8 +5,11 @@ package com.ooqle.game.entity;
 
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
+import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MinerFull extends Miner
@@ -29,7 +32,28 @@ public class MinerFull extends Miner
         return Blacksmith.class;
     }
 
-   public String entityString()
+    @Override
+    Tuple<List<Point>, Boolean> applyAction(World world, Actor obj)
+    {
+        Point pos = this.getPosition();
+        if(obj == null)
+        {
+            return new Tuple<>(Collections.singletonList(pos), false);
+        }
+        Point orePt = obj.getPosition();
+        if(pos.adjacent(orePt))
+        {
+            this.setResourceCount(obj.getResourceCount() + this.getResourceCount());
+            this.setResourceCount(0);
+            return new Tuple<>(new ArrayList<>(), true);
+        }else
+        {
+            Point newPt = this.nextPosition(world, orePt);
+            return new Tuple<>(world.moveWorldObject(this, newPt), false);
+        }
+    }
+
+    public String entityString()
    {
        return "unknown";
    }

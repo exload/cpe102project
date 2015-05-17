@@ -26,36 +26,17 @@ public abstract class Miner extends MovableActor
 
     abstract Miner transform(World world);
     abstract Class nearestTypeForSearching();
+    abstract Tuple<List<Point>, Boolean> applyAction(World world, Actor obj);
 
     public int getResourceLimit()
     {
         return resourceLimit;
     }
 
-    public Tuple<List<Point>,Boolean> applyAction(World world, WorldObject ore)
-    {
-        Point pos = this.getPosition();
-        if(ore == null)
-        {
-            return new Tuple<>(Collections.singletonList(pos), false);
-        }
-        Point orePt = ore.getPosition();
-        if(pos.adjacent(orePt))
-        {
-            this.setResourceCount(1 + this.getResourceCount());
-            ore.removeEntity(world);
-            return new Tuple<>(new ArrayList<>(), true);
-        }else
-        {
-            Point newPt = this.nextPosition(world, orePt);
-            return new Tuple<>(world.moveWorldObject(this, newPt), false);
-        }
-    }
-
     public Tuple<List<Point>, Boolean> getNearest(World world, Class type)
     {
         Point pos = this.getPosition();
-        WorldObject nearestOfType = world.findNearestOfType(pos, type);
+        Actor nearestOfType = (Actor) world.findNearestOfType(pos, type);
         return this.applyAction(world, nearestOfType);
     }
 
