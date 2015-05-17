@@ -89,24 +89,32 @@ public class Game extends PApplet
     {
         switch(key)
         {
+            case 'W':
+
             case 'w':
                 if(yShift > 0)
                 {
                     yShift -= 1;
                 }
                 break;
+            case 'D':
+
             case 'd':
                 if(xShift < xsize/WorldObjectSettings.TILESIZE)
                 {
                     xShift += 1;
                 }
                 break;
+            case 'S':
+
             case 's':
                 if(yShift < ysize/WorldObjectSettings.TILESIZE)
                 {
                     yShift += 1;
                 }
                 break;
+            case 'A':
+
             case 'a':
                 if(xShift > 0)
                 {
