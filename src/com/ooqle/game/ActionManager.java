@@ -30,7 +30,7 @@ public class ActionManager
 
     public static Ore createOre(World world, String name, Point pt, long ticks)
     {
-        PImage oreImgs = Game.getImage("images/ore.bmp");
+        PImage oreImgs = Game.getImage("images/ore.png");
         int newRate = randomWithRange(WorldObjectSettings.ORE_CORRUPT_MIN, WorldObjectSettings.ORE_CORRUPT_MAX);
         Ore ore = new Ore(name, pt, Collections.singletonList(oreImgs), newRate);
         ore.schedule(world, ticks);
