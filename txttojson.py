@@ -8,7 +8,7 @@ except:
 with open("../cpe102hw1/gaia.sav", 'r')as infile:
    wholefile = infile.readlines()
 
-with open("newworld", 'w+')as outfile:
+with open("res/newworld", 'w+')as outfile:
    dic = {}
    wod = []
    bacd = [] 

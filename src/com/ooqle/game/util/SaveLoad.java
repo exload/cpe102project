@@ -22,7 +22,7 @@ public class SaveLoad
 {
     public static World load()
     {
-        File file = new File("newworld");
+        File file = new File("res/newworld");
 
         List<PImage> miner_imgs = Game.getImages("images/miner*.png", 5);
 
