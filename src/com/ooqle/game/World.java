@@ -14,7 +14,7 @@ public class World
     private int width;
     private int height;
     private List<WorldObject> worldObjectList;
-    private TreeMap<Long, Action> actionQueue;
+    private TreeMap<Long, List<Action>> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
 
@@ -152,24 +152,47 @@ public class World
 
     public void scheduleAction(Action action, long time)
     {
-        actionQueue.put(time, action);
+        List<Action> actions;
+        if(!actionQueue.containsKey(time))
+        {
+            actions = new ArrayList<>();
+        }else
+        {
+            actions = actionQueue.get(time);
+        }
+        actions.add(action);
+        actionQueue.put(time, actions);
     }
 
     public void unscheduleAction(Action action)
     {
         long toRemove = -1;
+        Action toRemoveAction = null;
+        List<Long> toRemoveQueue = new ArrayList<>();
         //TODO: Look into BiMap
-        for (Map.Entry<Long, Action> entry : actionQueue.entrySet())
+        for (Map.Entry<Long, List<Action>> entry : actionQueue.entrySet())
         {
-            if(entry.getValue() == action)
+            for(Action a : entry.getValue())
             {
-                toRemove = entry.getKey();
-                break;
+                if(a == action)
+                {
+                    toRemove = entry.getKey();
+                    toRemoveAction = a;
+                    break;
+                }
+            }
+            if(entry.getValue().isEmpty())
+            {
+                toRemoveQueue.add(entry.getKey());
             }
         }
         if(toRemove != -1)
         {
-            actionQueue.remove(toRemove);
+            //actionQueue.get(toRemove).remove(toRemoveAction);
+        }
+        for(Long l : toRemoveQueue)
+        {
+            //actionQueue.remove(l);
         }
     }
     public void updateOnTime(long ticks)
@@ -179,11 +202,17 @@ public class World
             return;
         }
 
-        Map.Entry<Long, Action> next = actionQueue.firstEntry();
+        Map.Entry<Long, List<Action>> next = actionQueue.firstEntry();
 
         while(ticks >= next.getKey())
         {
-            next.getValue().run(ticks);
+            Iterator<Action> it = next.getValue().iterator();
+            while(it.hasNext())
+            {
+                it.next().run(ticks);
+                it.remove();
+            }
+
             actionQueue.remove(next.getKey());
             next = actionQueue.firstEntry();
         }
