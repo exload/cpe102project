@@ -75,6 +75,7 @@ public class Game extends PApplet
         ysize = WorldObjectSettings.PIXELHEIGHT;
 
         size(xsize, ysize);
+        frame.setTitle("Metro Monsters");
         imgs = loadImages(new File("res"));
 
         theworld = SaveLoad.load();
