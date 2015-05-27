@@ -6,6 +6,7 @@ package com.ooqle.game.entity;
 import com.ooqle.game.Point;
 import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.World;
+import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
 import java.util.List;
@@ -19,19 +20,12 @@ public class MovableActor extends AnimatedActor
 
     public Point nextPosition(World world, Point destPt)
     {
-        int horiz = GameUtils.sign(destPt.getX() - this.getPosition().getX());
-        Point newPt = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-
-        if(horiz == 0 || world.isOccupied(newPt))
+        System.out.println(destPt);
+        Tuple<List<Point>, List<Point>> path = world.createPath(this.getPosition(), destPt);
+        if(path == null)
         {
-            int vert = GameUtils.sign(destPt.getY() - this.getPosition().getY());
-            newPt = new Point(this.getPosition().getX(), this.getPosition().getY() + vert);
-
-            if(vert == 0 || world.isOccupied(newPt))
-            {
-                newPt = new Point(this.getPosition().getX(), this.getPosition().getY());
-            }
+            return this.getPosition();
         }
-        return newPt;
+        return path.getValue().iterator().next();
     }
 }
