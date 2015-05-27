@@ -25,6 +25,7 @@ public abstract class Miner extends MovableActor
     abstract Miner transform(World world);
     abstract Class nearestTypeForSearching();
     abstract Tuple<List<Point>, Boolean> applyAction(World world, Actor obj);
+    public abstract Class getGoalType();
 
     public int getResourceLimit()
     {

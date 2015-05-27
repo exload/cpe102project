@@ -57,6 +57,11 @@ public class MinerNotFull extends Miner
         }
     }
 
+    public Class getGoalType()
+    {
+        return Ore.class;
+    }
+
     public String entityString()
     {
         String s = " ";

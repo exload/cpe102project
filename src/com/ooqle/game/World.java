@@ -5,9 +5,7 @@ package com.ooqle.game;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.ooqle.game.entity.Background;
-import com.ooqle.game.entity.Ore;
-import com.ooqle.game.entity.WorldObject;
+import com.ooqle.game.entity.*;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.Tuple;
 
@@ -157,10 +155,10 @@ public class World
     public void scheduleAction(Action action, long time)
     {
         List<Action> actions;
-        if(!actionQueue.containsKey(time))
+        if (!actionQueue.containsKey(time))
         {
             actions = new ArrayList<>();
-        }else
+        } else
         {
             actions = actionQueue.get(time);
         }
@@ -170,17 +168,17 @@ public class World
 
     public void updateOnTime(long ticks)
     {
-        if(actionQueue.isEmpty())
+        if (actionQueue.isEmpty())
         {
             return;
         }
 
         Map.Entry<Long, List<Action>> next = actionQueue.firstEntry();
 
-        while(ticks >= next.getKey())
+        while (ticks >= next.getKey())
         {
             Iterator<Action> it = next.getValue().iterator();
-            while(it.hasNext())
+            while (it.hasNext())
             {
                 it.next().run(ticks);
                 it.remove();
@@ -233,7 +231,7 @@ public class World
         return (Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY()));
     }
 
-    private List<Point> getNeighbors(Point pt)
+    private List<Point> getNeighbors(Point pt, Class goalType)
     {
         Point north = new Point(pt.getX(), pt.getY() - 1);
         Point east = new Point(pt.getX() + 1, pt.getY());
@@ -241,9 +239,10 @@ public class World
         Point west = new Point(pt.getX() - 1, pt.getY());
         List<Point> neighbors = Arrays.asList(north, east, south, west);
         List<Point> out = new ArrayList<>();
-        for(Point neighbor : neighbors)
+
+        for (Point neighbor : neighbors)
         {
-            if((!this.isOccupied(neighbor) || this.getWorldObjectAt(neighbor) instanceof Ore) && this.withinBounds(pt))
+            if ((!this.isOccupied(neighbor) || goalType.isInstance(this.getWorldObjectAt(neighbor))) && this.withinBounds(pt))
             {
                 out.add(neighbor);
             }
@@ -255,7 +254,7 @@ public class World
     {
         List<Point> path = new ArrayList<>();
         path.add(current);
-        while(cameFrom.containsKey(current))
+        while (cameFrom.containsKey(current))
         {
             current = cameFrom.get(current);
             path.add(0, current);
@@ -265,6 +264,8 @@ public class World
 
     public Tuple<List<Point>, List<Point>> createPath(Point start, Point goal)
     {
+        MovableActor actor = (MovableActor) this.getWorldObjectAt(start);
+
         List<Point> closedSet = new ArrayList<>();
         Multimap<Integer, Point> openSet = ArrayListMultimap.create();
         List<Point> visited = new ArrayList<>();
@@ -275,19 +276,19 @@ public class World
         gScore.put(start, 0);
         fScore.put(start, gScore.get(start) + manhattanDistance(start, goal));
         openSet.put(gScore.get(start) + manhattanDistance(start, goal), start);
-        while(!openSet.isEmpty())
+        while (!openSet.isEmpty())
         {
             Map.Entry<Integer, Point> firstEntry = openSet.entries().iterator().next();
             Integer firstKey = firstEntry.getKey();
             Point curr = firstEntry.getValue();
 
 
-            if(curr.equals(goal))
+            if (curr.equals(goal))
             {
                 return new Tuple<>(visited, reconstructPath(cameFrom, goal));
             }
 
-            if(!visited.contains(curr))
+            if (!visited.contains(curr))
             {
                 visited.add(curr);
             }
@@ -295,16 +296,16 @@ public class World
             openSet.remove(firstKey, curr);
             closedSet.add(curr);
 
-            for(Point neighbor : getNeighbors(curr))
+            for (Point neighbor : getNeighbors(curr, actor.getGoalType()))
             {
-                if(closedSet.contains(neighbor))
+                if (closedSet.contains(neighbor))
                 {
                     continue;
                 }
 
                 int tentativeGScore = gScore.get(curr) + 1; //TODO: Could change this to be a calculation
 
-                if(!openSet.containsValue(neighbor) || tentativeGScore < gScore.get(neighbor))
+                if (!openSet.containsValue(neighbor) || tentativeGScore < gScore.get(neighbor))
                 {
                     cameFrom.put(neighbor, curr);
                     gScore.put(neighbor, tentativeGScore);
@@ -312,7 +313,7 @@ public class World
                     int neighborFScore = gScore.get(neighbor) + manhattanDistance(neighbor, goal);
                     fScore.put(neighbor, neighborFScore);
 
-                    if(!openSet.containsValue(neighbor))
+                    if (!openSet.containsValue(neighbor))
                     {
                         openSet.put(neighborFScore, neighbor);
                     }

@@ -94,6 +94,11 @@ public class OreBlob extends MovableActor
         this.scheduleAnimation(world);
     }
 
+    public Class getGoalType()
+    {
+        return Ore.class;
+    }
+
     public String entityString()
     {
         return "unknown";

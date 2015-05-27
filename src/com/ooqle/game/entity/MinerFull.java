@@ -53,6 +53,11 @@ public class MinerFull extends Miner
         }
     }
 
+    public Class getGoalType()
+    {
+        return Blacksmith.class;
+    }
+
     public String entityString()
    {
        return "unknown";
