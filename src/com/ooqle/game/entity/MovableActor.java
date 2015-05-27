@@ -25,10 +25,8 @@ public abstract class MovableActor extends AnimatedActor
 
         if(travelled == null)
         {
-            System.out.println("NULL PATH");
             return this.getPosition();
         }
-        System.out.println("Path: " + travelled.getValue());
         List<Point> path = travelled.getValue();
         return path.get(1);
     }
