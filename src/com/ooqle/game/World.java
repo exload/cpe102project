@@ -242,7 +242,7 @@ public class World
         List<Point> out = new ArrayList<>();
         for(Point neighbor : neighbors)
         {
-            if(!this.isOccupied(neighbor))
+            if(!this.isOccupied(neighbor) && this.withinBounds(pt))
             {
                 out.add(neighbor);
             }
@@ -290,6 +290,7 @@ public class World
             {
                 visited.add(curr);
             }
+
             openSet.remove(firstKey, curr);
             closedSet.add(curr);
 
