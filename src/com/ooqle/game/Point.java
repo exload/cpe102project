@@ -3,6 +3,7 @@ package com.ooqle.game;
 * @author Ooqle Software
 */
 
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.json.simple.JSONObject;
 
 public class Point
@@ -52,6 +53,14 @@ public class Point
         Point otherPt = (Point) other;
 
         return otherPt.getX() == this.getX() && otherPt.getY() == this.getY();
+    }
+
+    public int hashCode()
+    {
+        return new HashCodeBuilder(17, 31).
+                append(this.getX()).
+                append(this.getY()).
+                toHashCode();
     }
 
     public Point clone()
