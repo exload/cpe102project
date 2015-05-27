@@ -4,10 +4,12 @@ package com.ooqle.game;
 */
 
 import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.SaveLoad;
 import com.ooqle.game.util.WorldObjectSettings;
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 
 import java.io.File;
@@ -28,6 +30,12 @@ public class Game extends PApplet
     private int ysize;
 
     private long startTime;
+
+    private MovableActor hightlightedActor;
+    private PImage redsquare;
+    private PImage blacksquare;
+    private PImage greensquare;
+    private PImage yellowsquare;
 
     private static HashMap<String, PImage> imgs;
 
@@ -81,6 +89,11 @@ public class Game extends PApplet
         theworld = SaveLoad.load();
 
         startTime = System.currentTimeMillis();
+
+        redsquare = getImage("images/redSquare.png");
+        blacksquare = getImage("images/blackSquare.png");
+        greensquare = getImage("images/greenSquare.png");
+        yellowsquare = getImage("images/yellowSquare.png");
     }
 
     public void keyPressed()
@@ -122,6 +135,39 @@ public class Game extends PApplet
         }
     }
 
+    public void mouse()
+    {
+        int xPos = mouseX/32;
+        int yPos = mouseY/32;
+
+        image(greensquare, xPos, yPos);
+
+        WorldObject actor = theworld.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
+        if(actor != null)
+        {
+            if(mousePressed && actor instanceof MovableActor)
+            {
+                hightlightedActor = (MovableActor) actor;
+            }
+        }
+        text((xPos + xShift) + ", " + (yPos + yShift), 5, 15);
+    }
+
+    private void hightlightedPath()
+    {
+        if(mousePressed)
+        {
+            if(mouseButton == RIGHT)
+            {
+                hightlightedActor = null;
+            }
+        }
+        //draw images from highlightedActor
+        if(hightlightedActor != null) {
+            image(yellowsquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
+        }
+    }
+
     /*
     Drawing stuff
      */
@@ -158,6 +204,8 @@ public class Game extends PApplet
 
         drawBG();
         drawWorldObjects();
+        hightlightedPath();
+        mouse();
     }
 
     /*
