@@ -6,6 +6,7 @@ package com.ooqle.game;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.Ore;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.Tuple;
@@ -242,7 +243,7 @@ public class World
         List<Point> out = new ArrayList<>();
         for(Point neighbor : neighbors)
         {
-            if(!this.isOccupied(neighbor) && this.withinBounds(pt))
+            if((!this.isOccupied(neighbor) || this.getWorldObjectAt(neighbor) instanceof Ore) && this.withinBounds(pt))
             {
                 out.add(neighbor);
             }
@@ -257,7 +258,7 @@ public class World
         while(cameFrom.containsKey(current))
         {
             current = cameFrom.get(current);
-            path.add(current);
+            path.add(0, current);
         }
         return path;
     }
@@ -274,14 +275,14 @@ public class World
         gScore.put(start, 0);
         fScore.put(start, gScore.get(start) + manhattanDistance(start, goal));
         openSet.put(gScore.get(start) + manhattanDistance(start, goal), start);
-
         while(!openSet.isEmpty())
         {
             Map.Entry<Integer, Point> firstEntry = openSet.entries().iterator().next();
             Integer firstKey = firstEntry.getKey();
             Point curr = firstEntry.getValue();
 
-            if(curr == goal)
+
+            if(curr.equals(goal))
             {
                 return new Tuple<>(visited, reconstructPath(cameFrom, goal));
             }
