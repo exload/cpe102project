@@ -238,12 +238,13 @@ public class World
         Point east = new Point(pt.getX() + 1, pt.getY());
         Point south = new Point(pt.getX(), pt.getY() + 1);
         Point west = new Point(pt.getX() - 1, pt.getY());
-        List<Point> out = Arrays.asList(north, east, south, west);
-        for(int i = 0 ; i < out.size(); i++)
+        List<Point> neighbors = Arrays.asList(north, east, south, west);
+        List<Point> out = new ArrayList<>();
+        for(Point neighbor : neighbors)
         {
-            if(this.isOccupied(out.get(i)))
+            if(!this.isOccupied(neighbor))
             {
-                out.remove(i);
+                out.add(neighbor);
             }
         }
         return out;
@@ -272,6 +273,7 @@ public class World
 
         gScore.put(start, 0);
         fScore.put(start, gScore.get(start) + manhattanDistance(start, goal));
+        openSet.put(gScore.get(start) + manhattanDistance(start, goal), start);
 
         while(!openSet.isEmpty())
         {
@@ -281,7 +283,6 @@ public class World
 
             if(curr == goal)
             {
-                //TODO: reconstruct path
                 return new Tuple<>(visited, reconstructPath(cameFrom, goal));
             }
 
