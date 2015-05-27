@@ -200,7 +200,7 @@ public class Game extends PApplet
         {
             nextTime = currTime + 100;
             // manually adding the 8 seconds to reduce debugging time
-            theworld.updateOnTime(currTime - startTime + 8000);
+            theworld.updateOnTime(currTime - startTime + 12000);
         }
 
         drawBG();
