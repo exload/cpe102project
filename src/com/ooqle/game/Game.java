@@ -150,7 +150,7 @@ public class Game extends PApplet
                 hightlightedActor = (MovableActor) actor;
             }
         }
-        text((xPos + xShift) + ", " + (yPos + yShift), 5, 15);
+        text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - startTime), 5, 15);
     }
 
     private void hightlightedPath()
@@ -199,7 +199,8 @@ public class Game extends PApplet
         if(currTime >= nextTime)
         {
             nextTime = currTime + 100;
-            theworld.updateOnTime(currTime - startTime);
+            // manually adding the 8 seconds to reduce debugging time
+            theworld.updateOnTime(currTime - startTime + 8000);
         }
 
         drawBG();
