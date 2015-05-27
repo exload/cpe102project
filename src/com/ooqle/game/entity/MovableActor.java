@@ -9,6 +9,7 @@ import com.ooqle.game.World;
 import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class MovableActor extends AnimatedActor
@@ -20,12 +21,13 @@ public class MovableActor extends AnimatedActor
 
     public Point nextPosition(World world, Point destPt)
     {
-        System.out.println(destPt);
-        Tuple<List<Point>, List<Point>> path = world.createPath(this.getPosition(), destPt);
-        if(path == null)
+        Tuple<List<Point>, List<Point>> travelled = world.createPath(this.getPosition(), destPt);
+        System.out.println("Path: " + travelled.getValue());
+        if(travelled == null)
         {
             return this.getPosition();
         }
-        return path.getValue().iterator().next();
+        List<Point> path = travelled.getValue();
+        return path.get(1);
     }
 }
