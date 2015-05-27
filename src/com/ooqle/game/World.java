@@ -3,9 +3,12 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.ooqle.game.entity.Background;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.Action;
+import com.ooqle.game.util.Tuple;
 
 import java.util.*;
 
@@ -215,6 +218,103 @@ public class World
                 }
             }
             return entity;
+        }
+        return null;
+    }
+
+    private int euclideanDistanceSqaure(Point p1, Point p2)
+    {
+        return (int) (Math.pow((p1.getX() - p2.getX()), 2) + Math.pow((p1.getY() - p2.getY()), 2));
+    }
+
+    private int manhattanDistance(Point p1, Point p2)
+    {
+        return (Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY()));
+    }
+
+    private List<Point> getNeighbors(Point pt)
+    {
+        Point north = new Point(pt.getX(), pt.getY() - 1);
+        Point east = new Point(pt.getX() + 1, pt.getY());
+        Point south = new Point(pt.getX(), pt.getY() + 1);
+        Point west = new Point(pt.getX() - 1, pt.getY());
+        List<Point> out = Arrays.asList(north, east, south, west);
+        for(int i = 0 ; i < out.size(); i++)
+        {
+            if(this.isOccupied(out.get(i)))
+            {
+                out.remove(i);
+            }
+        }
+        return out;
+    }
+
+    private List<Point> reconstructPath(Map<Point, Point> cameFrom, Point current)
+    {
+        List<Point> path = new ArrayList<>();
+        path.add(current);
+        while(cameFrom.containsKey(current))
+        {
+            current = cameFrom.get(current);
+            path.add(current);
+        }
+        return path;
+    }
+
+    public Tuple<List<Point>, List<Point>> createPath(Point start, Point goal)
+    {
+        List<Point> closedSet = new ArrayList<>();
+        Multimap<Integer, Point> openSet = ArrayListMultimap.create();
+        List<Point> visited = new ArrayList<>();
+        Map<Point, Point> cameFrom = new HashMap<>();
+        Map<Point, Integer> gScore = new HashMap<>();
+        Map<Point, Integer> fScore = new HashMap<>();
+
+        gScore.put(start, 0);
+        fScore.put(start, gScore.get(start) + manhattanDistance(start, goal));
+
+        while(!openSet.isEmpty())
+        {
+            Map.Entry<Integer, Point> firstEntry = openSet.entries().iterator().next();
+            Integer firstKey = firstEntry.getKey();
+            Point curr = firstEntry.getValue();
+
+            if(curr == goal)
+            {
+                //TODO: reconstruct path
+                return new Tuple<>(visited, reconstructPath(cameFrom, goal));
+            }
+
+            if(!visited.contains(curr))
+            {
+                visited.add(curr);
+            }
+            openSet.remove(firstKey, curr);
+            closedSet.add(curr);
+
+            for(Point neighbor : getNeighbors(curr))
+            {
+                if(closedSet.contains(neighbor))
+                {
+                    continue;
+                }
+
+                int tentativeGScore = gScore.get(curr) + 1; //TODO: Could change this to be a calculation
+
+                if(!openSet.containsValue(neighbor) || tentativeGScore < gScore.get(neighbor))
+                {
+                    cameFrom.put(neighbor, curr);
+                    gScore.put(neighbor, tentativeGScore);
+
+                    int neighborFScore = gScore.get(neighbor) + manhattanDistance(neighbor, goal);
+                    fScore.put(neighbor, neighborFScore);
+
+                    if(!openSet.containsValue(neighbor))
+                    {
+                        openSet.put(neighborFScore, neighbor);
+                    }
+                }
+            }
         }
         return null;
     }
