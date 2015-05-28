@@ -89,6 +89,11 @@ public class World
         if (this.withinBounds(pt) && this.getWorldObjectAt(pt) != null)
         {
             WorldObject obj = this.getWorldObjectAt(pt);
+            if(obj instanceof MovableActor)
+            {
+                MovableActor actor = (MovableActor) obj;
+                actor.removedFromWorld();
+            }
             //obj.setPosition(new Point(-1, -1));
             this.worldObjectList.remove(obj);
             this.setWorldObjectAt(pt, null);

@@ -135,6 +135,14 @@ public class Game extends PApplet
         }
     }
 
+    private void setHightlightedActor(WorldObject obj)
+    {
+        if(obj instanceof MovableActor)
+        {
+            hightlightedActor = (MovableActor) obj;
+        }
+    }
+
     public void mouse()
     {
         int xPos = mouseX/32;
@@ -145,10 +153,12 @@ public class Game extends PApplet
         WorldObject actor = theworld.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
         if(actor != null)
         {
-            if(mousePressed && actor instanceof MovableActor)
-            {
-                hightlightedActor = (MovableActor) actor;
+            if(mousePressed) {
+                setHightlightedActor(actor);
             }
+        }
+        if (hightlightedActor != null && hightlightedActor.doesThisExist() == false) {
+            setHightlightedActor(theworld.getWorldObjectAt(hightlightedActor.getPosition()));
         }
         text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - startTime), 5, 15);
     }
@@ -165,6 +175,19 @@ public class Game extends PApplet
         //draw images from highlightedActor
         if(hightlightedActor != null) {
             image(yellowsquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
+
+            List<Point> visited = hightlightedActor.getVisited();
+            List<Point> path = hightlightedActor.getPath();
+
+            if(visited != null && path != null) {
+                for (Point p : visited) {
+                    image(blacksquare, p.getX() - xShift, p.getY() - yShift);
+                }
+
+                for (Point p2 : path) {
+                    image(redsquare, p2.getX() - xShift, p2.getY() - yShift);
+                }
+            }
         }
     }
 
@@ -204,8 +227,8 @@ public class Game extends PApplet
         }
 
         drawBG();
-        drawWorldObjects();
         hightlightedPath();
+        drawWorldObjects();
         mouse();
     }
 
