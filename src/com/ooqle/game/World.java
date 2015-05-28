@@ -3,11 +3,12 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.base.Supplier;
+import com.google.common.collect.*;
 import com.ooqle.game.entity.*;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.Tuple;
+import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import java.util.*;
 
@@ -16,7 +17,7 @@ public class World
     private int width;
     private int height;
     private List<WorldObject> worldObjectList;
-    private TreeMap<Long, List<Action>> actionQueue;
+    private Multimap<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
 
@@ -26,7 +27,10 @@ public class World
         this.height = height;
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
-        actionQueue = new TreeMap<>();
+        actionQueue = Multimaps.newListMultimap(
+                new TreeMap<>(),
+                Lists::newArrayList
+        );
         worldObjectList = new ArrayList<>();
     }
 
@@ -85,7 +89,7 @@ public class World
         if (this.withinBounds(pt) && this.getWorldObjectAt(pt) != null)
         {
             WorldObject obj = this.getWorldObjectAt(pt);
-            obj.setPosition(new Point(-1, -1));
+            //obj.setPosition(new Point(-1, -1));
             this.worldObjectList.remove(obj);
             this.setWorldObjectAt(pt, null);
         }
@@ -154,16 +158,21 @@ public class World
 
     public void scheduleAction(Action action, long time)
     {
-        List<Action> actions;
-        if (!actionQueue.containsKey(time))
+        actionQueue.put(time, action);
+    }
+
+    public void unscheduleActions(List<Action> toUnschedule)
+    {
+        for(Action a : toUnschedule)
         {
-            actions = new ArrayList<>();
-        } else
-        {
-            actions = actionQueue.get(time);
+            for(Map.Entry<Long, Action> entry : ImmutableList.copyOf(actionQueue.entries()))
+            {
+                if(a == entry.getValue())
+                {
+                    actionQueue.remove(entry.getKey(), entry.getValue());
+                }
+            }
         }
-        actions.add(action);
-        actionQueue.put(time, actions);
     }
 
     public void updateOnTime(long ticks)
@@ -173,19 +182,20 @@ public class World
             return;
         }
 
-        Map.Entry<Long, List<Action>> next = actionQueue.firstEntry();
+        Map.Entry<Long, Action> next = actionQueue.entries().iterator().next();
 
         while (ticks >= next.getKey())
         {
-            Iterator<Action> it = next.getValue().iterator();
-            while (it.hasNext())
+            long firstKey = next.getKey();
+            Collection<Action> actionsToRun = ImmutableList.copyOf(actionQueue.get(firstKey));
+
+            for(Action a : actionsToRun)
             {
-                it.next().run(ticks);
-                it.remove();
+                a.run(ticks);
             }
 
-            actionQueue.remove(next.getKey());
-            next = actionQueue.firstEntry();
+            actionQueue.removeAll(firstKey);
+            next = actionQueue.entries().iterator().next();
         }
     }
 
@@ -264,6 +274,11 @@ public class World
 
     public Tuple<List<Point>, List<Point>> createPath(Point start, Point goal)
     {
+        if(!(this.getWorldObjectAt(start) instanceof MovableActor))
+        {
+            return null;
+        }
+
         MovableActor actor = (MovableActor) this.getWorldObjectAt(start);
 
         List<Point> closedSet = new ArrayList<>();

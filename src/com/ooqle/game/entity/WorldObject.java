@@ -101,6 +101,7 @@ public class WorldObject
 
     public void clearPendingActions(World world)
     {
+        world.unscheduleActions(this.getPendingActions());
         this.getPendingActions().clear();
     }
 

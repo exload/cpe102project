@@ -46,23 +46,6 @@ public class OreBlob extends MovableActor
         }
     }
 
-    public Point nextPosition(World world, Point destPt)
-    {
-        int horiz = GameUtils.sign(destPt.getX() - this.getPosition().getX());
-        Point newPt = new Point(this.getPosition().getX() + horiz, this.getPosition().getY());
-
-        if(horiz == 0 || (world.isOccupied(newPt) && !(world.getWorldObjectAt(newPt) instanceof Ore)))
-        {
-            int vert = GameUtils.sign(destPt.getY() - this.getPosition().getY());
-            newPt = new Point(this.getPosition().getX(), this.getPosition().getY() +  vert);
-            if(vert == 0 || !(world.getWorldObjectAt(newPt) instanceof Ore))
-            {
-                newPt = new Point(this.getPosition().getX(), this.getPosition().getY());
-            }
-        }
-        return newPt;
-    }
-
     public Action createAction(World world)
     {
         Action a = (long currentTicks) ->
