@@ -30,12 +30,15 @@ public class Game extends PApplet
     private int ysize;
 
     private long startTime;
+    private long worldStartTime;
 
     private MovableActor hightlightedActor;
     private PImage redsquare;
     private PImage blacksquare;
     private PImage greensquare;
     private PImage yellowsquare;
+    private PImage splashimage;
+    private boolean worldLive;
 
     private static HashMap<String, PImage> imgs;
 
@@ -76,6 +79,8 @@ public class Game extends PApplet
 
     public void setup()
     {
+        worldLive = false;
+
         xShift = 0;
         yShift = 0;
 
@@ -94,44 +99,42 @@ public class Game extends PApplet
         blacksquare = getImage("images/blackSquare.png");
         greensquare = getImage("images/greenSquare.png");
         yellowsquare = getImage("images/yellowSquare.png");
+        splashimage = getImage("images/splashscreen.png");
     }
 
     public void keyPressed()
     {
-        switch(key)
-        {
-            case 'W':
+        if(worldLive) {
+            switch (key) {
+                case 'W':
 
-            case 'w':
-                if(yShift > 0)
-                {
-                    yShift -= 1;
-                }
-                break;
-            case 'D':
+                case 'w':
+                    if (yShift > 0) {
+                        yShift -= 1;
+                    }
+                    break;
+                case 'D':
 
-            case 'd':
-                if(xShift < xsize/WorldObjectSettings.TILESIZE)
-                {
-                    xShift += 1;
-                }
-                break;
-            case 'S':
+                case 'd':
+                    if (xShift < xsize / WorldObjectSettings.TILESIZE) {
+                        xShift += 1;
+                    }
+                    break;
+                case 'S':
 
-            case 's':
-                if(yShift < ysize/WorldObjectSettings.TILESIZE)
-                {
-                    yShift += 1;
-                }
-                break;
-            case 'A':
+                case 's':
+                    if (yShift < ysize / WorldObjectSettings.TILESIZE) {
+                        yShift += 1;
+                    }
+                    break;
+                case 'A':
 
-            case 'a':
-                if(xShift > 0)
-                {
-                    xShift -= 1;
-                }
-                break;
+                case 'a':
+                    if (xShift > 0) {
+                        xShift -= 1;
+                    }
+                    break;
+            }
         }
     }
 
@@ -160,7 +163,7 @@ public class Game extends PApplet
         if (hightlightedActor != null && hightlightedActor.doesThisExist() == false) {
             setHightlightedActor(theworld.getWorldObjectAt(hightlightedActor.getPosition()));
         }
-        text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - startTime), 5, 15);
+        text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
     }
 
     private void hightlightedPath()
@@ -218,18 +221,29 @@ public class Game extends PApplet
 
     public void draw()
     {
-        long currTime = System.currentTimeMillis();
-        if(currTime >= nextTime)
+        if(System.currentTimeMillis() - startTime < 3000)
         {
-            nextTime = currTime + 100;
-            // manually adding the 8 seconds to reduce debugging time
-            theworld.updateOnTime(currTime - startTime + 12000);
+            image(splashimage, 0, 0);
+            worldStartTime = System.currentTimeMillis();
+        }
+        else
+        {
+            worldLive = true;
+            long currTime = System.currentTimeMillis();
+            if (currTime >= nextTime)
+            {
+                nextTime = currTime + 100;
+                // manually adding the 8 seconds to reduce debugging time
+                theworld.updateOnTime(currTime - worldStartTime + 12000);
+            }
+
+            drawBG();
+            hightlightedPath();
+            drawWorldObjects();
+            mouse();
+
         }
 
-        drawBG();
-        hightlightedPath();
-        drawWorldObjects();
-        mouse();
     }
 
     /*
