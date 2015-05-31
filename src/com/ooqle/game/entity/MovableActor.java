@@ -3,11 +3,9 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
-import com.google.common.collect.ImmutableList;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Tuple;
-import jdk.nashorn.internal.ir.annotations.Immutable;
 import processing.core.PImage;
 
 import java.util.List;
