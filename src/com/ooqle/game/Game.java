@@ -106,29 +106,30 @@ public class Game extends PApplet
     {
         if(worldLive) {
             switch (key) {
+                case ESC:
+                    key = '0';
                 case 'W':
-
                 case 'w':
                     if (yShift > 0) {
                         yShift -= 1;
                     }
                     break;
-                case 'D':
 
+                case 'D':
                 case 'd':
                     if (xShift < xsize / WorldObjectSettings.TILESIZE) {
                         xShift += 1;
                     }
                     break;
-                case 'S':
 
+                case 'S':
                 case 's':
                     if (yShift < ysize / WorldObjectSettings.TILESIZE) {
                         yShift += 1;
                     }
                     break;
-                case 'A':
 
+                case 'A':
                 case 'a':
                     if (xShift > 0) {
                         xShift -= 1;
@@ -218,16 +219,36 @@ public class Game extends PApplet
     }
 
     private long nextTime = 0;
+    private boolean firstSplash = true;
+    private boolean firstGame = true;
 
     public void draw()
     {
         if(System.currentTimeMillis() - startTime < 3000)
         {
+            if(firstSplash)
+            {
+                frame.removeNotify();
+                frame.setUndecorated(true);
+                frame.addNotify();
+                firstSplash = false;
+            }
+
+            /*minim = new Minim(this);
+            player = minim.loadFile("res/battlemusic.mp3");
+            player.play();*/
             image(splashimage, 0, 0);
             worldStartTime = System.currentTimeMillis();
-        }
-        else
+        } else
         {
+            if(firstGame)
+            {
+                frame.removeNotify();
+                frame.setUndecorated(false);
+                frame.addNotify();
+                firstGame = false;
+            }
+
             worldLive = true;
             long currTime = System.currentTimeMillis();
             if (currTime >= nextTime)
