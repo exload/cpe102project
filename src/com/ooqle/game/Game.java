@@ -99,7 +99,7 @@ public class Game extends PApplet
         blacksquare = getImage("images/blackSquare.png");
         greensquare = getImage("images/greenSquare.png");
         yellowsquare = getImage("images/yellowSquare.png");
-        splashimage = getImage("images/splashscreen.png");
+        splashimage = getImage("images/splashscreen2.png");
     }
 
     public void keyPressed()
