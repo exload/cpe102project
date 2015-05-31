@@ -19,7 +19,7 @@ import java.util.List;
 
 public class Game extends PApplet
 {
-    private  Background thebackground;
+    private Background thebackground;
 
     private World theworld;
 
@@ -42,6 +42,10 @@ public class Game extends PApplet
 
     private static HashMap<String, PImage> imgs;
 
+    /*minim = new Minim(this);
+    player = minim.loadFile("res/battlemusic.mp3");
+    player.play();*/
+
     public HashMap<String, PImage> loadImages(File dir)
     {
         HashMap<String, PImage> out = new HashMap<>();
@@ -60,7 +64,7 @@ public class Game extends PApplet
             if (f.isDirectory())
             {
                 out.putAll(loadImages(f));
-            }else
+            } else
             {
                 String unixPath = f.getPath().replace("\\", "/");
                 String name = unixPath.split("res/")[1];
@@ -80,6 +84,9 @@ public class Game extends PApplet
     public void setup()
     {
         worldLive = false;
+        frame.removeNotify();
+        frame.setUndecorated(true);
+        frame.addNotify();
 
         xShift = 0;
         yShift = 0;
@@ -104,34 +111,38 @@ public class Game extends PApplet
 
     public void keyPressed()
     {
-        if(worldLive) {
-            switch (key) {
-                case ESC:
-                    key = '0';
+        if (worldLive)
+        {
+            switch (key)
+            {
                 case 'W':
                 case 'w':
-                    if (yShift > 0) {
+                    if (yShift > 0)
+                    {
                         yShift -= 1;
                     }
                     break;
 
                 case 'D':
                 case 'd':
-                    if (xShift < xsize / WorldObjectSettings.TILESIZE) {
+                    if (xShift < xsize / WorldObjectSettings.TILESIZE)
+                    {
                         xShift += 1;
                     }
                     break;
 
                 case 'S':
                 case 's':
-                    if (yShift < ysize / WorldObjectSettings.TILESIZE) {
+                    if (yShift < ysize / WorldObjectSettings.TILESIZE)
+                    {
                         yShift += 1;
                     }
                     break;
 
                 case 'A':
                 case 'a':
-                    if (xShift > 0) {
+                    if (xShift > 0)
+                    {
                         xShift -= 1;
                     }
                     break;
@@ -141,7 +152,7 @@ public class Game extends PApplet
 
     private void setHightlightedActor(WorldObject obj)
     {
-        if(obj instanceof MovableActor)
+        if (obj instanceof MovableActor)
         {
             hightlightedActor = (MovableActor) obj;
         }
@@ -149,19 +160,21 @@ public class Game extends PApplet
 
     public void mouse()
     {
-        int xPos = mouseX/32;
-        int yPos = mouseY/32;
+        int xPos = mouseX / 32;
+        int yPos = mouseY / 32;
 
         image(greensquare, xPos, yPos);
 
         WorldObject actor = theworld.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
-        if(actor != null)
+        if (actor != null)
         {
-            if(mousePressed) {
+            if (mousePressed)
+            {
                 setHightlightedActor(actor);
             }
         }
-        if (hightlightedActor != null && hightlightedActor.doesThisExist() == false) {
+        if (hightlightedActor != null && hightlightedActor.doesThisExist() == false)
+        {
             setHightlightedActor(theworld.getWorldObjectAt(hightlightedActor.getPosition()));
         }
         text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
@@ -169,26 +182,30 @@ public class Game extends PApplet
 
     private void hightlightedPath()
     {
-        if(mousePressed)
+        if (mousePressed)
         {
-            if(mouseButton == RIGHT)
+            if (mouseButton == RIGHT)
             {
                 hightlightedActor = null;
             }
         }
         //draw images from highlightedActor
-        if(hightlightedActor != null) {
+        if (hightlightedActor != null)
+        {
             image(yellowsquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
 
             List<Point> visited = hightlightedActor.getVisited();
             List<Point> path = hightlightedActor.getPath();
 
-            if(visited != null && path != null) {
-                for (Point p : visited) {
+            if (visited != null && path != null)
+            {
+                for (Point p : visited)
+                {
                     image(blacksquare, p.getX() - xShift, p.getY() - yShift);
                 }
 
-                for (Point p2 : path) {
+                for (Point p2 : path)
+                {
                     image(redsquare, p2.getX() - xShift, p2.getY() - yShift);
                 }
             }
@@ -212,43 +229,22 @@ public class Game extends PApplet
 
     private void drawWorldObjects()
     {
-        for(WorldObject wo : theworld.getWorldObjects())
+        for (WorldObject wo : theworld.getWorldObjects())
         {
             image(wo.getImage(), wo.getPosition().getX() - xShift, wo.getPosition().getY() - yShift);
         }
     }
 
     private long nextTime = 0;
-    private boolean firstSplash = true;
-    private boolean firstGame = true;
 
     public void draw()
     {
-        if(System.currentTimeMillis() - startTime < 3000)
+        if (System.currentTimeMillis() - startTime < 3000)
         {
-            if(firstSplash)
-            {
-                frame.removeNotify();
-                frame.setUndecorated(true);
-                frame.addNotify();
-                firstSplash = false;
-            }
-
-            /*minim = new Minim(this);
-            player = minim.loadFile("res/battlemusic.mp3");
-            player.play();*/
             image(splashimage, 0, 0);
             worldStartTime = System.currentTimeMillis();
         } else
         {
-            if(firstGame)
-            {
-                frame.removeNotify();
-                frame.setUndecorated(false);
-                frame.addNotify();
-                firstGame = false;
-            }
-
             worldLive = true;
             long currTime = System.currentTimeMillis();
             if (currTime >= nextTime)
@@ -262,9 +258,7 @@ public class Game extends PApplet
             hightlightedPath();
             drawWorldObjects();
             mouse();
-
         }
-
     }
 
     /*
@@ -274,6 +268,7 @@ public class Game extends PApplet
     /**
      * Loads an image given a path. The path root is in the /res directory. To load an image in the directory /res/images/
      * call example.png call getImage("images/example.png")
+     *
      * @param path The path to the image from the /res directory
      * @return Returns a path to the image
      */
@@ -284,15 +279,16 @@ public class Game extends PApplet
 
     /**
      * Returns a list of PImages following the below format:
-     *      getImages("images/blob*.bmp", 12) will load all images in the images blob1.bmp to blob12.bmp
+     * getImages("images/blob*.bmp", 12) will load all images in the images blob1.bmp to blob12.bmp
+     *
      * @param path Path to images. Use one * for the variable.
-     * @param end The final image in the list
+     * @param end  The final image in the list
      * @return List of PImages 1 through end
      */
     public static List<PImage> getImages(String path, int end)
     {
         List<PImage> out = new ArrayList<>();
-        for(int i = 1; i < end + 1; i++)
+        for (int i = 1; i < end + 1; i++)
         {
             String newPath = path.replace("*", Integer.toString(i));
             out.add(getImage(newPath));
