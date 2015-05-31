@@ -109,7 +109,7 @@ public class Game extends PApplet
 
         minim = new Minim(this);
         player = minim.loadFile("res/audio/happy_music.mp3");
-        player.play();
+        player.loop();
     }
 
     public void keyPressed()
