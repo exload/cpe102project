@@ -8,8 +8,9 @@ import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.SaveLoad;
 import com.ooqle.game.util.WorldObjectSettings;
+import ddf.minim.AudioPlayer;
+import ddf.minim.Minim;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 
 import java.io.File;
@@ -39,12 +40,10 @@ public class Game extends PApplet
     private PImage yellowsquare;
     private PImage splashimage;
     private boolean worldLive;
+    private AudioPlayer player;
+    private Minim minim;
 
     private static HashMap<String, PImage> imgs;
-
-    /*minim = new Minim(this);
-    player = minim.loadFile("res/battlemusic.mp3");
-    player.play();*/
 
     public HashMap<String, PImage> loadImages(File dir)
     {
@@ -107,6 +106,10 @@ public class Game extends PApplet
         greensquare = getImage("images/greenSquare.png");
         yellowsquare = getImage("images/yellowSquare.png");
         splashimage = getImage("images/splashscreen2.png");
+
+        minim = new Minim(this);
+        player = minim.loadFile("res/audio/happy_music.mp3");
+        player.play();
     }
 
     public void keyPressed()
