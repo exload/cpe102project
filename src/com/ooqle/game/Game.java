@@ -76,7 +76,7 @@ public class Game extends PApplet
         return out;
     }
 
-    public void image(PImage img, float a, float b)
+    public void drawImage(PImage img, float a, float b)
     {
         super.image(img, a * 32, b * 32);
     }
@@ -166,11 +166,10 @@ public class Game extends PApplet
 
     public void mouse()
     {
-        System.out.println(mouseX + ", " + mouseY);
         int xPos = mouseX / 32;
         int yPos = mouseY / 32;
 
-        image(greenSquare, xPos, yPos);
+        drawImage(greenSquare, xPos, yPos);
 
         WorldObject actor = world.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
         if (actor != null)
@@ -185,14 +184,24 @@ public class Game extends PApplet
             setHightlightedActor(world.getWorldObjectAt(hightlightedActor.getPosition()));
         }
         text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
+
+        for(Button btn : UIManager.getButtons())
+        {
+            if(UIManager.withinBounds(mouseX, mouseY, btn))
+            {
+                btn.setHover(true);
+            }else
+            {
+                btn.setHover(false);
+            }
+        }
     }
 
     public void mousePressed()
     {
         for(Button btn : UIManager.getButtons())
         {
-            if(mouseX >= btn.getX() && mouseX <= btn.getX() + btn.getWidth()
-                    && mouseY >= btn.getY() && mouseY <= btn.getY() + btn.getHeight())
+            if(UIManager.withinBounds(mouseX, mouseY, btn))
             {
                 btn.onClick();
             }
@@ -211,7 +220,7 @@ public class Game extends PApplet
         //draw images from highlightedActor
         if (hightlightedActor != null)
         {
-            image(yellowSquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
+            drawImage(yellowSquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
 
             List<Point> visited = hightlightedActor.getVisited();
             List<Point> path = hightlightedActor.getPath();
@@ -220,12 +229,12 @@ public class Game extends PApplet
             {
                 for (Point p : visited)
                 {
-                    image(blackSquare, p.getX() - xShift, p.getY() - yShift);
+                    drawImage(blackSquare, p.getX() - xShift, p.getY() - yShift);
                 }
 
                 for (Point p2 : path)
                 {
-                    image(redSquare, p2.getX() - xShift, p2.getY() - yShift);
+                    drawImage(redSquare, p2.getX() - xShift, p2.getY() - yShift);
                 }
             }
         }
@@ -241,7 +250,7 @@ public class Game extends PApplet
         {
             for (int x = 0; x < WorldObjectSettings.GAMEWIDTH; x++)
             {
-                image(world.getBackgroundAt(new Point(x, y)).getImage(), x - xShift, y - yShift);
+                drawImage(world.getBackgroundAt(new Point(x, y)).getImage(), x - xShift, y - yShift);
             }
         }
     }
@@ -250,7 +259,7 @@ public class Game extends PApplet
     {
         for (WorldObject wo : world.getWorldObjects())
         {
-            image(wo.getImage(), wo.getPosition().getX() - xShift, wo.getPosition().getY() - yShift);
+            drawImage(wo.getImage(), wo.getPosition().getX() - xShift, wo.getPosition().getY() - yShift);
         }
     }
 
@@ -260,7 +269,7 @@ public class Game extends PApplet
     {
         if (System.currentTimeMillis() - startTime < 3000)
         {
-            image(splashImage, 0, 0);
+            drawImage(splashImage, 0, 0);
             worldStartTime = System.currentTimeMillis();
         } else
         {
@@ -277,6 +286,7 @@ public class Game extends PApplet
             hightlightedPath();
             drawWorldObjects();
             mouse();
+            UIManager.drawUI(this);
         }
     }
 
