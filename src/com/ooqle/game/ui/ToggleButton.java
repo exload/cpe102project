@@ -35,4 +35,10 @@ public class ToggleButton extends Button
         }
         return super.getCurrentImage();
     }
+
+    public void onClick()
+    {
+        super.onClick();
+        this.setSelected(!this.isSelected());
+    }
 }

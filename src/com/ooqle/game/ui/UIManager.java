@@ -11,11 +11,19 @@ import java.util.List;
 
 public class UIManager
 {
+    //TODO: Add game layouts to fix buttons being pressed when not visible
     private static List<Button> buttons = new ArrayList<>();
 
     public static Button createButton(int x, int y, PImage image, PImage hoverImg)
     {
         Button btn = new Button(x, y, image, hoverImg);
+        buttons.add(btn);
+        return btn;
+    }
+
+    public static ToggleButton createToggleButton(int x, int y, PImage image, PImage hoverImg, PImage selectedImg)
+    {
+        ToggleButton btn = new ToggleButton(x, y, image, hoverImg, selectedImg);
         buttons.add(btn);
         return btn;
     }
