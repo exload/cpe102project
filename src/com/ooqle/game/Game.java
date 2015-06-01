@@ -8,6 +8,7 @@ import com.ooqle.game.entity.Lair;
 import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.ui.Button;
+import com.ooqle.game.ui.ToggleButton;
 import com.ooqle.game.ui.UIManager;
 import com.ooqle.game.util.SaveLoad;
 import com.ooqle.game.util.WorldObjectSettings;
@@ -234,8 +235,19 @@ public class Game extends PApplet
     private void setupMenu()
     {
         Button closeGameBtn = UIManager.createButton(100, 100, getImage("images/button/dummy_button.png"), getImage("images/button/dummy_button_hover.png"));
-        closeGameBtn.addClickHandler(() -> {
-            exit();
+        closeGameBtn.addClickHandler(this::exit);
+
+        PImage soundIconOn = getImage("images/menu/sound_icon.png");
+        ToggleButton soundBtn = UIManager.createToggleButton(500, 100, soundIconOn, soundIconOn, getImage("images/menu/sound_icon_off.png"));
+        soundBtn.addClickHandler(() ->
+        {
+            if(soundBtn.isSelected())
+            {
+                player.play();
+            }else
+            {
+                player.pause();
+            }
         });
     }
 
