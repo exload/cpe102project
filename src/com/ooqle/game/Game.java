@@ -235,7 +235,12 @@ public class Game extends PApplet
     private void setupMenu()
     {
         Button closeGameBtn = UIManager.createButton(100, 100, getImage("images/button/dummy_button.png"), getImage("images/button/dummy_button_hover.png"));
-        closeGameBtn.addClickHandler(this::exit);
+        closeGameBtn.addClickHandler(() ->
+        {
+            player.pause();
+            player.close();
+            exit();
+        });
 
         PImage soundIconOn = getImage("images/menu/sound_icon.png");
         ToggleButton soundBtn = UIManager.createToggleButton(500, 100, soundIconOn, soundIconOn, getImage("images/menu/sound_icon_off.png"));
@@ -257,6 +262,7 @@ public class Game extends PApplet
     }
 
     private long nextTime = 0;
+    private boolean paused = false;
 
     public void draw()
     {
@@ -268,11 +274,15 @@ public class Game extends PApplet
         {
             worldLive = true;
             long currTime = System.currentTimeMillis();
-            if (currTime >= nextTime)
+
+            if(!paused)
             {
-                nextTime = currTime + 100;
-                // manually adding the 8 seconds to reduce debugging time
-                world.updateOnTime(currTime - worldStartTime + 12000);
+                if (currTime >= nextTime)
+                {
+                    nextTime = currTime + 100;
+                    // manually adding the 8 seconds to reduce debugging time
+                    world.updateOnTime(currTime - worldStartTime + 12000);
+                }
             }
 
             drawBG();
@@ -281,7 +291,14 @@ public class Game extends PApplet
             UIManager.updateMousePosition(mouseX, mouseY);
             if (this.showMenu)
             {
+                paused = true;
+                 tint(200);
+                filter(BLUR, 2);
                 drawMenu();
+            }else
+            {
+                tint(255);
+                paused = false;
             }
         }
     }
