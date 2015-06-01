@@ -49,13 +49,7 @@ public class UIManager
     {
         for (Button btn : buttons)
         {
-            if(btn.isHover())
-            {
-                game.image(btn.getHoverImage(), btn.getX(), btn.getY());
-            }else
-            {
-                game.image(btn.getImage(), btn.getX(), btn.getY());
-            }
+            game.image(btn.getCurrentImage(), btn.getX(), btn.getY());
         }
     }
 }
