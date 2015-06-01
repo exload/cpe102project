@@ -4,6 +4,7 @@ package com.ooqle.game;
 */
 
 import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.Lair;
 import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.ui.Button;
@@ -46,6 +47,7 @@ public class Game extends PApplet
     private PImage splashImage;
     private AudioPlayer player;
     private Minim minim;
+    private boolean battleMode;
 
     private static HashMap<String, PImage> imgs;
 
@@ -168,35 +170,30 @@ public class Game extends PApplet
         }
     }
 
-    private void setHightlightedActor(WorldObject obj)
+    private void enterBattleMode(Point cavepoint)
     {
-        if (obj instanceof MovableActor)
+        if(!(battleMode))
         {
-            hightlightedActor = (MovableActor) obj;
+            Lair lair = new Lair("lair", cavepoint, WorldObjectSettings.GOBLINSPAWNRATE);
+            world.addWorldObject(lair);
+            lair.schedule(world, 0);
+            battleMode = true;
         }
     }
 
-    public void drawSelection()
+    public void mouse()
     {
         int xPos = mouseX / 32;
         int yPos = mouseY / 32;
 
         drawImage(greenSquare, xPos, yPos);
 
-        WorldObject actor = world.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
-        if (actor != null)
+        if(mousePressed)
         {
-            if (mousePressed)
-            {
-                setHightlightedActor(actor);
-            }
+            enterBattleMode(new Point(xPos + xShift, yPos + yShift));
         }
-        if (hightlightedActor != null && hightlightedActor.doesThisExist() == false)
-        {
-            setHightlightedActor(world.getWorldObjectAt(hightlightedActor.getPosition()));
-        }
-        text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
 
+        text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
 
     }
 
@@ -207,38 +204,6 @@ public class Game extends PApplet
             if (UIManager.withinBounds(mouseX, mouseY, btn))
             {
                 btn.onClick();
-            }
-        }
-    }
-
-    private void hightlightedPath()
-    {
-        if (mousePressed)
-        {
-            if (mouseButton == RIGHT)
-            {
-                hightlightedActor = null;
-            }
-        }
-        //draw images from highlightedActor
-        if (hightlightedActor != null)
-        {
-            drawImage(yellowSquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
-
-            List<Point> visited = hightlightedActor.getVisited();
-            List<Point> path = hightlightedActor.getPath();
-
-            if (visited != null && path != null)
-            {
-                for (Point p : visited)
-                {
-                    drawImage(blackSquare, p.getX() - xShift, p.getY() - yShift);
-                }
-
-                for (Point p2 : path)
-                {
-                    drawImage(redSquare, p2.getX() - xShift, p2.getY() - yShift);
-                }
             }
         }
     }
@@ -299,9 +264,8 @@ public class Game extends PApplet
             }
 
             drawBG();
-            hightlightedPath();
             drawWorldObjects();
-            drawSelection();
+            mouse();
             UIManager.updateMousePosition(mouseX, mouseY);
             if (this.showMenu)
             {
