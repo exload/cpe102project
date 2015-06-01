@@ -16,6 +16,7 @@ public class World
 {
     private int width;
     private int height;
+    private long currentGameTime;
     private List<WorldObject> worldObjectList;
     private Multimap<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
@@ -25,6 +26,7 @@ public class World
     {
         this.width = width;
         this.height = height;
+        this.currentGameTime = 0;
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
         actionQueue = Multimaps.newListMultimap(
@@ -166,6 +168,11 @@ public class World
         actionQueue.put(time, action);
     }
 
+    public void scheduleActionWithWaitTime(Action action, long ticks)
+    {
+        scheduleAction(action, currentGameTime + ticks);
+    }
+
     public void unscheduleActions(List<Action> toUnschedule)
     {
         for(Action a : toUnschedule)
@@ -182,6 +189,8 @@ public class World
 
     public void updateOnTime(long ticks)
     {
+        this.currentGameTime = ticks;
+
         if (actionQueue.isEmpty())
         {
             return;
