@@ -33,7 +33,7 @@ public class GameUtils
         List<PImage> sprites = new ArrayList<>();
         int W = sprite.width / numberOfImages;
         int H = sprite.height;
-        for(int i = 0; i < numberOfImages + 1; i++)
+        for(int i = 0; i < numberOfImages; i++)
         {
             sprites.add(sprite.get(i * W, 0, W, H));
         }

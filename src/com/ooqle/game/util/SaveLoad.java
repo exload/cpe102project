@@ -26,7 +26,7 @@ public class SaveLoad
 
         List<PImage> miner_imgs = Game.getImages("images/miner*.png", 5);
 
-        World newworld = new World(WorldObjectSettings.GAMEWIDTH, WorldObjectSettings.GAMEHEIGHT, new Background(Game.getImage("images/grass.bmp")));
+        World newworld = new World(WorldObjectSettings.GAMEWIDTH, WorldObjectSettings.GAMEHEIGHT, new Background(Game.getImage("images/background/tile_dark_grey.png")));
         try
         {
             Scanner scanner = new Scanner(file);
@@ -41,7 +41,7 @@ public class SaveLoad
                 if(job.get("type").equals("rocks"))
                 {
                     JSONObject location = (JSONObject) job.get("location");
-                    newworld.setBackground(new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))), new Background(Game.getImage("images/rock.bmp")));
+                    newworld.setBackground(new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))), new Background(Game.getImage("images/background/tile_light_grey.png")));
                 }
             }
 
@@ -69,7 +69,7 @@ public class SaveLoad
                     Vein vein = new Vein(
                             "vein",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
-                            Arrays.asList(Game.getImage("images/vein.bmp")),
+                            Arrays.asList(Game.getImage("images/vein.png")),
                             Integer.parseInt((String) jwob.get("rate")),
                             Integer.parseInt((String) jwob.get("resourceDistance")));
 
@@ -83,7 +83,7 @@ public class SaveLoad
                             "blacksmith",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
                             Integer.parseInt((String) jwob.get("rate")),
-                            Arrays.asList(Game.getImage("images/blacksmith.bmp")));
+                            Arrays.asList(Game.getImage("images/blacksmith.png")));
 
                     newworld.addWorldObject(blacksmith);
                     scheduleEntity(newworld, blacksmith);
@@ -93,7 +93,7 @@ public class SaveLoad
                     Obstacle obstacle = new Obstacle(
                             "obstacle",
                             new Point(Integer.parseInt((String) location.get("x")), Integer.parseInt((String) location.get("y"))),
-                            Arrays.asList(Game.getImage("images/obstacle.bmp")));
+                            Arrays.asList(Game.getImage("images/obstacle.png")));
 
                     newworld.addWorldObject(obstacle);
                     scheduleEntity(newworld, obstacle);

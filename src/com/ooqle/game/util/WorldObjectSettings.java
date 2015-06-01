@@ -27,4 +27,7 @@ public class WorldObjectSettings {
     public static final int PIXELHEIGHT = 480;
 
     public static final int TILESIZE = 32;
+
+    public static final int GOBLINSPAWNCOUNT = 10;
+    public static final int GOBLINSPAWNRATE = 2000;
 }
