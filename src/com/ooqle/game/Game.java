@@ -27,6 +27,7 @@ public class Game extends PApplet
     private World world;
 
     private boolean worldLive;
+    private boolean showMenu;
 
     private int xShift;
     private int yShift;
@@ -110,6 +111,10 @@ public class Game extends PApplet
         yellowSquare = getImage("images/yellowSquare.png");
         splashImage = getImage("images/splashscreen2.png");
 
+        //cursor(getImage("images/cursor/cursor_default.png"));
+
+        setupMenu();
+
         minim = new Minim(this);
         player = minim.loadFile("res/audio/happy_music.mp3");
         player.loop();
@@ -119,6 +124,10 @@ public class Game extends PApplet
     {
         if (worldLive)
         {
+            if (key == 27)
+            {
+                key = 0;
+            }
             switch (key)
             {
                 case 'W':
@@ -152,6 +161,9 @@ public class Game extends PApplet
                         xShift -= 1;
                     }
                     break;
+                case 0:
+                    showMenu = !showMenu;
+                    break;
             }
         }
     }
@@ -164,7 +176,7 @@ public class Game extends PApplet
         }
     }
 
-    public void mouse()
+    public void drawSelection()
     {
         int xPos = mouseX / 32;
         int yPos = mouseY / 32;
@@ -185,23 +197,14 @@ public class Game extends PApplet
         }
         text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
 
-        for(Button btn : UIManager.getButtons())
-        {
-            if(UIManager.withinBounds(mouseX, mouseY, btn))
-            {
-                btn.setHover(true);
-            }else
-            {
-                btn.setHover(false);
-            }
-        }
+
     }
 
     public void mousePressed()
     {
-        for(Button btn : UIManager.getButtons())
+        for (Button btn : UIManager.getButtons())
         {
-            if(UIManager.withinBounds(mouseX, mouseY, btn))
+            if (UIManager.withinBounds(mouseX, mouseY, btn))
             {
                 btn.onClick();
             }
@@ -263,6 +266,19 @@ public class Game extends PApplet
         }
     }
 
+    private void setupMenu()
+    {
+        Button closeGameBtn = UIManager.createButton(100, 100, getImage("images/button/dummy_button.png"), getImage("images/button/dummy_button_hover.png"));
+        closeGameBtn.addClickHandler(() -> {
+            exit();
+        });
+    }
+
+    private void drawMenu()
+    {
+        UIManager.drawUI(this);
+    }
+
     private long nextTime = 0;
 
     public void draw()
@@ -285,8 +301,12 @@ public class Game extends PApplet
             drawBG();
             hightlightedPath();
             drawWorldObjects();
-            mouse();
-            UIManager.drawUI(this);
+            drawSelection();
+            UIManager.updateMousePosition(mouseX, mouseY);
+            if (this.showMenu)
+            {
+                drawMenu();
+            }
         }
     }
 
