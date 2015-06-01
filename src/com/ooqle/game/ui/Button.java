@@ -20,13 +20,13 @@ public class Button
 
     private List<ClickHandler> clickHandlerList;
 
-    public Button(int x, int y, int width, int height, PImage image, PImage hoverImg)
+    public Button(int x, int y, PImage image, PImage hoverImg)
     {
         this.hover = false;
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        this.width = image.width;
+        this.height = image.height;
         this.image = image;
         this.hoverImg = hoverImg;
         this.clickHandlerList = new ArrayList<>();

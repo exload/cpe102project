@@ -13,9 +13,9 @@ public class UIManager
 {
     private static List<Button> buttons = new ArrayList<>();
 
-    public static Button createButton(int x, int y, int width, int height, PImage image, PImage hoverImg)
+    public static Button createButton(int x, int y, PImage image, PImage hoverImg)
     {
-        Button btn = new Button(x, y, width, height, image, hoverImg);
+        Button btn = new Button(x, y, image, hoverImg);
         buttons.add(btn);
         return btn;
     }
@@ -29,6 +29,20 @@ public class UIManager
     {
         return mouseX >= btn.getX() && mouseX <= btn.getX() + btn.getWidth()
                 && mouseY >= btn.getY() && mouseY <= btn.getY() + btn.getHeight();
+    }
+
+    public static void updateMousePosition(int mouseX, int mouseY)
+    {
+        for (Button btn : UIManager.getButtons())
+        {
+            if (UIManager.withinBounds(mouseX, mouseY, btn))
+            {
+                btn.setHover(true);
+            } else
+            {
+                btn.setHover(false);
+            }
+        }
     }
 
     public static void drawUI(PApplet game)
