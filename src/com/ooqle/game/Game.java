@@ -6,6 +6,8 @@ package com.ooqle.game;
 import com.ooqle.game.entity.Background;
 import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
+import com.ooqle.game.ui.Button;
+import com.ooqle.game.ui.UIManager;
 import com.ooqle.game.util.SaveLoad;
 import com.ooqle.game.util.WorldObjectSettings;
 import ddf.minim.AudioPlayer;
@@ -22,24 +24,25 @@ public class Game extends PApplet
 {
     private Background thebackground;
 
-    private World theworld;
+    private World world;
+
+    private boolean worldLive;
 
     private int xShift;
     private int yShift;
 
-    private int xsize;
-    private int ysize;
+    private int xSize;
+    private int ySize;
 
     private long startTime;
     private long worldStartTime;
 
     private MovableActor hightlightedActor;
-    private PImage redsquare;
-    private PImage blacksquare;
-    private PImage greensquare;
-    private PImage yellowsquare;
-    private PImage splashimage;
-    private boolean worldLive;
+    private PImage redSquare;
+    private PImage blackSquare;
+    private PImage greenSquare;
+    private PImage yellowSquare;
+    private PImage splashImage;
     private AudioPlayer player;
     private Minim minim;
 
@@ -66,7 +69,7 @@ public class Game extends PApplet
             } else
             {
                 String unixPath = f.getPath().replace("\\", "/");
-                String name = unixPath.split("res/")[1];
+                String name = unixPath.substring(4, unixPath.length());
                 out.put(name, loadImage(f.getPath()));
             }
         }
@@ -90,22 +93,22 @@ public class Game extends PApplet
         xShift = 0;
         yShift = 0;
 
-        xsize = WorldObjectSettings.PIXELWIDTH;
-        ysize = WorldObjectSettings.PIXELHEIGHT;
+        xSize = WorldObjectSettings.PIXELWIDTH;
+        ySize = WorldObjectSettings.PIXELHEIGHT;
 
-        size(xsize, ysize);
+        size(xSize, ySize);
         frame.setTitle("Metro Monsters");
         imgs = loadImages(new File("res"));
 
-        theworld = SaveLoad.load();
+        world = SaveLoad.load();
 
         startTime = System.currentTimeMillis();
 
-        redsquare = getImage("images/redSquare.png");
-        blacksquare = getImage("images/blackSquare.png");
-        greensquare = getImage("images/greenSquare.png");
-        yellowsquare = getImage("images/yellowSquare.png");
-        splashimage = getImage("images/splashscreen2.png");
+        redSquare = getImage("images/redSquare.png");
+        blackSquare = getImage("images/blackSquare.png");
+        greenSquare = getImage("images/greenSquare.png");
+        yellowSquare = getImage("images/yellowSquare.png");
+        splashImage = getImage("images/splashscreen2.png");
 
         minim = new Minim(this);
         player = minim.loadFile("res/audio/happy_music.mp3");
@@ -128,7 +131,7 @@ public class Game extends PApplet
 
                 case 'D':
                 case 'd':
-                    if (xShift < xsize / WorldObjectSettings.TILESIZE)
+                    if (xShift < xSize / WorldObjectSettings.TILESIZE)
                     {
                         xShift += 1;
                     }
@@ -136,7 +139,7 @@ public class Game extends PApplet
 
                 case 'S':
                 case 's':
-                    if (yShift < ysize / WorldObjectSettings.TILESIZE)
+                    if (yShift < ySize / WorldObjectSettings.TILESIZE)
                     {
                         yShift += 1;
                     }
@@ -163,12 +166,13 @@ public class Game extends PApplet
 
     public void mouse()
     {
+        System.out.println(mouseX + ", " + mouseY);
         int xPos = mouseX / 32;
         int yPos = mouseY / 32;
 
-        image(greensquare, xPos, yPos);
+        image(greenSquare, xPos, yPos);
 
-        WorldObject actor = theworld.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
+        WorldObject actor = world.getWorldObjectAt(new Point(xPos + xShift, yPos + yShift));
         if (actor != null)
         {
             if (mousePressed)
@@ -178,9 +182,21 @@ public class Game extends PApplet
         }
         if (hightlightedActor != null && hightlightedActor.doesThisExist() == false)
         {
-            setHightlightedActor(theworld.getWorldObjectAt(hightlightedActor.getPosition()));
+            setHightlightedActor(world.getWorldObjectAt(hightlightedActor.getPosition()));
         }
         text((xPos + xShift) + ", " + (yPos + yShift) + ", " + (System.currentTimeMillis() - worldStartTime), 5, 15);
+    }
+
+    public void mousePressed()
+    {
+        for(Button btn : UIManager.getButtons())
+        {
+            if(mouseX >= btn.getX() && mouseX <= btn.getX() + btn.getWidth()
+                    && mouseY >= btn.getY() && mouseY <= btn.getY() + btn.getHeight())
+            {
+                btn.onClick();
+            }
+        }
     }
 
     private void hightlightedPath()
@@ -195,7 +211,7 @@ public class Game extends PApplet
         //draw images from highlightedActor
         if (hightlightedActor != null)
         {
-            image(yellowsquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
+            image(yellowSquare, hightlightedActor.getPosition().getX() - xShift, hightlightedActor.getPosition().getY() - yShift);
 
             List<Point> visited = hightlightedActor.getVisited();
             List<Point> path = hightlightedActor.getPath();
@@ -204,12 +220,12 @@ public class Game extends PApplet
             {
                 for (Point p : visited)
                 {
-                    image(blacksquare, p.getX() - xShift, p.getY() - yShift);
+                    image(blackSquare, p.getX() - xShift, p.getY() - yShift);
                 }
 
                 for (Point p2 : path)
                 {
-                    image(redsquare, p2.getX() - xShift, p2.getY() - yShift);
+                    image(redSquare, p2.getX() - xShift, p2.getY() - yShift);
                 }
             }
         }
@@ -225,14 +241,14 @@ public class Game extends PApplet
         {
             for (int x = 0; x < WorldObjectSettings.GAMEWIDTH; x++)
             {
-                image(theworld.getBackgroundAt(new Point(x, y)).getImage(), x - xShift, y - yShift);
+                image(world.getBackgroundAt(new Point(x, y)).getImage(), x - xShift, y - yShift);
             }
         }
     }
 
     private void drawWorldObjects()
     {
-        for (WorldObject wo : theworld.getWorldObjects())
+        for (WorldObject wo : world.getWorldObjects())
         {
             image(wo.getImage(), wo.getPosition().getX() - xShift, wo.getPosition().getY() - yShift);
         }
@@ -244,7 +260,7 @@ public class Game extends PApplet
     {
         if (System.currentTimeMillis() - startTime < 3000)
         {
-            image(splashimage, 0, 0);
+            image(splashImage, 0, 0);
             worldStartTime = System.currentTimeMillis();
         } else
         {
@@ -254,7 +270,7 @@ public class Game extends PApplet
             {
                 nextTime = currTime + 100;
                 // manually adding the 8 seconds to reduce debugging time
-                theworld.updateOnTime(currTime - worldStartTime + 12000);
+                world.updateOnTime(currTime - worldStartTime + 12000);
             }
 
             drawBG();
