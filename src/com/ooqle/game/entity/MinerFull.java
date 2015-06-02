@@ -21,7 +21,8 @@ public class MinerFull extends Miner
 
     public MinerFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
     {
-        super(name, "unknown", position, imgs, rate, animationRate, resourceLimit, uuid);
+        super(name, "unknown", position, imgs, rate, animationRate, resourceLimit);
+        this.setUUID(uuid);
     }
 
     public MinerFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)

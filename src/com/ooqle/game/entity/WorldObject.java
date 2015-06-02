@@ -11,6 +11,7 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class WorldObject
 {
@@ -21,8 +22,8 @@ public class WorldObject
     private int currentImg;
     private List<PImage> imgs;
     private List<Action> pendingActions;
+    private UUID uuid;
 
-    //TODO: Find out object type for list of images
     public WorldObject(String name, String type, Point position, List<PImage> imgs, int rate)
     {
         this.name = name;
@@ -31,6 +32,7 @@ public class WorldObject
         this.imgs = imgs;
         this.rate = rate;
         this.pendingActions = new ArrayList<>();
+        this.uuid = UUID.randomUUID();
     }
 
     public String getName()
@@ -123,5 +125,15 @@ public class WorldObject
         out.put("type", this.type);
         out.put("location", this.getPosition().toJSON());
         return out;
+    }
+
+    public UUID getUUID()
+    {
+        return uuid;
+    }
+
+    public void setUUID(UUID uuid)
+    {
+        this.uuid = uuid;
     }
 }

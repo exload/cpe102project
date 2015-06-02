@@ -17,7 +17,8 @@ public class MinerNotFull extends Miner
 {
     public MinerNotFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
     {
-        super(name, "miner", position, imgs, rate, animationRate, resourceLimit, uuid);
+        super(name, "miner", position, imgs, rate, animationRate, resourceLimit);
+        this.setUUID(uuid);
     }
 
     public MinerNotFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)

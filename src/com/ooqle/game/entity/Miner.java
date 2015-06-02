@@ -16,13 +16,12 @@ import java.util.UUID;
 public abstract class Miner extends MovableActor
 {
     private int resourceLimit;
-    private UUID uuid;
 
     public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
     {
         super(name, type, position, imgs, rate, animationRate);
         this.resourceLimit = resourceLimit;
-        this.uuid =  uuid;
+        this.setUUID(uuid);
     }
 
     public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
@@ -38,11 +37,6 @@ public abstract class Miner extends MovableActor
     public int getResourceLimit()
     {
         return resourceLimit;
-    }
-
-    public UUID getUUID()
-    {
-        return uuid;
     }
 
     public Tuple<List<Point>, Boolean> getNearest(World world, Class type)
