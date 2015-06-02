@@ -192,26 +192,41 @@ public class Game extends PApplet
             world.addWorldObject(lair);
             lair.schedule(world, 0);
 
-            callMinersToBase();
+            List<WorldObject> allWorldObjects = world.getWorldObjects();
+            ArrayList<MinerNotFull> minerlist = new ArrayList<MinerNotFull>();
+            ArrayList<Blacksmith> smithlist = new ArrayList<Blacksmith>();
+
+            for (WorldObject entity : allWorldObjects)
+            {
+                if (entity.getClass().equals(MinerNotFull.class))
+                {
+                    minerlist.add(0, (MinerNotFull) entity);
+                }
+
+                else if (entity.getClass().equals(Blacksmith.class))
+                {
+                    smithlist.add(0, (Blacksmith) entity);
+                }
+            }
+
+            callMinersToBase(minerlist);
+            prepForBattle(smithlist);
             battleMode = true;
             happyMusicPlayer.pause();
             battleMusicPlayer.loop();
         }
     }
 
-    private void callMinersToBase()
+    private void prepForBattle(ArrayList<Blacksmith> smithlist)
     {
-        List<WorldObject> allWorldObjects = world.getWorldObjects();
-        ArrayList<MinerNotFull> minerlist = new ArrayList<MinerNotFull>();
-
-        for (WorldObject entity : allWorldObjects)
+        for(Blacksmith smith : smithlist)
         {
-            if (entity.getClass().equals(MinerNotFull.class))
-            {
-                minerlist.add(0, (MinerNotFull) entity);
-            }
+            smith.armTheLand(world);
         }
+    }
 
+    private void callMinersToBase(ArrayList<MinerNotFull> minerlist)
+    {
         for (MinerNotFull oldminer : minerlist)
         {
             oldminer.transformToFull(world);
