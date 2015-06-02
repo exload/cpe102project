@@ -13,8 +13,7 @@ import java.util.List;
 /**
  * Created by augiedoebling on 5/31/15.
  */
-public class Goblin
-extends MovableActor
+public class Goblin extends MovableActor
 {
     public Goblin(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate)
     {
@@ -34,16 +33,16 @@ extends MovableActor
     Tuple<List<Point>, Boolean> applyAction(World world, Actor obj)
     {
         Point pos = this.getPosition();
-        if(obj == null)
+        if (obj == null)
         {
             return new Tuple<>(Collections.singletonList(pos), false);
         }
         Point orePt = obj.getPosition();
-        if(pos.adjacent(orePt))
+        if (pos.adjacent(orePt))
         {
             //attack the miner
             return new Tuple<>(new ArrayList<>(), true);
-        }else
+        } else
         {
             Point newPt = this.nextPosition(world, orePt);
             return new Tuple<>(world.moveWorldObject(this, newPt), false);
