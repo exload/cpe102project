@@ -57,6 +57,18 @@ public class MinerNotFull extends Miner
         }
     }
 
+    public void transformToFull(World world)
+    {
+        MinerFull newObj = new MinerFull(this.getName(), this.getPosition(), this.getImages(), this.getRate(), this.getAnimationRate(), this.getResourceLimit());
+        this.clearPendingActions(world);
+        world.removeEntityAt(this.getPosition());
+        newObj.schedule(world, 0);
+        world.addWorldObject(newObj);
+        newObj.scheduleAnimation(world);
+
+        //return newObj;
+    }
+
     public Class getGoalType()
     {
         return Ore.class;

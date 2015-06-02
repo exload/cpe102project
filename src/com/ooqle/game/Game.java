@@ -3,10 +3,7 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
-import com.ooqle.game.entity.Background;
-import com.ooqle.game.entity.Lair;
-import com.ooqle.game.entity.MovableActor;
-import com.ooqle.game.entity.WorldObject;
+import com.ooqle.game.entity.*;
 import com.ooqle.game.ui.Button;
 import com.ooqle.game.ui.ToggleButton;
 import com.ooqle.game.ui.UIManager;
@@ -164,6 +161,20 @@ public class Game extends PApplet
                         xShift -= 1;
                     }
                     break;
+
+                case 'q':
+                    WorldObject ob = world.getWorldObjectAt(new Point(mouseX / 32, mouseY / 32));
+                    if(ob != null)
+                    {
+                        System.out.println(ob.getClass());
+                    }
+                    break;
+
+                case 'z':
+                    Barracks barracks = new Barracks("barracks", new Point(10, 2), 1000);
+                    world.addWorldObject(barracks);
+                    break;
+
                 case 0:
                     showMenu = !showMenu;
                     break;
@@ -175,10 +186,34 @@ public class Game extends PApplet
     {
         if(!(battleMode))
         {
+            //battlePlayer = minim.loadFile("res/audio/battle_music.mp3");
+            //battlePlayer.loop();
+            //happyPlayer.close();
             Lair lair = new Lair("lair", cavepoint, WorldObjectSettings.GOBLINSPAWNRATE);
             world.addWorldObject(lair);
             lair.schedule(world, 0);
+
+            callMinersToBase();
             battleMode = true;
+        }
+    }
+
+    private void callMinersToBase()
+    {
+        List<WorldObject> allWorldObjects = world.getWorldObjects();
+        ArrayList<MinerNotFull> minerlist = new ArrayList<MinerNotFull>();
+
+        for(WorldObject entity : allWorldObjects)
+        {
+            if(entity.getClass().equals(MinerNotFull.class))
+            {
+                minerlist.add(0, (MinerNotFull) entity);
+            }
+        }
+
+        for(MinerNotFull oldminer : minerlist)
+        {
+            oldminer.transformToFull(world);
         }
     }
 

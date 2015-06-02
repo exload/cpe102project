@@ -29,7 +29,7 @@ public class MinerFull extends Miner
     @Override
     Class nearestTypeForSearching()
     {
-        return Blacksmith.class;
+        return Base.class;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MinerFull extends Miner
 
     public Class getGoalType()
     {
-        return Blacksmith.class;
+        return Base.class;
     }
 
     public String entityString()

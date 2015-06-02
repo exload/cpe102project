@@ -8,13 +8,13 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Blacksmith extends Actor
+public class Blacksmith extends Base
 {
     private int resourceCount;
 
     public Blacksmith(String name, Point position, int rate, List<PImage> imgs)
     {
-        super(name, "blacksmith", position, imgs, rate);
+        super(name, "blacksmith", position, rate, imgs);
         this.resourceCount = 0;
     }
 
