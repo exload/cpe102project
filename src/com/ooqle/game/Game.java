@@ -43,7 +43,8 @@ public class Game extends PApplet
     private PImage greenSquare;
     private PImage yellowSquare;
     private PImage splashImage;
-    private AudioPlayer player;
+    private AudioPlayer happyMusicPlayer;
+    private AudioPlayer battleMusicPlayer;
     private Minim minim;
     private boolean battleMode;
 
@@ -116,8 +117,9 @@ public class Game extends PApplet
         setupMenu();
 
         minim = new Minim(this);
-        player = minim.loadFile("res/audio/happy_music.mp3");
-        player.loop();
+        happyMusicPlayer = minim.loadFile("res/audio/happy_music.mp3");
+        battleMusicPlayer = minim.loadFile("res/audio/battle_music.mp3");
+        happyMusicPlayer.loop();
     }
 
     public void keyPressed()
@@ -186,15 +188,14 @@ public class Game extends PApplet
     {
         if (!(battleMode))
         {
-            //battlePlayer = minim.loadFile("res/audio/battle_music.mp3");
-            //battlePlayer.loop();
-            //happyPlayer.close();
             Lair lair = new Lair("lair", cavepoint, WorldObjectSettings.GOBLINSPAWNRATE);
             world.addWorldObject(lair);
             lair.schedule(world, 0);
 
             callMinersToBase();
             battleMode = true;
+            happyMusicPlayer.pause();
+            battleMusicPlayer.loop();
         }
     }
 
@@ -215,6 +216,15 @@ public class Game extends PApplet
         {
             oldminer.transformToFull(world);
         }
+    }
+
+    private AudioPlayer getAudioPlayer()
+    {
+        if(battleMode)
+        {
+            return battleMusicPlayer;
+        }
+        return happyMusicPlayer;
     }
 
     public void mouse()
@@ -275,8 +285,8 @@ public class Game extends PApplet
         Button closeGameBtn = UIManager.createButton(100, 100, getImage("images/button/dummy_button.png"), getImage("images/button/dummy_button_hover.png"));
         closeGameBtn.addClickHandler(() ->
         {
-            player.pause();
-            player.close();
+            happyMusicPlayer.pause();
+            happyMusicPlayer.close();
             exit();
         });
 
@@ -286,10 +296,10 @@ public class Game extends PApplet
         {
             if (soundBtn.isSelected())
             {
-                player.play();
+                getAudioPlayer().play();
             } else
             {
-                player.pause();
+                getAudioPlayer().pause();
             }
         });
     }
