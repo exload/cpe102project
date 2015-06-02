@@ -5,6 +5,7 @@ package com.ooqle.game.entity;
 
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
+import com.ooqle.game.util.Action;
 import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
@@ -21,6 +22,7 @@ public abstract class MovableActor extends AnimatedActor
     }
 
     public abstract Class getGoalType();
+    public abstract Action createAction(World world);
 
     public Point nextPosition(World world, Point destPt)
     {

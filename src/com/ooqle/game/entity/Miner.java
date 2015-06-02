@@ -22,7 +22,7 @@ public abstract class Miner extends MovableActor
         this.resourceLimit = resourceLimit;
     }
 
-    abstract Miner transform(World world);
+    abstract MovableActor transform(World world);
     abstract Class nearestTypeForSearching();
     abstract Tuple<List<Point>, Boolean> applyAction(World world, Actor obj);
     public abstract Class getGoalType();
@@ -39,9 +39,9 @@ public abstract class Miner extends MovableActor
         return this.applyAction(world, nearestOfType);
     }
 
-    private Miner tryTransform(World world)
+    private MovableActor tryTransform(World world)
     {
-        Miner newObj = this.transform(world);
+        MovableActor newObj = this.transform(world);
         if(this != newObj)
         {
             this.clearPendingActions(world);
@@ -58,7 +58,7 @@ public abstract class Miner extends MovableActor
         {
             Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
             boolean found = tup.getValue();
-            Miner newEntity = this;
+            MovableActor newEntity = this;
 
             if(found)
             {
