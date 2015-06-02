@@ -11,15 +11,23 @@ import org.json.simple.JSONObject;
 import processing.core.PImage;
 
 import java.util.List;
+import java.util.UUID;
 
 public abstract class Miner extends MovableActor
 {
     private int resourceLimit;
+    private UUID uuid;
 
-    public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
+    public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
     {
         super(name, type, position, imgs, rate, animationRate);
         this.resourceLimit = resourceLimit;
+        this.uuid =  uuid;
+    }
+
+    public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
+    {
+        this(name, type, position, imgs, rate, animationRate, resourceLimit, UUID.randomUUID());
     }
 
     abstract MovableActor transform(World world);
@@ -30,6 +38,11 @@ public abstract class Miner extends MovableActor
     public int getResourceLimit()
     {
         return resourceLimit;
+    }
+
+    public UUID getUUID()
+    {
+        return uuid;
     }
 
     public Tuple<List<Point>, Boolean> getNearest(World world, Class type)
@@ -84,4 +97,6 @@ public abstract class Miner extends MovableActor
         out.put("resourceLimit", this.getResourceLimit());
         return out;
     }
+
+
 }

@@ -11,13 +11,18 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class MinerNotFull extends Miner
 {
+    public MinerNotFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
+    {
+        super(name, "miner", position, imgs, rate, animationRate, resourceLimit, uuid);
+    }
 
     public MinerNotFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
     {
-        super(name, "miner", position, imgs, rate, animationRate, resourceLimit);
+        this(name, position, imgs, rate, animationRate, resourceLimit, UUID.randomUUID());
     }
 
     @Override
@@ -27,7 +32,7 @@ public class MinerNotFull extends Miner
         {
             return this;
         }
-        return new MinerFull(this.getName(), this.getPosition(), this.getImages(), this.getRate(), this.getAnimationRate(), this.getResourceLimit());
+        return new MinerFull(this.getName(), this.getPosition(), this.getImages(), this.getRate(), this.getAnimationRate(), this.getResourceLimit(), this.getUUID());
     }
 
     @Override

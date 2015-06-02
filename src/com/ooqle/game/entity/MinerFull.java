@@ -13,14 +13,20 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class MinerFull extends Miner
 {
     private boolean knighthood;
 
+    public MinerFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
+    {
+        super(name, "unknown", position, imgs, rate, animationRate, resourceLimit, uuid);
+    }
+
     public MinerFull(String name, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit)
     {
-        super(name, "unknown", position, imgs, rate, animationRate, resourceLimit);
+        this(name, position, imgs, rate, animationRate, resourceLimit, UUID.randomUUID());
     }
 
     @Override
@@ -30,7 +36,7 @@ public class MinerFull extends Miner
         {
             return new Soldier("soldier", this.getPosition(), GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_move_left.png"), 6), 1000, 100);
         }
-        return new MinerNotFull(this.getName(), this.getPosition(), this.getImages(), this.getRate(), this.getAnimationRate(), this.getResourceCount());
+        return new MinerNotFull(this.getName(), this.getPosition(), this.getImages(), this.getRate(), this.getAnimationRate(), this.getResourceCount(), this.getUUID());
     }
 
     @Override
