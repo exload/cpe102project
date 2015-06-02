@@ -1,5 +1,7 @@
 package com.ooqle.game.entity;
 
+import com.ooqle.game.ActionManager;
+import com.ooqle.game.BattleManager;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
@@ -9,11 +11,12 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by augiedoebling on 5/31/15.
  */
-public class Goblin extends MovableActor
+public class Goblin extends MovableActor implements Attackable
 {
     public Goblin(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate)
     {
@@ -74,5 +77,14 @@ public class Goblin extends MovableActor
         };
         this.removePendingAction(a);
         return a;
+    }
+
+    @Override
+    public void getTarget(World world)
+    {
+        if(BattleManager.isTargetted(world.findNearestOfType(this.getPosition(), this.nearestTypeForSearching())))
+        {
+
+        }
     }
 }
