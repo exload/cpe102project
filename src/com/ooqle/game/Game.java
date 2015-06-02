@@ -164,7 +164,7 @@ public class Game extends PApplet
 
                 case 'q':
                     WorldObject ob = world.getWorldObjectAt(new Point(mouseX / 32, mouseY / 32));
-                    if(ob != null)
+                    if (ob != null)
                     {
                         System.out.println(ob.getClass());
                     }
@@ -184,7 +184,7 @@ public class Game extends PApplet
 
     private void enterBattleMode(Point cavepoint)
     {
-        if(!(battleMode))
+        if (!(battleMode))
         {
             //battlePlayer = minim.loadFile("res/audio/battle_music.mp3");
             //battlePlayer.loop();
@@ -203,15 +203,15 @@ public class Game extends PApplet
         List<WorldObject> allWorldObjects = world.getWorldObjects();
         ArrayList<MinerNotFull> minerlist = new ArrayList<MinerNotFull>();
 
-        for(WorldObject entity : allWorldObjects)
+        for (WorldObject entity : allWorldObjects)
         {
-            if(entity.getClass().equals(MinerNotFull.class))
+            if (entity.getClass().equals(MinerNotFull.class))
             {
                 minerlist.add(0, (MinerNotFull) entity);
             }
         }
 
-        for(MinerNotFull oldminer : minerlist)
+        for (MinerNotFull oldminer : minerlist)
         {
             oldminer.transformToFull(world);
         }
@@ -224,7 +224,7 @@ public class Game extends PApplet
 
         drawImage(greenSquare, xPos, yPos);
 
-        if(mousePressed)
+        if (mousePressed)
         {
             enterBattleMode(new Point(xPos + xShift, yPos + yShift));
         }
@@ -235,7 +235,7 @@ public class Game extends PApplet
 
     public void mousePressed()
     {
-        if(showMenu)
+        if (showMenu)
         {
             for (Button btn : UIManager.getButtons())
             {
@@ -284,10 +284,10 @@ public class Game extends PApplet
         ToggleButton soundBtn = UIManager.createToggleButton(500, 100, soundIconOn, soundIconOn, getImage("images/menu/sound_icon_off.png"));
         soundBtn.addClickHandler(() ->
         {
-            if(soundBtn.isSelected())
+            if (soundBtn.isSelected())
             {
                 player.play();
-            }else
+            } else
             {
                 player.pause();
             }
@@ -313,7 +313,7 @@ public class Game extends PApplet
             worldLive = true;
             long currTime = System.currentTimeMillis();
 
-            if(!paused)
+            if (!paused)
             {
                 if (currTime >= nextTime)
                 {
@@ -330,10 +330,10 @@ public class Game extends PApplet
             if (this.showMenu)
             {
                 paused = true;
-                 tint(200);
+                tint(200);
                 filter(BLUR, 2);
                 drawMenu();
-            }else
+            } else
             {
                 tint(255);
                 paused = false;
