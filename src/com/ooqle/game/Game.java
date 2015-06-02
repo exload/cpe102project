@@ -235,11 +235,14 @@ public class Game extends PApplet
 
     public void mousePressed()
     {
-        for (Button btn : UIManager.getButtons())
+        if(showMenu)
         {
-            if (UIManager.withinBounds(mouseX, mouseY, btn))
+            for (Button btn : UIManager.getButtons())
             {
-                btn.onClick();
+                if (UIManager.withinBounds(mouseX, mouseY, btn))
+                {
+                    btn.onClick();
+                }
             }
         }
     }
