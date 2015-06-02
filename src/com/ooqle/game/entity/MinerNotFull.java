@@ -21,7 +21,7 @@ public class MinerNotFull extends Miner
     }
 
     @Override
-    Miner transform(World world)
+    MovableActor transform(World world)
     {
         if(this.getResourceCount() < this.getResourceLimit())
         {
