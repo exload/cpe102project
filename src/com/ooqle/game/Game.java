@@ -335,7 +335,7 @@ public class Game extends PApplet
 
             drawBG();
             drawWorldObjects();
-            mouse();
+
             UIManager.updateMousePosition(mouseX, mouseY);
             if (this.showMenu)
             {
@@ -345,6 +345,7 @@ public class Game extends PApplet
                 drawMenu();
             } else
             {
+                mouse();
                 tint(255);
                 paused = false;
             }
