@@ -18,6 +18,7 @@ public class World
     private int height;
     private long currentGameTime;
     private List<WorldObject> worldObjectList;
+    private HashMap<UUID, WorldObject> uuidWorldObjectMap;
     private Multimap<Long, Action> actionQueue;
     private Grid<Background> backgroundGrid;
     private Grid<WorldObject> worldObjectGrid;
@@ -29,6 +30,7 @@ public class World
         this.currentGameTime = 0;
         backgroundGrid = new Grid<>(width, height, initBackground);
         worldObjectGrid = new Grid<>(width, height, null);
+        this.uuidWorldObjectMap = new HashMap<>();
         actionQueue = Multimaps.newListMultimap(
                 new TreeMap<>(),
                 Lists::newArrayList
@@ -78,6 +80,7 @@ public class World
             }
             this.getWorldObjectGrid().setCell(pt, obj);
             this.worldObjectList.add(obj);
+            this.uuidWorldObjectMap.put(obj.getUUID(), obj);
         }
     }
 
@@ -114,6 +117,11 @@ public class World
             return this.getWorldObjectGrid().getCell(pt);
         }
         return null;
+    }
+
+    public WorldObject getWorldObjectByUUID(UUID uuid)
+    {
+        return uuidWorldObjectMap.get(uuid);
     }
 
     public void setBackground(Point pt, Background bg)
