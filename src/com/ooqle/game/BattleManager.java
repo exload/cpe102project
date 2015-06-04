@@ -3,15 +3,17 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.ooqle.game.entity.WorldObject;
 
-import java.util.HashMap;
+import java.util.Collection;
 
 public class BattleManager
 {
-    private static HashMap<WorldObject, WorldObject> assignedTargets = new HashMap<>();
+    private static Multimap<WorldObject, WorldObject> assignedTargets = ArrayListMultimap.create();
 
-    public static WorldObject getTarget(WorldObject attacker)
+    public static Collection<WorldObject> getTargets(WorldObject attacker)
     {
         return assignedTargets.get(attacker);
     }
@@ -23,8 +25,10 @@ public class BattleManager
 
     public static void removeTarget(WorldObject attacker)
     {
-        assignedTargets.remove(attacker);
+        assignedTargets.removeAll(attacker);
     }
+
+    //public static int getTotalTargets()
 
     public static boolean isTargetted(WorldObject target)
     {
