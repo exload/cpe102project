@@ -27,6 +27,11 @@ public class AnimatedActor extends Actor
         return animationRate;
     }
 
+    public void setAnimationRate(int newrate)
+    {
+        animationRate = newrate;
+    }
+
     public Action createAnimationAction(World world, int repeatCount)
     {
         Action a = (long currentTicks) ->
@@ -58,5 +63,25 @@ public class AnimatedActor extends Actor
         JSONObject out = super.entityJSON();
         out.put("animationRate", this.getAnimationRate());
         return out;
+    }
+
+    public void scheduleDeath(World world)
+    {
+        world.scheduleActionWithWaitTime((long currentticks) ->
+        {
+
+            this.setAnimationRate(0);
+
+            world.scheduleActionWithWaitTime((long otherticks) ->
+            {
+
+                world.removeEntityAt(this.getPosition());
+                return null;
+
+            }, 2000);
+
+            return null;
+
+        }, 600);
     }
 }

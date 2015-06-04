@@ -67,6 +67,7 @@ public class WorldObject
 
     public void setImages(List<PImage> imgs)
     {
+        currentImg = 0;
         this.imgs = imgs;
     }
 
