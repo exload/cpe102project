@@ -5,22 +5,23 @@ import com.ooqle.game.BattleManager;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
+import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by augiedoebling on 5/31/15.
  */
 public class Goblin extends MovableActor implements Attackable
 {
-    public Goblin(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate)
+    private MovableActor target;
+
+    public Goblin(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int health)
     {
-        super(name, type, position, imgs, rate, animationRate);
+        super(name, type, position, imgs, rate, animationRate, health);
+        target = null;
     }
 
     public Class getGoalType()
@@ -69,10 +70,9 @@ public class Goblin extends MovableActor implements Attackable
     {
         Action a = (long currentTicks) ->
         {
-            Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
-            boolean found = tup.getValue();
-
             this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
+            Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
+            //boolean found = tup.getValue();
             return tup.getKey();
         };
         this.removePendingAction(a);
@@ -80,11 +80,43 @@ public class Goblin extends MovableActor implements Attackable
     }
 
     @Override
-    public void getTarget(World world)
+    public MovableActor getTarget(World world)
     {
-        if(BattleManager.isTargetted(world.findNearestOfType(this.getPosition(), this.nearestTypeForSearching())))
+        List<MovableActor> availableToAttack = new ArrayList<>();
+        for (WorldObject obj : world.getWorldObjects())
         {
-
+            if (!(obj instanceof Goblin) && obj instanceof MovableActor && !BattleManager.isTargetted(obj))
+            {
+                availableToAttack.add((MovableActor) obj);
+            }
         }
+
+        Comparator<MovableActor> minerThenSoldier = (MovableActor a, MovableActor b) ->
+        {
+            if (a instanceof Soldier)
+            {
+                return 1;
+            }
+
+            if (b instanceof Soldier)
+            {
+                return 1;
+            }
+            return 0;
+        };
+
+        Comparator<MovableActor> distanceComparator = (MovableActor a, MovableActor b) ->
+                GameUtils.euclideanDistanceSqaure(this.getPosition(), a.getPosition()) - GameUtils.euclideanDistanceSqaure(this.getPosition(), b.getPosition());
+
+        availableToAttack.sort(minerThenSoldier.thenComparing(distanceComparator));
+
+        if(availableToAttack.isEmpty())
+        {
+            return null;
+        }
+
+        BattleManager.assignTarget(this, availableToAttack.get(0));
+
+        return availableToAttack.get(0);
     }
 }
