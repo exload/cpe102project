@@ -19,7 +19,7 @@ public class OreBlob extends MovableActor
 
     public OreBlob(String name, Point position, List<PImage> imgs, int rate, int animationRate)
     {
-        super(name, "unknown", position, imgs, rate, animationRate);
+        super(name, "unknown", position, imgs, rate, animationRate, 0);
     }
 
     public Tuple<List<Point>, Boolean> toVein(World world, Vein vein)

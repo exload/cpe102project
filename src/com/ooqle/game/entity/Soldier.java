@@ -17,7 +17,7 @@ public class Soldier extends MovableActor {
 
     public Soldier(String name, Point position, List<PImage> imgs, int rate, int animationRate)
     {
-        super(name, "soldier", position, imgs, rate, animationRate);
+        super(name, "soldier", position, imgs, rate, animationRate, 5);
     }
 
     public Class getGoalType()

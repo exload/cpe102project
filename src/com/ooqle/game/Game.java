@@ -43,6 +43,7 @@ public class Game extends PApplet
     private PImage greenSquare;
     private PImage yellowSquare;
     private PImage splashImage;
+    private PImage heart;
     private AudioPlayer happyMusicPlayer;
     private AudioPlayer battleMusicPlayer;
     private Minim minim;
@@ -111,6 +112,7 @@ public class Game extends PApplet
         greenSquare = getImage("images/greenSquare.png");
         yellowSquare = getImage("images/yellowSquare.png");
         splashImage = getImage("images/splashscreen2.png");
+        heart = getImage("images/heart.png");
 
         //cursor(getImage("images/cursor/cursor_default.png"));
 
@@ -242,6 +244,42 @@ public class Game extends PApplet
         return happyMusicPlayer;
     }
 
+    private void drawHearts()
+    {
+        for(WorldObject entity : world.getWorldObjects())
+        {
+            if(entity instanceof MovableActor)
+            {
+                int health = ((MovableActor) entity).getHealth();
+
+                if(health > 0)
+                {
+                    image(heart, (entity.getPosition().getX() - xShift) * 32, (entity.getPosition().getY() - yShift) * 32 - 2);
+                }
+
+                if(health > 1)
+                {
+                    image(heart, (entity.getPosition().getX() - xShift) * 32 + 6, (entity.getPosition().getY() - yShift) * 32 - 2);
+                }
+
+                if(health > 2)
+                {
+                    image(heart, (entity.getPosition().getX() - xShift) * 32 + 12, (entity.getPosition().getY() - yShift) * 32 - 2);
+                }
+
+                if(health > 3)
+                {
+                    image(heart, (entity.getPosition().getX() - xShift) * 32 + 18, (entity.getPosition().getY() - yShift) * 32 - 2);
+                }
+
+                if(health > 4)
+                {
+                    image(heart, (entity.getPosition().getX() - xShift) * 32 + 24, (entity.getPosition().getY() - yShift) * 32 - 2);
+                }
+            }
+        }
+    }
+
     public void mouse()
     {
         int xPos = mouseX / 32;
@@ -350,6 +388,7 @@ public class Game extends PApplet
 
             drawBG();
             drawWorldObjects();
+            drawHearts();
 
             UIManager.updateMousePosition(mouseX, mouseY);
             if (this.showMenu)
