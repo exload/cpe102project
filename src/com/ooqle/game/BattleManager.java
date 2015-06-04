@@ -5,9 +5,11 @@ package com.ooqle.game;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import com.ooqle.game.entity.MovableActor;
 import com.ooqle.game.entity.WorldObject;
 
 import java.util.Collection;
+import java.util.Random;
 
 public class BattleManager
 {
@@ -33,5 +35,17 @@ public class BattleManager
     public static boolean isTargetted(WorldObject target)
     {
         return assignedTargets.values().contains(target);
+    }
+
+    public static void fight(MovableActor a1, MovableActor a2)
+    {
+        Random rand = new Random();
+        if(rand.nextInt(2) == 0)
+        {
+            a1.takeDamage(1);
+        }else
+        {
+            a2.takeDamage(1);
+        }
     }
 }
