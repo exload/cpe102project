@@ -13,13 +13,13 @@ import processing.core.PImage;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class Miner extends MovableActor
+public abstract class Miner extends MovableActor implements Attackable
 {
     private int resourceLimit;
 
     public Miner(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int resourceLimit, UUID uuid)
     {
-        super(name, type, position, imgs, rate, animationRate);
+        super(name, type, position, imgs, rate, animationRate, 3);
         this.resourceLimit = resourceLimit;
         this.setUUID(uuid);
     }
@@ -92,5 +92,10 @@ public abstract class Miner extends MovableActor
         return out;
     }
 
+    @Override
+    public void getTarget(World world)
+    {
+
+    }
 
 }

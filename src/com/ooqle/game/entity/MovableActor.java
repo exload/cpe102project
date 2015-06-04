@@ -15,10 +15,12 @@ public abstract class MovableActor extends AnimatedActor
 {
     private Tuple<List<Point>, List<Point>> travelled;
     private Boolean exists = true;
+    private int health;
 
-    public MovableActor(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate)
+    public MovableActor(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int health)
     {
         super(name, type, position, imgs, rate, animationRate);
+        this.health = health;
     }
 
     public abstract Class getGoalType();
@@ -66,5 +68,15 @@ public abstract class MovableActor extends AnimatedActor
     public void removedFromWorld()
     {
         exists = false;
+    }
+
+    public void setHealth(int health)
+    {
+        this.health = health;
+    }
+
+    public int getHealth()
+    {
+        return this.health;
     }
 }
