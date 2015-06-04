@@ -15,9 +15,8 @@ import java.util.List;
 /**
  * Created by augiedoebling on 6/1/15.
  */
-public class Soldier extends MovableActor {
-
-
+public class Soldier extends MovableActor
+{
     public Soldier(String name, Point position, List<PImage> imgs, int rate, int animationRate)
     {
         super(name, "soldier", position, imgs, rate, animationRate, 5);
@@ -36,16 +35,16 @@ public class Soldier extends MovableActor {
     Tuple<List<Point>, Boolean> applyAction(World world, Actor obj)
     {
         Point pos = this.getPosition();
-        if(obj == null)
+        if (obj == null)
         {
             return new Tuple<>(Collections.singletonList(pos), false);
         }
         Point orePt = obj.getPosition();
-        if(pos.adjacent(orePt))
+        if (pos.adjacent(orePt))
         {
             //attack the miner
             return new Tuple<>(new ArrayList<>(), true);
-        }else
+        } else
         {
             Point newPt = this.nextPosition(world, orePt);
             return new Tuple<>(world.moveWorldObject(this, newPt), false);
@@ -72,19 +71,30 @@ public class Soldier extends MovableActor {
             Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
             boolean found = tup.getValue();
 
-            if(!this.isDead())
+            if (!this.isDead())
             {
                 this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
-            }
-            else
+            } else
             {
                 this.setImages(GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_die.png"), 9));
-                this.scheduleDeath(world);
+                this.die(world);
             }
 
             return tup.getKey();
         };
         this.removePendingAction(a);
         return a;
+    }
+
+    @Override
+    public List<PImage> getAttackImages()
+    {
+        return GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_attack_left.png"), 5);
+    }
+
+    @Override
+    public List<PImage> getMoveImages()
+    {
+        return GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_move_left.png"), 6);
     }
 }

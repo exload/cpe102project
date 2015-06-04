@@ -3,6 +3,7 @@ package com.ooqle.game.entity;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.Game;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
@@ -97,5 +98,15 @@ public abstract class Miner extends MovableActor //implements Attackable
 //    {
 //
 //    }
+
+    public List<PImage> getAttackImages()
+    {
+        return null;
+    }
+
+    public List<PImage> getMoveImages()
+    {
+        return Game.getImages("images/miner*.png", 5);
+    }
 
 }

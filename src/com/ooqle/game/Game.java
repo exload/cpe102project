@@ -173,7 +173,7 @@ public class Game extends PApplet
                         if(ob.getClass().equals(Soldier.class))
                         {
                             Soldier soldier =(Soldier) ob;
-                                    soldier.die();
+                                    soldier.die(world);
                         }
                     }
                     break;

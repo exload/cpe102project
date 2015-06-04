@@ -71,6 +71,18 @@ public class OreBlob extends MovableActor
         return a;
     }
 
+    @Override
+    public List<PImage> getAttackImages()
+    {
+        return null;
+    }
+
+    @Override
+    public List<PImage> getMoveImages()
+    {
+        return null;
+    }
+
     public void schedule(World world, long ticks)
     {
         this.scheduleAction(world, this.createAction(world), ticks + this.getRate());

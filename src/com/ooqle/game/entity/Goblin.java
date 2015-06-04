@@ -17,7 +17,7 @@ public class Goblin extends MovableActor implements Attackable
 
     public Goblin(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int health)
     {
-        super(name, type, position, imgs, rate, animationRate, health);
+        super(name, "goblin", position, imgs, rate, animationRate, health);
         target = null;
     }
 
@@ -41,12 +41,8 @@ public class Goblin extends MovableActor implements Attackable
         Point otherPt = obj.getPosition();
         if (pos.adjacent(otherPt))
         {
-            Soldier target = (Soldier) world.getWorldObjectAt(otherPt);
-            target.setHealth(target.getHealth() - 1);
-            if(target.getHealth() == 0)
-            {
-                target.die();
-            }
+            MovableActor target = (MovableActor) world.getWorldObjectAt(otherPt);
+            this.attack(target, world, "goblin");
             return new Tuple<>(new ArrayList<>(), true);
         } else
         {
@@ -79,12 +75,24 @@ public class Goblin extends MovableActor implements Attackable
             }else
             {
                 this.setImages(GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_die.png"), 9));
-                this.scheduleDeath(world);
+                this.die(world);
             }
             return tup.getKey();
         };
         this.removePendingAction(a);
         return a;
+    }
+
+    @Override
+    public List<PImage> getAttackImages()
+    {
+        return GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_attack_left.png"), 7);
+    }
+
+    @Override
+    public List<PImage> getMoveImages()
+    {
+        return GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_move_left.png"), 6);
     }
 
     @Override
