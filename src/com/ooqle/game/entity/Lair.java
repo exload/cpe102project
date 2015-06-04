@@ -83,7 +83,7 @@ public class Lair extends Actor {
             //System.out.println(openPt.getY());
             if(openPt != null && this.getGoblinCount() != 0)
             {
-                Goblin goblin = new Goblin("goblin" + currentTicks, "goblin", openPt, GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_move_left.png"), 6), 1000, 100);
+                Goblin goblin = new Goblin("goblin" + currentTicks, "goblin", openPt, GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_move_left.png"), 6), 1000, 100, 2);
                 world.addWorldObject(goblin);
                 goblin.schedule(world, 0);
                 setGoblinCount(getGoblinCount() - 1);
