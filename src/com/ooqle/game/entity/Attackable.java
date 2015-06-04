@@ -7,5 +7,5 @@ import com.ooqle.game.World;
 
 public interface Attackable
 {
-    WorldObject getTarget(World world);
+    MovableActor getTarget(World world);
 }
