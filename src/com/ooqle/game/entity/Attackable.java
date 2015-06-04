@@ -7,8 +7,5 @@ import com.ooqle.game.World;
 
 public interface Attackable
 {
-    void getTarget(World world);
-
-    void setHealth(int health);
-    int getHealth();
+    WorldObject getTarget(World world);
 }
