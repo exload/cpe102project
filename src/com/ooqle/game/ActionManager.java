@@ -1,6 +1,7 @@
 package com.ooqle.game;
 
 import com.ooqle.game.entity.*;
+import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.WorldObjectSettings;
 import processing.core.PImage;
 
@@ -49,7 +50,14 @@ public class ActionManager
 
     public static Vein createVein(String name, Point pt, int rate)
     {
-
         return new Vein("vein" + name, pt, Collections.singletonList(Game.getImage("images/vein.bmp")), rate);
+    }
+
+    public static Goblin createGoblin(World world, Point pt, long ticks)
+    {
+        List<PImage> imgs = GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_move_left.png"), 6);
+        Goblin goblin = new Goblin("goblin" + ticks, "goblin", pt, imgs , 1000, 100, 2);
+        goblin.schedule(world, ticks);
+        return goblin;
     }
 }

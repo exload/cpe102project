@@ -74,18 +74,14 @@ public class Lair extends Actor {
 
     public Action createAction(World world)
     {
-        //System.out.println("called");
         Action a = (long currentTicks) ->
         {
             List<Point> tiles = new ArrayList<>();
             Point openPt = this.findOpenAround(world);
-            //System.out.println(openPt.getX());
-            //System.out.println(openPt.getY());
             if(openPt != null && this.getGoblinCount() != 0)
             {
-                Goblin goblin = new Goblin("goblin" + currentTicks, "goblin", openPt, GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_move_left.png"), 6), 1000, 100, 2);
+                Goblin goblin = ActionManager.createGoblin(world, openPt, currentTicks);
                 world.addWorldObject(goblin);
-                goblin.schedule(world, 0);
                 setGoblinCount(getGoblinCount() - 1);
                 tiles.add(openPt);
             }
@@ -93,7 +89,7 @@ public class Lair extends Actor {
             this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
             return tiles;
         };
-        //this.removePendingAction(a);
+        this.removePendingAction(a);
         return a;
     }
 
