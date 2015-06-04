@@ -31,8 +31,11 @@ public abstract class Miner extends MovableActor //implements Attackable
     }
 
     abstract MovableActor transform(World world);
+
     abstract Class nearestTypeForSearching();
+
     abstract Tuple<List<Point>, Boolean> applyAction(World world, Actor obj);
+
     public abstract Class getGoalType();
 
     public int getResourceLimit()
@@ -50,7 +53,7 @@ public abstract class Miner extends MovableActor //implements Attackable
     private MovableActor tryTransform(World world)
     {
         MovableActor newObj = this.transform(world);
-        if(this != newObj)
+        if (this != newObj)
         {
             this.clearPendingActions(world);
             world.removeEntityAt(this.getPosition());
@@ -68,7 +71,7 @@ public abstract class Miner extends MovableActor //implements Attackable
             boolean found = tup.getValue();
             MovableActor newEntity = this;
 
-            if(found)
+            if (found)
             {
                 newEntity = this.tryTransform(world);
             }

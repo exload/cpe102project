@@ -35,13 +35,13 @@ public class Vein extends Actor
 
     public Point findOpenAround(World world)
     {
-        for(int dy = (-1 * this.getResourceDistance()); dy < (this.getResourceDistance() + 1); dy++)
+        for (int dy = (-1 * this.getResourceDistance()); dy < (this.getResourceDistance() + 1); dy++)
         {
-            for(int dx = (-1 * this.getResourceDistance()); dx < (this.getResourceDistance() + 1); dx++)
+            for (int dx = (-1 * this.getResourceDistance()); dx < (this.getResourceDistance() + 1); dx++)
             {
                 Point newPt = new Point(this.getPosition().getX() + dx, this.getPosition().getY() + dy);
 
-                if(world.withinBounds(newPt) && !world.isOccupied(newPt))
+                if (world.withinBounds(newPt) && !world.isOccupied(newPt))
                 {
                     return newPt;
                 }
@@ -56,10 +56,10 @@ public class Vein extends Actor
         {
             List<Point> tiles = new ArrayList<>();
             Point openPt = this.findOpenAround(world);
-            if(openPt != null)
+            if (openPt != null)
             {
                 Ore ore = ActionManager.createOre(world,
-                        "ore - "+this.getName()+" - "+currentTicks,
+                        "ore - " + this.getName() + " - " + currentTicks,
                         openPt, currentTicks);
                 world.addWorldObject(ore);
                 tiles.add(openPt);

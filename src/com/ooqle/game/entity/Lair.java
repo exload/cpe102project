@@ -5,9 +5,7 @@ import com.ooqle.game.Game;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
-import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.WorldObjectSettings;
-import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.Arrays;

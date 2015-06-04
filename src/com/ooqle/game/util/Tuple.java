@@ -26,12 +26,12 @@ public class Tuple<T, U>
 
     public boolean equals(Object other)
     {
-        if(this == other)
+        if (this == other)
         {
             return true;
         }
 
-        if(!(other instanceof Tuple))
+        if (!(other instanceof Tuple))
         {
             return false;
         }

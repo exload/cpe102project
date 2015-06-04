@@ -89,7 +89,7 @@ public class Button
 
     public PImage getCurrentImage()
     {
-        if(isHover())
+        if (isHover())
         {
             return this.getImage();
         }

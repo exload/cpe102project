@@ -40,10 +40,10 @@ public class BattleManager
     public static void fight(MovableActor a1, MovableActor a2)
     {
         Random rand = new Random();
-        if(rand.nextInt(2) == 0)
+        if (rand.nextInt(2) == 0)
         {
             a1.takeDamage(1);
-        }else
+        } else
         {
             a2.takeDamage(1);
         }

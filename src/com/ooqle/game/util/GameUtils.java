@@ -13,10 +13,10 @@ public class GameUtils
 {
     public static int sign(int x)
     {
-        if(x < 0)
+        if (x < 0)
         {
             return -1;
-        }else if(x > 0)
+        } else if (x > 0)
         {
             return 1;
         }
@@ -35,7 +35,8 @@ public class GameUtils
 
     /**
      * Loads a sprite into a List of PImages
-     * @param sprite The PImage of the sprite to load into a list
+     *
+     * @param sprite         The PImage of the sprite to load into a list
      * @param numberOfImages The number of images that are in the sprite
      * @return A list of PImages
      */
@@ -44,7 +45,7 @@ public class GameUtils
         List<PImage> sprites = new ArrayList<>();
         int W = sprite.width / numberOfImages;
         int H = sprite.height;
-        for(int i = 0; i < numberOfImages; i++)
+        for (int i = 0; i < numberOfImages; i++)
         {
             sprites.add(sprite.get(i * W, 0, W, H));
         }

@@ -69,10 +69,10 @@ public class Goblin extends MovableActor implements Attackable
         Action a = (long currentTicks) ->
         {
             Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
-            if(!this.isDead())
+            if (!this.isDead())
             {
                 this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
-            }else
+            } else
             {
                 this.setImages(GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_die.png"), 9));
                 this.die(world);
@@ -126,7 +126,7 @@ public class Goblin extends MovableActor implements Attackable
 
         availableToAttack.sort(minerThenSoldier.thenComparing(distanceComparator));
 
-        if(availableToAttack.isEmpty())
+        if (availableToAttack.isEmpty())
         {
             return null;
         }

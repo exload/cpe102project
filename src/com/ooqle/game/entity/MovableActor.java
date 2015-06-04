@@ -4,11 +4,9 @@ package com.ooqle.game.entity;
 */
 
 import com.ooqle.game.BattleManager;
-import com.ooqle.game.Game;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
-import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
@@ -129,10 +127,10 @@ public abstract class MovableActor extends AnimatedActor
         this.setImages(this.getAttackImages());
         other.setImages(other.getAttackImages());
         BattleManager.fight(this, other);
-        if(this.isDead())
+        if (this.isDead())
         {
             this.die(world);
-        }else
+        } else
         {
             this.scheduleResetImages(other, world, name);
         }

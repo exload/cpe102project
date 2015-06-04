@@ -29,7 +29,7 @@ public class ToggleButton extends Button
 
     public PImage getCurrentImage()
     {
-        if(this.isSelected())
+        if (this.isSelected())
         {
             return this.selectedImg;
         }

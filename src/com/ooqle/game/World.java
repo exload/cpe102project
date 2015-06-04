@@ -3,20 +3,19 @@ package com.ooqle.game;
 * @author Kenny Williams
 */
 
-import com.google.common.base.Supplier;
 import com.google.common.collect.*;
-import com.ooqle.game.entity.*;
+import com.ooqle.game.entity.Background;
+import com.ooqle.game.entity.MovableActor;
+import com.ooqle.game.entity.WorldObject;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
-import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import java.util.*;
 
 public class World
 {
-    private int width;
-    private int height;
+    private int width, height;
     private long currentGameTime;
     private List<WorldObject> worldObjectList;
     private HashMap<UUID, WorldObject> uuidWorldObjectMap;

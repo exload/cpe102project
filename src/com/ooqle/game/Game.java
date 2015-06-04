@@ -21,33 +21,16 @@ import java.util.List;
 
 public class Game extends PApplet
 {
-    private Background thebackground;
+    private boolean worldLive, showMenu, battleMode;
+    private int xShift, yShift, xSize, ySize;
+    private long startTime, worldStartTime;
 
     private World world;
-
-    private boolean worldLive;
-    private boolean showMenu;
-
-    private int xShift;
-    private int yShift;
-
-    private int xSize;
-    private int ySize;
-
-    private long startTime;
-    private long worldStartTime;
-
     private MovableActor hightlightedActor;
-    private PImage redSquare;
-    private PImage blackSquare;
-    private PImage greenSquare;
-    private PImage yellowSquare;
-    private PImage splashImage;
+    private PImage redSquare, blackSquare, greenSquare, yellowSquare, splashImage;
     private PImage heart;
-    private AudioPlayer happyMusicPlayer;
-    private AudioPlayer battleMusicPlayer;
+    private AudioPlayer happyMusicPlayer, battleMusicPlayer;
     private Minim minim;
-    private boolean battleMode;
 
     private static HashMap<String, PImage> imgs;
 
@@ -170,10 +153,10 @@ public class Game extends PApplet
                     WorldObject ob = world.getWorldObjectAt(new Point(mouseX / 32 + xShift, mouseY / 32 + yShift));
                     if (ob != null)
                     {
-                        if(ob.getClass().equals(Soldier.class))
+                        if (ob.getClass().equals(Soldier.class))
                         {
-                            Soldier soldier =(Soldier) ob;
-                                    soldier.die(world);
+                            Soldier soldier = (Soldier) ob;
+                            soldier.die(world);
                         }
                     }
                     break;
@@ -207,9 +190,7 @@ public class Game extends PApplet
                 if (entity.getClass().equals(MinerNotFull.class))
                 {
                     minerlist.add(0, (MinerNotFull) entity);
-                }
-
-                else if (entity.getClass().equals(Blacksmith.class))
+                } else if (entity.getClass().equals(Blacksmith.class))
                 {
                     smithlist.add(0, (Blacksmith) entity);
                 }
@@ -225,7 +206,7 @@ public class Game extends PApplet
 
     private void prepForBattle(ArrayList<Blacksmith> smithlist)
     {
-        for(Blacksmith smith : smithlist)
+        for (Blacksmith smith : smithlist)
         {
             smith.armTheLand(world);
         }
@@ -241,7 +222,7 @@ public class Game extends PApplet
 
     private AudioPlayer getAudioPlayer()
     {
-        if(battleMode)
+        if (battleMode)
         {
             return battleMusicPlayer;
         }
@@ -250,33 +231,33 @@ public class Game extends PApplet
 
     private void drawHearts()
     {
-        for(WorldObject entity : world.getWorldObjects())
+        for (WorldObject entity : world.getWorldObjects())
         {
-            if(entity instanceof MovableActor)
+            if (entity instanceof MovableActor)
             {
                 int health = ((MovableActor) entity).getHealth();
 
-                if(health > 0)
+                if (health > 0)
                 {
                     image(heart, (entity.getPosition().getX() - xShift) * 32, (entity.getPosition().getY() - yShift) * 32 - 2);
                 }
 
-                if(health > 1)
+                if (health > 1)
                 {
                     image(heart, (entity.getPosition().getX() - xShift) * 32 + 6, (entity.getPosition().getY() - yShift) * 32 - 2);
                 }
 
-                if(health > 2)
+                if (health > 2)
                 {
                     image(heart, (entity.getPosition().getX() - xShift) * 32 + 12, (entity.getPosition().getY() - yShift) * 32 - 2);
                 }
 
-                if(health > 3)
+                if (health > 3)
                 {
                     image(heart, (entity.getPosition().getX() - xShift) * 32 + 18, (entity.getPosition().getY() - yShift) * 32 - 2);
                 }
 
-                if(health > 4)
+                if (health > 4)
                 {
                     image(heart, (entity.getPosition().getX() - xShift) * 32 + 24, (entity.getPosition().getY() - yShift) * 32 - 2);
                 }

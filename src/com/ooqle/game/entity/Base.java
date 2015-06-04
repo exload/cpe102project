@@ -3,6 +3,7 @@ package com.ooqle.game.entity;
 /**
  * Created by augiedoebling on 6/1/15.
  */
+
 import com.ooqle.game.Point;
 import processing.core.PImage;
 

@@ -3,7 +3,8 @@ package com.ooqle.game.util;
 /**
  * Created by augiedoebling on 5/15/15.
  */
-public class WorldObjectSettings {
+public class WorldObjectSettings
+{
     public static final int BLOB_RATE_SCALE = 4;
     public static final int BLOB_ANIMATION_RATE_SCALE = 50;
     public static final int BLOB_ANIMATION_MIN = 1;

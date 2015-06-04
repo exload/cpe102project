@@ -4,7 +4,8 @@ package com.ooqle.game;
 /**
  * Created by augiedoebling on 5/2/15.
  */
-public class Grid <T> {
+public class Grid<T>
+{
 
     private int width;
     private int height;
@@ -18,9 +19,9 @@ public class Grid <T> {
 
         this.cells = (T[][]) new Object[height][width];
 
-        for(int r = 0; r < cells.length; r++)
+        for (int r = 0; r < cells.length; r++)
         {
-            for(int c = 0; c < cells[r].length; c++)
+            for (int c = 0; c < cells[r].length; c++)
             {
                 this.cells[r][c] = initValue;
             }

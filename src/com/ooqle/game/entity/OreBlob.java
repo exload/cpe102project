@@ -7,7 +7,6 @@ import com.ooqle.game.ActionManager;
 import com.ooqle.game.Point;
 import com.ooqle.game.World;
 import com.ooqle.game.util.Action;
-import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
 import processing.core.PImage;
 
@@ -30,15 +29,15 @@ public class OreBlob extends MovableActor
             return new Tuple<>(Collections.singletonList(entityPt), false);
         }
         Point veinPt = vein.getPosition().clone();
-        if(entityPt.adjacent(veinPt))
+        if (entityPt.adjacent(veinPt))
         {
             vein.removeEntity(world);
             return new Tuple<>(Collections.singletonList(veinPt), true);
-        }else
+        } else
         {
             Point newPt = this.nextPosition(world, veinPt);
             WorldObject oldEntity = world.getWorldObjectAt(newPt);
-            if(oldEntity instanceof Ore)
+            if (oldEntity instanceof Ore)
             {
                 oldEntity.removeEntity(world);
             }
@@ -56,7 +55,7 @@ public class OreBlob extends MovableActor
 
             long nextTime = currentTicks + this.getRate();
 
-            if(tup.getValue())
+            if (tup.getValue())
             {
                 Quake quake = ActionManager.createQuake(world, tup.getKey().get(0), currentTicks);
                 world.addWorldObject(quake);
