@@ -1,9 +1,6 @@
 package com.ooqle.game.entity;
 
-import com.ooqle.game.ActionManager;
-import com.ooqle.game.BattleManager;
-import com.ooqle.game.Point;
-import com.ooqle.game.World;
+import com.ooqle.game.*;
 import com.ooqle.game.util.Action;
 import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
@@ -26,12 +23,12 @@ public class Goblin extends MovableActor implements Attackable
 
     public Class getGoalType()
     {
-        return Miner.class;
+        return Soldier.class;
     }
 
     public Class nearestTypeForSearching()
     {
-        return Miner.class;
+        return Soldier.class;
     }
 
     Tuple<List<Point>, Boolean> applyAction(World world, Actor obj)
@@ -41,14 +38,19 @@ public class Goblin extends MovableActor implements Attackable
         {
             return new Tuple<>(Collections.singletonList(pos), false);
         }
-        Point orePt = obj.getPosition();
-        if (pos.adjacent(orePt))
+        Point otherPt = obj.getPosition();
+        if (pos.adjacent(otherPt))
         {
-            //attack the miner
+            Soldier target = (Soldier) world.getWorldObjectAt(otherPt);
+            target.setHealth(target.getHealth() - 1);
+            if(target.getHealth() == 0)
+            {
+                target.die();
+            }
             return new Tuple<>(new ArrayList<>(), true);
         } else
         {
-            Point newPt = this.nextPosition(world, orePt);
+            Point newPt = this.nextPosition(world, otherPt);
             return new Tuple<>(world.moveWorldObject(this, newPt), false);
         }
     }
@@ -70,9 +72,15 @@ public class Goblin extends MovableActor implements Attackable
     {
         Action a = (long currentTicks) ->
         {
-            this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
             Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
-            //boolean found = tup.getValue();
+            if(!this.isDead())
+            {
+                this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
+            }else
+            {
+                this.setImages(GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_die.png"), 9));
+                this.scheduleDeath(world);
+            }
             return tup.getKey();
         };
         this.removePendingAction(a);

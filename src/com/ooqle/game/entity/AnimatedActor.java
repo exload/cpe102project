@@ -64,24 +64,4 @@ public class AnimatedActor extends Actor
         out.put("animationRate", this.getAnimationRate());
         return out;
     }
-
-    public void scheduleDeath(World world)
-    {
-        world.scheduleActionWithWaitTime((long currentticks) ->
-        {
-
-            this.setAnimationRate(0);
-
-            world.scheduleActionWithWaitTime((long otherticks) ->
-            {
-
-                world.removeEntityAt(this.getPosition());
-                return null;
-
-            }, 2000);
-
-            return null;
-
-        }, 600);
-    }
 }

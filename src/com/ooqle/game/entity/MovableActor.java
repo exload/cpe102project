@@ -14,23 +14,26 @@ import java.util.List;
 public abstract class MovableActor extends AnimatedActor
 {
     private Tuple<List<Point>, List<Point>> travelled;
-    private Boolean exists = true;
+    private boolean exists = true;
+    private boolean dead;
     private int health;
 
     public MovableActor(String name, String type, Point position, List<PImage> imgs, int rate, int animationRate, int health)
     {
         super(name, type, position, imgs, rate, animationRate);
         this.health = health;
+        this.dead = false;
     }
 
     public abstract Class getGoalType();
+
     public abstract Action createAction(World world);
 
     public Point nextPosition(World world, Point destPt)
     {
         travelled = world.createPath(this.getPosition(), destPt);
 
-        if(travelled == null)
+        if (travelled == null)
         {
             return this.getPosition();
         }
@@ -40,10 +43,10 @@ public abstract class MovableActor extends AnimatedActor
 
     public List<Point> getVisited()
     {
-        if(travelled != null) {
+        if (travelled != null)
+        {
             return travelled.getKey().subList(2, travelled.getKey().size());
-        }
-        else
+        } else
         {
             return null;
         }
@@ -51,10 +54,10 @@ public abstract class MovableActor extends AnimatedActor
 
     public List<Point> getPath()
     {
-        if(travelled != null) {
+        if (travelled != null)
+        {
             return travelled.getValue().subList(2, travelled.getValue().size());
-        }
-        else
+        } else
         {
             return null;
         }
@@ -78,5 +81,31 @@ public abstract class MovableActor extends AnimatedActor
     public int getHealth()
     {
         return this.health;
+    }
+
+    public void die()
+    {
+        this.dead = true;
+    }
+
+    public boolean isDead()
+    {
+        return this.dead;
+    }
+
+    public void scheduleDeath(World world)
+    {
+        world.scheduleActionWithWaitTime((long currentticks) ->
+        {
+            this.setAnimationRate(0);
+
+            world.scheduleActionWithWaitTime((long otherticks) ->
+            {
+                world.removeEntityAt(this.getPosition());
+                return null;
+            }, 2000);
+
+            return null;
+        }, 600);
     }
 }

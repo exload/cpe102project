@@ -17,7 +17,6 @@ import java.util.List;
  */
 public class Soldier extends MovableActor {
 
-    private boolean dead;
 
     public Soldier(String name, Point position, List<PImage> imgs, int rate, int animationRate)
     {
@@ -73,14 +72,13 @@ public class Soldier extends MovableActor {
             Tuple<List<Point>, Boolean> tup = this.getNearest(world, this.nearestTypeForSearching());
             boolean found = tup.getValue();
 
-            if(!dead)
+            if(!this.isDead())
             {
                 this.scheduleAction(world, this.createAction(world), currentTicks + this.getRate());
             }
             else
             {
                 this.setImages(GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_die.png"), 9));
-
                 this.scheduleDeath(world);
             }
 
@@ -88,10 +86,5 @@ public class Soldier extends MovableActor {
         };
         this.removePendingAction(a);
         return a;
-    }
-
-    public void die()
-    {
-        dead = true;
     }
 }
