@@ -3,6 +3,7 @@ package com.ooqle.game.util;
 * @author Kenny Williams
 */
 
+import com.ooqle.game.Point;
 import processing.core.PImage;
 
 import java.util.ArrayList;
@@ -20,6 +21,16 @@ public class GameUtils
             return 1;
         }
         return 0;
+    }
+
+    public static int euclideanDistanceSqaure(Point p1, Point p2)
+    {
+        return (int) (Math.pow((p1.getX() - p2.getX()), 2) + Math.pow((p1.getY() - p2.getY()), 2));
+    }
+
+    public static int manhattanDistance(Point p1, Point p2)
+    {
+        return (Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY()));
     }
 
     /**

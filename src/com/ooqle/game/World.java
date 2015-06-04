@@ -7,6 +7,7 @@ import com.google.common.base.Supplier;
 import com.google.common.collect.*;
 import com.ooqle.game.entity.*;
 import com.ooqle.game.util.Action;
+import com.ooqle.game.util.GameUtils;
 import com.ooqle.game.util.Tuple;
 import jdk.nashorn.internal.ir.annotations.Immutable;
 
@@ -253,16 +254,6 @@ public class World
         return null;
     }
 
-    private int euclideanDistanceSqaure(Point p1, Point p2)
-    {
-        return (int) (Math.pow((p1.getX() - p2.getX()), 2) + Math.pow((p1.getY() - p2.getY()), 2));
-    }
-
-    private int manhattanDistance(Point p1, Point p2)
-    {
-        return (Math.abs(p1.getX() - p2.getX()) + Math.abs(p1.getY() - p2.getY()));
-    }
-
     private List<Point> getNeighbors(Point pt, Class goalType)
     {
         Point north = new Point(pt.getX(), pt.getY() - 1);
@@ -311,8 +302,8 @@ public class World
         Map<Point, Integer> fScore = new HashMap<>();
 
         gScore.put(start, 0);
-        fScore.put(start, gScore.get(start) + manhattanDistance(start, goal));
-        openSet.put(gScore.get(start) + manhattanDistance(start, goal), start);
+        fScore.put(start, gScore.get(start) + GameUtils.manhattanDistance(start, goal));
+        openSet.put(gScore.get(start) + GameUtils.manhattanDistance(start, goal), start);
         while (!openSet.isEmpty())
         {
             Map.Entry<Integer, Point> firstEntry = openSet.entries().iterator().next();
@@ -347,7 +338,7 @@ public class World
                     cameFrom.put(neighbor, curr);
                     gScore.put(neighbor, tentativeGScore);
 
-                    int neighborFScore = gScore.get(neighbor) + manhattanDistance(neighbor, goal);
+                    int neighborFScore = gScore.get(neighbor) + GameUtils.manhattanDistance(neighbor, goal);
                     fScore.put(neighbor, neighborFScore);
 
                     if (!openSet.containsValue(neighbor))
