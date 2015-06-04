@@ -167,10 +167,14 @@ public class Game extends PApplet
                     break;
 
                 case 'q':
-                    WorldObject ob = world.getWorldObjectAt(new Point(mouseX / 32, mouseY / 32));
+                    WorldObject ob = world.getWorldObjectAt(new Point(mouseX / 32 + xShift, mouseY / 32 + yShift));
                     if (ob != null)
                     {
-                        System.out.println(ob.getClass());
+                        if(ob.getClass().equals(Soldier.class))
+                        {
+                            Soldier soldier =(Soldier) ob;
+                                    soldier.die();
+                        }
                     }
                     break;
 
