@@ -87,9 +87,32 @@ public class Soldier extends MovableActor
     }
 
     @Override
-    public List<PImage> getAttackImages()
+    public List<PImage> getAttackImages(Point other)
     {
-        return GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_attack_left.png"), 5);
+        List<PImage> leftimg = GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_attack_left.png"), 5);
+        List<PImage> rightimg = GameUtils.getSpriteImages(Game.getImage("images/characters/soldier/soldier_attack_right.png"), 5);
+        if(this.getPosition().getX() == other.getX())
+        {
+            if(this.getPosition().getY() == other.getY() - 1)
+            {
+                //case T
+                return leftimg;
+            }
+            if(this.getPosition().getY() == other.getY() + 1)
+            {
+                //case B
+                return rightimg;
+            }
+        }
+
+        if(this.getPosition().getX() == other.getX() - 1)
+        {
+            //case R
+            return rightimg;
+        }
+
+        //case L
+        return leftimg;
     }
 
     @Override

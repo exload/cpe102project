@@ -71,7 +71,7 @@ public class OreBlob extends MovableActor
     }
 
     @Override
-    public List<PImage> getAttackImages()
+    public List<PImage> getAttackImages(Point other)
     {
         return null;
     }

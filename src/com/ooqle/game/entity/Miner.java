@@ -102,7 +102,7 @@ public abstract class Miner extends MovableActor //implements Attackable
 //
 //    }
 
-    public List<PImage> getAttackImages()
+    public List<PImage> getAttackImages(Point other)
     {
         return null;
     }

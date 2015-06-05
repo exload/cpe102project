@@ -29,6 +29,6 @@ public class WorldObjectSettings
 
     public static final int TILESIZE = 32;
 
-    public static final int GOBLINSPAWNCOUNT = 20;
+    public static final int GOBLINSPAWNCOUNT = 15;
     public static final int GOBLINSPAWNRATE = 2000;
 }

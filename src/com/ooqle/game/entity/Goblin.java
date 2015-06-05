@@ -84,9 +84,32 @@ public class Goblin extends MovableActor implements Attackable
     }
 
     @Override
-    public List<PImage> getAttackImages()
+    public List<PImage> getAttackImages(Point other)
     {
-        return GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_attack_left.png"), 7);
+        List<PImage> leftimg = GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_attack_left.png"), 7);
+        List<PImage> rightimg = GameUtils.getSpriteImages(Game.getImage("images/characters/goblin/goblin_attack_right.png"), 7);
+        if(this.getPosition().getX() == other.getX())
+        {
+            if(this.getPosition().getY() == other.getY() - 1)
+            {
+                //case T
+                return leftimg;
+            }
+            if(this.getPosition().getY() == other.getY() + 1)
+            {
+                //case B
+                return rightimg;
+            }
+        }
+
+        if(this.getPosition().getX() == other.getX() - 1)
+        {
+            //case R
+            return rightimg;
+        }
+
+        //case L
+        return leftimg;
     }
 
     @Override

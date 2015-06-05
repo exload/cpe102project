@@ -36,7 +36,7 @@ public abstract class MovableActor extends AnimatedActor
     {
         travelled = world.createPath(this.getPosition(), destPt);
 
-        if (travelled == null)
+        if (travelled == null || travelled.getValue().size() == 1)
         {
             return this.getPosition();
         }
@@ -112,20 +112,20 @@ public abstract class MovableActor extends AnimatedActor
             {
                 world.removeEntityAt(this.getPosition());
                 return null;
-            }, 2000);
+            }, 500);
 
             return null;
         }, 600);
     }
 
-    public abstract List<PImage> getAttackImages();
+    public abstract List<PImage> getAttackImages(Point other);
     public abstract List<PImage> getMoveImages();
 
     public void attack(MovableActor other, World world, String name)
     {
         attacking = true;
-        this.setImages(this.getAttackImages());
-        other.setImages(other.getAttackImages());
+        this.setImages(this.getAttackImages(other.getPosition()));
+        other.setImages(other.getAttackImages(this.getPosition()));
         BattleManager.fight(this, other);
         if (this.isDead())
         {
@@ -144,9 +144,9 @@ public abstract class MovableActor extends AnimatedActor
     {
         world.scheduleActionWithWaitTime((long currentTicks) ->
         {
+            attacking = false;
             this.setImages(this.getMoveImages());
             other.setImages(other.getMoveImages());
-            attacking = false;
             return null;
         }, 600);
     }
